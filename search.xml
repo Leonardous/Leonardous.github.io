@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>Hallo</title>
+    <url>/2024/03/30/hello-world/</url>
+    <content><![CDATA[<p>welcome！</p>
+<span id="more"></span>
+<h2 id="欢迎来到我的博客"><a href="#欢迎来到我的博客" class="headerlink" title="欢迎来到我的博客"></a>欢迎来到我的博客</h2><p>我之后将会在这个博客网站上记录我开发一些项目时遇到的一些我认为有意义的问题，同时也会写一些学习的内容来巩固所学知识，与大家分享。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">printf</span>(<span class="string">&quot;hello,world&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="www.leonardtin.com">my page</a></p>
+<p>The end</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>TCP和UDP</title>
+    <url>/2024/03/31/ESP32-S3/</url>
+    <content><![CDATA[<p>使用IDF开发ESP32的WIFI功能</p>
+<span id="more"></span>
+<p>##TCP</p>
+<p>##UDP</p>
+]]></content>
+      <tags>
+        <tag>ESP32</tag>
+      </tags>
+  </entry>
+</search>

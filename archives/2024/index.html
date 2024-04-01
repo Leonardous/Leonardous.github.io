@@ -302,5 +302,20 @@
 
 
 
+
+<script class="next-config" data-name="valine" type="application/json">{"enable":true,"appId":"h2I1q6TeXR8kt4vOlCpj5Iv6-gzGzoHsz","appKey":"f6rLFuUSxNQGBnp4GLKCLAiw","serverURLs":"https://h2i1q6te.api.lncldglobal.com","placeholder":"Just go go","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":null,"visitor":false,"comment_count":true,"recordIP":false,"enableQQ":false,"requiredFields":[],"notify":false,"verify":false,"guest_info":"nick,mail,link","el":"#valine-comments","path":"/archives/2024/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.valine.el)
+    .then(() => NexT.utils.getScript(
+      'https://fastly.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js',
+      { condition: window.Valine }
+    ))
+    .then(() => {
+      new Valine(CONFIG.valine);
+    });
+});
+</script>
+
 </body>
 </html>

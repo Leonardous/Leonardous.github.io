@@ -13,8 +13,8 @@ function whenDOMReady() {
   // 自适应
   
   function photos(tag) {
-      let url = '你的memos地址' // 修改api
-      let apiUrl = tag ? `${url}/api/v1/memo?creatorId=用户ID&tag=${tag}` : `${url}/api/v1/memo?creatorId=用户ID&tag=首次进入需要显示的图片分类`;
+      let url = 'https://memos.meuicat.com/api/v1/memo?creatorId=1&tag=相册'//'https://memos.meuicat.com/api/v1/memo?creatorId=Leonardtin&tag=相册' // 修改api
+      let apiUrl = tag ? `${url}/api/v1/memo?creatorId=用户ID&tag=${tag}` : `${url}/api/v1/memo?creatorId=Leonardtin&tag=相册`;
     
       fetch(apiUrl).then(res => res.json()).then(data => {
           let html = '',

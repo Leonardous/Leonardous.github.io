@@ -13,8 +13,8 @@ function whenDOMReady() {
   // 自适应
   
   function photos(tag) {
-      let url = 'https://memos.meuicat.com/api/v1/memo?creatorId=1&tag=相册'//'https://memos.meuicat.com/api/v1/memo?creatorId=Leonardtin&tag=相册' // 修改api
-      let apiUrl = tag ? `${url}/api/v1/memo?creatorId=用户ID&tag=${tag}` : `${url}/api/v1/memo?creatorId=Leonardtin&tag=相册`;
+      let url = 'https://memos.meuicat.com' // 修改api
+      let apiUrl = tag ? `${url}/api/v1/memo?creatorId=2&tag=${tag}` : `${url}/api/v1/memo?creatorId=2&tag=相册`;
     
       fetch(apiUrl).then(res => res.json()).then(data => {
           let html = '',
@@ -48,24 +48,6 @@ function whenDOMReady() {
           imgStatus.watch('.photo-img', () => { waterfall('.gallery-photos') })
           window.Lately && Lately.init({ target: '.photo-time' })
       }).catch()
-  
-          var statusBarItemItems = document.querySelectorAll('.status-bar-item');
-          let firstElement = statusBarItemItems[1];
-          firstElement.classList.add('selected');
-      
-          Array.from(statusBarItemItems).forEach(function (element) {
-              element.onclick = function (event) {
-                  var selectedElements = document.querySelectorAll('.status-bar-item.selected');
-                  Array.from(selectedElements).forEach(function (selectedElement) {
-                      selectedElement.classList.remove('selected');
-                  });
-                  element.classList.add('selected');
-      
-                  event.stopPropagation();
-                  event.preventDefault();
-                  return false;
-              };
-      });
   }
   
   // 相册页处理函数

@@ -3,11 +3,12 @@
   <entry>
     <title>TCP和UDP</title>
     <url>/2024/03/31/ESP32-S3/</url>
-    <content><![CDATA[<p>使用IDF开发ESP32的WIFI功能</p>
-<span id="more"></span>
-<h2 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h2><h2 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h2>]]></content>
+    <content><![CDATA[<span id="more"></span>
+<h2 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h2><h2 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h2><p>持续更新</p>
+]]></content>
       <tags>
         <tag>ESP32</tag>
+        <tag>传输协议</tag>
       </tags>
   </entry>
   <entry>

@@ -1,0 +1,171 @@
+.icat-status-bar {
+    margin: 16px 0;
+    display: flex;
+    white-space: nowrap;
+    align-items: center;
+    background: var(--icat-card-bg);
+    border-radius: 8px;
+    padding: 0 12px;
+    border: var(--style-border);
+    transition: 0.6s;
+    box-shadow: var(--icat-shadow-border);
+  }
+  .icat-status-bar:hover {
+    border-color: var(--icat-blue);
+    box-shadow: var(--icat-shadow-blue);
+  }
+  .icat-status-bar .status-bar {
+    padding: 0.4rem 0 0.4rem 0.4rem;
+    white-space: nowrap;
+    overflow: hidden;
+    transition: 0.3s;
+    width: 100%;
+    justify-content: space-between;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+  }
+  .icat-status-bar .status-bar #bar-box {
+    white-space: nowrap;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    display: flex;
+    border-radius: 8px;
+    align-items: center;
+    height: 30px;
+  }
+  .icat-status-bar .status-bar #bar-box .status-bar-item a {
+    padding: 0.1rem 0.5rem;
+    margin-right: 10px;
+    font-weight: 700;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    height: 30px;
+    color: var(--icat-fontcolor);
+    opacity: 0.8;
+    transition: 0.6s;
+  }
+  .icat-status-bar .status-bar #bar-box .status-bar-item a:hover {
+    background: var(--icat-blue);
+    opacity: 1;
+    -ms-filter: none;
+    filter: none;
+    color: var(--icat-white);
+  }
+  .icat-status-bar .status-bar #bar-box .status-bar-item.selected a {
+    background: var(--icat-blue) !important;
+    opacity: 1 !important;
+    -ms-filter: none !important;
+    filter: none !important;
+    color: var(--icat-white) !important;
+  }
+  .icat-status-bar #status-bar-button {
+    margin-left: 12px;
+    cursor: pointer;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    transition: 0.6s;
+  }
+  .icat-status-bar #status-bar-button:hover {
+    color: var(--icat-blue);
+  }
+  .icat-status-bar .status-bar-more {
+    margin-left: 12px;
+    font-weight: 400;
+    color: var(--icat-fontcolor);
+    opacity: 0.8;
+    transition: 0.6s;
+  }
+  .icat-status-bar .status-bar-more:hover {
+    color: var(--icat-blue);
+  }
+  #bar-box::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Bar栏样式 */
+  
+  .gallery-photos {
+      width:100%;
+      margin-top:16px;
+    text-align: center;
+  }
+  .gallery-photo {
+      min-height:5rem;
+      width:24.99%;
+      padding:4px;
+      position:relative;
+  }
+  .gallery-photo a {
+      border-radius:8px;
+    border: var(--style-border-always);
+    box-shadow: var(--icat-shadow-border);
+      display:block;
+      overflow:hidden;
+  }
+  .gallery-photo img {
+      display:block;
+      width:100%;
+      animation:fadeIn 1s;
+      cursor:pointer;
+      transition:all .4s ease-in-out !important;
+  }
+  .gallery-photo span.photo-title,.gallery-photo span.photo-time {
+      max-width:calc(100% - 7px);
+      line-height:1.8;
+      position:absolute;
+      left:4px;
+      font-size:14px;
+      background:rgba(0,0,0,0.3);
+      padding:0px 8px;
+      color:#fff;
+      animation:fadeIn 1s;
+  }
+  .gallery-photo span.photo-title {
+      bottom:4px;
+      border-radius:0 8px 0 8px;
+  }
+  .gallery-photo span.photo-time {
+      top:4px;
+      border-radius:8px 0 8px 0;
+  }
+  .gallery-photo:hover img {
+      transform:scale(1.1);
+  }
+  @media screen and (max-width:1100px) {
+      .gallery-photo {
+      width:33.3%;
+  }
+  }@media screen and (max-width:768px) {
+      .gallery-photo {
+      width:49.9%;
+      padding:3px
+  }
+  }
+  /* .gallery-photo span.photo-time {
+      display:none
+  }
+  手机端隐藏时间显示 */
+  .gallery-photo span.photo-title {
+      font-size:12px
+  }
+  .gallery-photo span.photo-title {
+      left:3px;
+      bottom:3px;
+  }
+  @keyframes fadeIn {
+      0% {
+        opacity:0;
+    }
+    100% {
+        opacity:1;
+    }
+  }
+  
+  /* Memos动态相册样式 */
+  
+  
+

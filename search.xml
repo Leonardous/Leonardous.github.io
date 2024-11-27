@@ -205,7 +205,9 @@
     <url>/2024/11/27/Ros2Learn1/</url>
     <content><![CDATA[<p>之前并没有学习过ROS，但是觉得这个东西很有用，现在也有一些空闲的时间，于是便打算学习一点新东西。</p>
 <h2 id="ROS是什么？"><a href="#ROS是什么？" class="headerlink" title="ROS是什么？"></a>ROS是什么？</h2><p>ROS是 robotic operating system 的缩写，一个能完整工作的较为复杂的机器人通常由非常多部分组成，需要许多资源共同工作，相互传递信息来完成一个任务。<br>然而每一次去开发机器人，都要重新去搞底层的通信架构，有种重新造轮子的感觉，增加工作量，ROS就是来解决这个问题的，让能复用的软件、功能不需要再去重新开发一遍，拿来就用。</p>
-<h2 id="ROS1和ROS2的一些区别"><a href="#ROS1和ROS2的一些区别" class="headerlink" title="ROS1和ROS2的一些区别"></a>ROS1和ROS2的一些区别</h2><p>ROS已经广泛应用在很多地方了，但是设计之初的一些缺陷导致他一直停留在一些原型机和实验室里边，难以在工业化生产中真正用到，并且只支持Linux系统<br>ROS2从2014年开始提出，在2022年首次推出一个长期支持版本ROS2 humble，与ROS1相较起来通信延迟更低，可靠性更高，对商业化工业化应用更加友好。<br><img src="/.com//ROS2andROS.png" alt="aaa"><br>既然要学那就学最新的，在游览许多博客之后，也推荐在当前的情况下可以选择直接去学习ROS2</p>
+<h2 id="ROS1和ROS2的一些区别"><a href="#ROS1和ROS2的一些区别" class="headerlink" title="ROS1和ROS2的一些区别"></a>ROS1和ROS2的一些区别</h2><p>ROS已经广泛应用在很多地方了，但是设计之初的一些缺陷导致他一直停留在一些原型机和实验室里边，难以在工业化生产中真正用到，并且只支持Linux系统<br>ROS2从2014年开始提出，在2022年首次推出一个长期支持版本ROS2 humble，与ROS1相较起来通信延迟更低，可靠性更高，对商业化工业化应用更加友好。<br><img src="/2024/11/27/Ros2Learn1/ROS2andROS.png" alt="aaa"></p>
+
+<p>既然要学那就学最新的，在游览许多博客之后，也推荐在当前的情况下可以选择直接去学习ROS2</p>
 ]]></content>
       <tags>
         <tag>ROS2</tag>

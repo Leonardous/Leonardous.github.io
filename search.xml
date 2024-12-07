@@ -227,4 +227,20 @@
         <tag>毕业设计</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Gazebo仿真遇到的一些问题</title>
+    <url>/2024/12/07/ros-gazebo/</url>
+    <content><![CDATA[<h2 id="soildwork导出urdf"><a href="#soildwork导出urdf" class="headerlink" title="soildwork导出urdf"></a>soildwork导出urdf</h2><p>为了将自己的机械臂导入Gazebo进行仿真，首先我们需要在Soildwork上下载一个将soildwork模型转化成urdf文件的插件，可以在ros的官网找到，稍后我插入链接</p>
+<p>在安装完插件，导出文件时有一点需要<strong>非常注意</strong>，那就是<strong>导出文件的名称不能有大写字母和中文！！！</strong>这是ros的命名规则，否则在后面进行编译的时候会有错！！！</p>
+<p>在导出后，会有以下这几个目录<br><img src="/2024/12/07/ros-gazebo/urdf_file.png" alt="文件目录"><br>忽略掉model.sdf和model.config。这是后面在使用gazebo的时候需要自己再额外搞的。<br>其中，如果我们使用的是ROS2，则需要去CMakeLisits。txt文件中去修改，导出的文件配置是按ROS1来的，点进去CMake文件会发现有catkin，这个是ROS1的工具，要全部改成ament_cmake,可以参考我这个</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cmake_minimum_required(VERSION 3.5)</span><br><span class="line"></span><br><span class="line">project(leonardoss)</span><br><span class="line"></span><br><span class="line">find_package(ament_cmake REQUIRED)</span><br><span class="line"></span><br><span class="line">ament_package()</span><br><span class="line"></span><br><span class="line">foreach(<span class="built_in">dir</span> config launch meshes urdf)</span><br><span class="line">        install(DIRECTORY <span class="variable">$&#123;dir&#125;</span>/</span><br><span class="line">                DESTINATION share/<span class="variable">$&#123;PROJECT_NAME&#125;</span>/<span class="variable">$&#123;dir&#125;</span>)</span><br><span class="line">endforeach(<span class="built_in">dir</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>以上是修改过后的CMakeLists.txt文件<br>然后就可以丢到自己搞的ROS2的工作空间里的src，在工作空间里打开终端，使用命令</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">colcon build</span><br></pre></td></tr></table></figure>
+
+<p>还没写完，持续更新</p>
+]]></content>
+      <tags>
+        <tag>ROS2</tag>
+      </tags>
+  </entry>
 </search>

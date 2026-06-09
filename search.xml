@@ -1,20 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>在Jetson-Orin-Nano部署Yolov8</title>
-    <url>/2025/01/19/Jetson-Orin-Nano-with-Yolov8/</url>
-    <content><![CDATA[<h2 id="先决条件"><a href="#先决条件" class="headerlink" title="先决条件"></a>先决条件</h2><p>　　我使用的是Jetson Orin Nano Super，使用的系统是Ubuntu22，安装的Jetpack6.2，可开启最大功率。CUDA版本是12.6。使用GPU进行预测需要安装的的Pytorch版本为2.3，torchvision版本为0.18，torchaudio的版本为2.3。Pytorch版本、torchvision、torchaudio需要根据实际的CUDA的版本来定</p>
-<h2 id="1-系统烧录需要准备的："><a href="#1-系统烧录需要准备的：" class="headerlink" title="1.系统烧录需要准备的："></a>1.系统烧录需要准备的：</h2><p>　　1.质量较好的usb转c口的线。这点不能忽视，官方文档当中强调了一些USB电缆可能导致连接错误。如果在刷机过程中出现错误，请考虑换线<br>　　2.至少64G的SD卡，使用前需要用读卡器接电脑格式化<br>　　3.DP转HDMI线缆<br>　　4.支持HDMI的显示屏，初始化需要用到GUI<br>　　5.能直接连接开发板的键盘和鼠标<br>　　6.电脑上要有VMware虚拟机，运行Ubuntu系统（22.04），官方的刷机软件SDK Manager只支持Linux系统，后面用SSH远程终端操作的时候连接也比Windows的putty稳定（我在win11上使用Putty去连接经常出现软件中断）</p>
-<p>　　软件资源在我硬盘里，后面或考虑上传某处备份,下面是我用到的一些资源，可以先去找下载下来：<br>　　–Ubuntu 22.04.5LTS.iso 系统映像文件<br>　　–sdkmanager_2.2.0-12028_amd64.deb<br>　　–VMware虚拟机软件<br>　　<strong>在设置虚拟机的时候，把存储空间拉到70G以上，运行内存8G以上！！！</strong></p>
-<p>　　<strong>以上条件满足，开干</strong><br>　　以下的操作是建立在你已经安装好虚拟机的情况之上<br>　　在Ubuntu系统中下载好sdkmanager的.deb文件，在终端中打开该文件的所在目录</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo dpkg -i &lt;你的.deb文件名，不需要括号&gt;</span><br><span class="line">sudo dpkg -i sdkmanager_2.2.0-12028_amd64.deb <span class="comment">#这是示例，我安装这个软件的命令</span></span><br></pre></td></tr></table></figure>
-<p>　　如果你之前没接触过Linux系统，那么你需要了解一下命令的含义都是什么<br>　　sudo的意思是：super user do，也就是超级管理员要干这件事，每个终端第一次用sudo的时候会需要你输入密码，就是你的开机密码，输入密码的时候终端不会显示，会隐藏你输入的字符，输入密码直接按回车就行，不要纠结。<br>　　dpkg是用于安装、构建和删除.deb包的工具，-i告诉dpkg去安装后面这个文件，而不是删除或者其他操作。<br>　　运行完后，如果没有什么意外，你会在应用程序当中发现SDK Manager，双击打开<br>　　Host Machine不需要<br>　　我的JetPack选的是6.2，选的最新的,然后点击continue<br><img src="/2025/01/19/Jetson-Orin-Nano-with-Yolov8/01.png" alt="SDKManager界面"><br>　　<strong>在刷机之前，你要短接板子上的两个引脚，分别是FC_REC和GND，让板子进入Recover模式</strong><br><img src="/2025/01/19/Jetson-Orin-Nano-with-Yolov8/01.png" alt="SDKManager界面"><br>　　在这里你可以看到三部分选项，Jetson Linux就是会烧到板子上的系统部分，剩下两个都是Nvidia的工具，在下方点击接受license，然后选择Dowwload now install later。下完之后会自动跳过第三步，直接退出。<br>　　这时候再重新进去，就可以直接安装了<br>　　安装的时候会跳出一个要输入密码的，照常输入就好，然后会跳出来一个框要你输入账号和密码的框，这个就是你之后登录板子的账号和密码<br>　　<strong>这里有一个要注意的，就是第一次安装只装Jetson Linux部分，安装完之后接上显示屏，设置完账号密码之后再进SDK Manager 再安装一次，把剩下两部分安装完</strong><br>　　在安装剩下两部分的时候SDK Manager是通过SSH登录板子系统进行安装的，在安装后两部分的时候会跳出来一个框，要输入登录的账号和密码，就是你之前设置的。<br>　　如果出现连接不上的情况，要么你没初始化好板子（拿显示屏，鼠标，键盘去设置好系统的基础，让他能正常用，给他接上WIFI），要么USB没连接到虚拟机上，要么USB连接上了，系统自动把USB以太网关了（可以在右上角改，会有两个USB有线以太网连接，打开一个就行）</p>
-]]></content>
-      <tags>
-        <tag>ROS2</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Deutch_Dictionary</title>
     <url>/2024/04/14/Deutch-Dictionary/</url>
     <content><![CDATA[<p>14.04.2003</p>
@@ -78,6 +64,17 @@
 </ol>
 <hr>
 ]]></content>
+  </entry>
+  <entry>
+    <title>TCP和UDP</title>
+    <url>/2024/03/31/ESP32-S3/</url>
+    <content><![CDATA[<span id="more"></span>
+<h2 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h2><h2 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h2><p>持续更新</p>
+]]></content>
+      <tags>
+        <tag>ESP32</tag>
+        <tag>传输协议</tag>
+      </tags>
   </entry>
   <entry>
     <title>Adjektivdeklination im Nominativ/Akkusativ/Dativ/</title>
@@ -192,47 +189,23 @@
       </tags>
   </entry>
   <entry>
-    <title>ROS是什么东西？</title>
-    <url>/2024/11/27/Ros2Learn1/</url>
-    <content><![CDATA[<p>之前并没有学习过ROS，但是觉得这个东西很有用，现在也有一些空闲的时间，于是便打算学习一点新东西。</p>
-<h2 id="ROS是什么？"><a href="#ROS是什么？" class="headerlink" title="ROS是什么？"></a>ROS是什么？</h2><p>ROS是 robotic operating system 的缩写，一个能完整工作的较为复杂的机器人通常由非常多部分组成，需要许多资源共同工作，相互传递信息来完成一个任务。<br>然而每一次去开发机器人，都要重新去搞底层的通信架构，有种重新造轮子的感觉，增加工作量，ROS就是来解决这个问题的，让能复用的软件、功能不需要再去重新开发一遍，拿来就用。</p>
-<h2 id="ROS1和ROS2的一些区别"><a href="#ROS1和ROS2的一些区别" class="headerlink" title="ROS1和ROS2的一些区别"></a>ROS1和ROS2的一些区别</h2><p>ROS已经广泛应用在很多地方了，但是设计之初的一些缺陷导致他一直停留在一些原型机和实验室里边，难以在工业化生产中真正用到，并且只支持Linux系统<br>ROS2从2014年开始提出，在2022年首次推出一个长期支持版本ROS2 humble，与ROS1相较起来通信延迟更低，可靠性更高，对商业化工业化应用更加友好。取消了master节点，使用基于DDS分布式架构进行通信。<br><img src="/2024/11/27/Ros2Learn1/ROS2andROS.png" alt="aaa"><br>既然要学那就学最新的，在游览许多博客之后，也推荐在当前的情况下可以选择直接去学习ROS2<br>由于之前使用过Ubuntu，而且在后面的实际的机器人项目中大概率还是会使用Linux来进行开发，所以我就使用虚拟机在Ubuntu下使用ROS2</p>
-<h2 id="ROS2的下载和配置"><a href="#ROS2的下载和配置" class="headerlink" title="ROS2的下载和配置"></a>ROS2的下载和配置</h2><p>以下的所有操作都是在虚拟机的Ubuntu-22.04.5下进行操作的<br>要学习ROS2的最好方式就是直接上手，这里有两个法子来配置ROS2的环境，一个是直接使用小鱼ROS的集成命令，一条搞定所有</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget http://fishros.com/install -O fishros &amp;&amp; . fishros</span><br></pre></td></tr></table></figure>
-<p>另外一个就是跟着官网去下载配置安装，直接百度ROS官网，进去跟着搞<br>在小鱼的自动命令是真的香<br>在Linux中经常会碰到</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt update</span><br></pre></td></tr></table></figure>
-<p>这个命令，sudo在这里指的是：<strong>superuser do</strong>，超级用户 要干！简单点说就和你平时以管理员身份运行一样，通常在运行系统级的任务的时候会用到这个。apt在这里面是Advanced Package Tool的缩写</p>
+    <title>在Jetson-Orin-Nano部署Yolov8</title>
+    <url>/2025/01/19/Jetson-Orin-Nano-with-Yolov8/</url>
+    <content><![CDATA[<h2 id="先决条件"><a href="#先决条件" class="headerlink" title="先决条件"></a>先决条件</h2><p>　　我使用的是Jetson Orin Nano Super，使用的系统是Ubuntu22，安装的Jetpack6.2，可开启最大功率。CUDA版本是12.6。使用GPU进行预测需要安装的的Pytorch版本为2.3，torchvision版本为0.18，torchaudio的版本为2.3。Pytorch版本、torchvision、torchaudio需要根据实际的CUDA的版本来定</p>
+<h2 id="1-系统烧录需要准备的："><a href="#1-系统烧录需要准备的：" class="headerlink" title="1.系统烧录需要准备的："></a>1.系统烧录需要准备的：</h2><p>　　1.质量较好的usb转c口的线。这点不能忽视，官方文档当中强调了一些USB电缆可能导致连接错误。如果在刷机过程中出现错误，请考虑换线<br>　　2.至少64G的SD卡，使用前需要用读卡器接电脑格式化<br>　　3.DP转HDMI线缆<br>　　4.支持HDMI的显示屏，初始化需要用到GUI<br>　　5.能直接连接开发板的键盘和鼠标<br>　　6.电脑上要有VMware虚拟机，运行Ubuntu系统（22.04），官方的刷机软件SDK Manager只支持Linux系统，后面用SSH远程终端操作的时候连接也比Windows的putty稳定（我在win11上使用Putty去连接经常出现软件中断）</p>
+<p>　　软件资源在我硬盘里，后面或考虑上传某处备份,下面是我用到的一些资源，可以先去找下载下来：<br>　　–Ubuntu 22.04.5LTS.iso 系统映像文件<br>　　–sdkmanager_2.2.0-12028_amd64.deb<br>　　–VMware虚拟机软件<br>　　<strong>在设置虚拟机的时候，把存储空间拉到70G以上，运行内存8G以上！！！</strong></p>
+<p>　　<strong>以上条件满足，开干</strong><br>　　以下的操作是建立在你已经安装好虚拟机的情况之上<br>　　在Ubuntu系统中下载好sdkmanager的.deb文件，在终端中打开该文件的所在目录</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo dpkg -i &lt;你的.deb文件名，不需要括号&gt;</span><br><span class="line">sudo dpkg -i sdkmanager_2.2.0-12028_amd64.deb <span class="comment">#这是示例，我安装这个软件的命令</span></span><br></pre></td></tr></table></figure>
+<p>　　如果你之前没接触过Linux系统，那么你需要了解一下命令的含义都是什么<br>　　sudo的意思是：super user do，也就是超级管理员要干这件事，每个终端第一次用sudo的时候会需要你输入密码，就是你的开机密码，输入密码的时候终端不会显示，会隐藏你输入的字符，输入密码直接按回车就行，不要纠结。<br>　　dpkg是用于安装、构建和删除.deb包的工具，-i告诉dpkg去安装后面这个文件，而不是删除或者其他操作。<br>　　运行完后，如果没有什么意外，你会在应用程序当中发现SDK Manager，双击打开<br>　　Host Machine不需要<br>　　我的JetPack选的是6.2，选的最新的,然后点击continue<br><img src="/2025/01/19/Jetson-Orin-Nano-with-Yolov8/01.png" alt="SDKManager界面"><br>　　<strong>在刷机之前，你要短接板子上的两个引脚，分别是FC_REC和GND，让板子进入Recover模式</strong><br><img src="/2025/01/19/Jetson-Orin-Nano-with-Yolov8/01.png" alt="SDKManager界面"><br>　　在这里你可以看到三部分选项，Jetson Linux就是会烧到板子上的系统部分，剩下两个都是Nvidia的工具，在下方点击接受license，然后选择Dowwload now install later。下完之后会自动跳过第三步，直接退出。<br>　　这时候再重新进去，就可以直接安装了<br>　　安装的时候会跳出一个要输入密码的，照常输入就好，然后会跳出来一个框要你输入账号和密码的框，这个就是你之后登录板子的账号和密码<br>　　<strong>这里有一个要注意的，就是第一次安装只装Jetson Linux部分，安装完之后接上显示屏，设置完账号密码之后再进SDK Manager 再安装一次，把剩下两部分安装完</strong><br>　　在安装剩下两部分的时候SDK Manager是通过SSH登录板子系统进行安装的，在安装后两部分的时候会跳出来一个框，要输入登录的账号和密码，就是你之前设置的。<br>　　如果出现连接不上的情况，要么你没初始化好板子（拿显示屏，鼠标，键盘去设置好系统的基础，让他能正常用，给他接上WIFI），要么USB没连接到虚拟机上，要么USB连接上了，系统自动把USB以太网关了（可以在右上角改，会有两个USB有线以太网连接，打开一个就行）</p>
 ]]></content>
       <tags>
         <tag>ROS2</tag>
       </tags>
   </entry>
   <entry>
-    <title>TCP和UDP</title>
-    <url>/2024/03/31/ESP32-S3/</url>
-    <content><![CDATA[<span id="more"></span>
-<h2 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h2><h2 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h2><p>持续更新</p>
-]]></content>
-      <tags>
-        <tag>ESP32</tag>
-        <tag>传输协议</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>ROS2_problem_record</title>
     <url>/2025/09/05/ROS2-problem-record/</url>
     <content><![CDATA[]]></content>
-  </entry>
-  <entry>
-    <title>有关雾化器的研究</title>
-    <url>/2024/11/27/atomizer/</url>
-    <content><![CDATA[<h2 id="为什么是雾化器"><a href="#为什么是雾化器" class="headerlink" title="为什么是雾化器"></a>为什么是雾化器</h2><p>工学院原有一台雾化器，购入价格较为昂贵，得有5万？因此我本次的毕业设计的主要目的是设计出一个比这雾化器拥有更佳的性能的，学院“国产化”的雾化器。</p>
-<h2 id="我需要干什么"><a href="#我需要干什么" class="headerlink" title="我需要干什么"></a>我需要干什么</h2><p>首先从学长那得到了一些建议，和一些需要学习的东西<br>工学院的雾化器我去参观了一下，通过学长的介绍，了解到<br><strong>该雾化器目前主要有几个槽点：</strong><br>1.功率不可调，电源供电模块目测就是个稳压模块，没了<br>2.雾化装置部件不固定，每一次加原料拿出瓶子再装回去都需要繁琐的校正过程<br>3.发热严重，不能一次性用太久<br><strong>我要在这里面做的部分有：</strong><br>1.雾化器的外壳、结构设计<br>2.雾化器控制系统的设计，很可能需要搞个上位机来进行操控<br>3.可调的电源功率模块，通过上位机进行操控<br>4.水冷系统，超声波发生器发热严重，需要水冷来加强可持续使用性。<br>5.雾化仿真，找出最佳的瓶子的角度和位置，主要考虑的变量是瓶子和超声波发生器的距离以及瓶子的倾斜角度。<br>目前我先要去学习一下雾化的整个流程和学长推荐的Comsol来进行流体的仿真</p>
-<h2 id="雾化器的原理是什么？"><a href="#雾化器的原理是什么？" class="headerlink" title="雾化器的原理是什么？"></a>雾化器的原理是什么？</h2><p>我在这里主要去学习的是超声波雾化的原理。<br>超声波利用高频振动，将液体分散成微小的武器颗粒，武器的直径再0.5um到10um左右（可能这是评判雾化好坏的一个指标？）超声波雾化器一般的工作频率在几十kHZ到几百kHZ之间。常见的是1MHZ的。<br>不过这里存在一个疑问和可能会在<strong>后面面临的问题</strong>，超声波如何避免去雾化作为介质的水，从而去雾化瓶中的目标液体，目前可能从<strong>超声波频率、超声波能量大小、结构上的改变使得超声波能量集中在瓶子上</strong><br>这是一点需要十分注意的，目标的雾化方式是<strong>间接雾化</strong>，而不是与液体直接接触的。<br>我们先来看普通的雾化器是怎么工作的吧！<br>普通的雾化器的主要核心部件是一个压电陶瓷片，我们通过去改变上面的电压，可以让陶瓷片产生微小的震动，只要往上面施加高频率的电压，就可以让他产生“超声波”，重点来了，压电陶瓷片中心有小孔，小孔并不是一个圆柱体，而是一个漏斗形状的小孔，口小的一边是正面，口大的一边是反面，在压电陶瓷片工作时，无论是在正面还是反面加上水，水都会成雾状从正面喷出来。<br><img src="/2024/11/27/atomizer/small_hole.jpg" alt="陶瓷片微观结构示意图"><br>如图所示，这是雾化器陶瓷片的横截面示意图，蓝色的部分是水，当水在陶瓷片背面时，陶瓷片通过高频振动，带动水通过小孔，而由于小孔呈现漏斗状，流量不变的情况下横截面积变小，流速就会增加，就会从正面加速喷出，由于小孔十分微小，看起来就像水雾喷出了。<br>但是可能会有个问题，那为什么<strong>只会从正面喷出，而不是从背面呢？</strong>这也是因为流量不变的原因，因为流量不变，液体从开口小的地方流向开口大的地方，速度会减缓下来，由于速度不够大（水自身的张力会拉住他），就会在背面堆积起来，堆到一定程度后，就又会像上一段说的一样从正面喷出来了</p>
-]]></content>
-      <tags>
-        <tag>毕业设计</tag>
-      </tags>
   </entry>
   <entry>
     <title>如何在ROS2中使用YOLO</title>
@@ -274,6 +247,33 @@
 <p>More info: <a href="www.leonardtin.com">my page</a></p>
 <p>The end</p>
 ]]></content>
+  </entry>
+  <entry>
+    <title>有关雾化器的研究</title>
+    <url>/2024/11/27/atomizer/</url>
+    <content><![CDATA[<h2 id="为什么是雾化器"><a href="#为什么是雾化器" class="headerlink" title="为什么是雾化器"></a>为什么是雾化器</h2><p>工学院原有一台雾化器，购入价格较为昂贵，得有5万？因此我本次的毕业设计的主要目的是设计出一个比这雾化器拥有更佳的性能的，学院“国产化”的雾化器。</p>
+<h2 id="我需要干什么"><a href="#我需要干什么" class="headerlink" title="我需要干什么"></a>我需要干什么</h2><p>首先从学长那得到了一些建议，和一些需要学习的东西<br>工学院的雾化器我去参观了一下，通过学长的介绍，了解到<br><strong>该雾化器目前主要有几个槽点：</strong><br>1.功率不可调，电源供电模块目测就是个稳压模块，没了<br>2.雾化装置部件不固定，每一次加原料拿出瓶子再装回去都需要繁琐的校正过程<br>3.发热严重，不能一次性用太久<br><strong>我要在这里面做的部分有：</strong><br>1.雾化器的外壳、结构设计<br>2.雾化器控制系统的设计，很可能需要搞个上位机来进行操控<br>3.可调的电源功率模块，通过上位机进行操控<br>4.水冷系统，超声波发生器发热严重，需要水冷来加强可持续使用性。<br>5.雾化仿真，找出最佳的瓶子的角度和位置，主要考虑的变量是瓶子和超声波发生器的距离以及瓶子的倾斜角度。<br>目前我先要去学习一下雾化的整个流程和学长推荐的Comsol来进行流体的仿真</p>
+<h2 id="雾化器的原理是什么？"><a href="#雾化器的原理是什么？" class="headerlink" title="雾化器的原理是什么？"></a>雾化器的原理是什么？</h2><p>我在这里主要去学习的是超声波雾化的原理。<br>超声波利用高频振动，将液体分散成微小的武器颗粒，武器的直径再0.5um到10um左右（可能这是评判雾化好坏的一个指标？）超声波雾化器一般的工作频率在几十kHZ到几百kHZ之间。常见的是1MHZ的。<br>不过这里存在一个疑问和可能会在<strong>后面面临的问题</strong>，超声波如何避免去雾化作为介质的水，从而去雾化瓶中的目标液体，目前可能从<strong>超声波频率、超声波能量大小、结构上的改变使得超声波能量集中在瓶子上</strong><br>这是一点需要十分注意的，目标的雾化方式是<strong>间接雾化</strong>，而不是与液体直接接触的。<br>我们先来看普通的雾化器是怎么工作的吧！<br>普通的雾化器的主要核心部件是一个压电陶瓷片，我们通过去改变上面的电压，可以让陶瓷片产生微小的震动，只要往上面施加高频率的电压，就可以让他产生“超声波”，重点来了，压电陶瓷片中心有小孔，小孔并不是一个圆柱体，而是一个漏斗形状的小孔，口小的一边是正面，口大的一边是反面，在压电陶瓷片工作时，无论是在正面还是反面加上水，水都会成雾状从正面喷出来。<br><img src="/2024/11/27/atomizer/small_hole.jpg" alt="陶瓷片微观结构示意图"><br>如图所示，这是雾化器陶瓷片的横截面示意图，蓝色的部分是水，当水在陶瓷片背面时，陶瓷片通过高频振动，带动水通过小孔，而由于小孔呈现漏斗状，流量不变的情况下横截面积变小，流速就会增加，就会从正面加速喷出，由于小孔十分微小，看起来就像水雾喷出了。<br>但是可能会有个问题，那为什么<strong>只会从正面喷出，而不是从背面呢？</strong>这也是因为流量不变的原因，因为流量不变，液体从开口小的地方流向开口大的地方，速度会减缓下来，由于速度不够大（水自身的张力会拉住他），就会在背面堆积起来，堆到一定程度后，就又会像上一段说的一样从正面喷出来了</p>
+]]></content>
+      <tags>
+        <tag>毕业设计</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ROS是什么东西？</title>
+    <url>/2024/11/27/Ros2Learn1/</url>
+    <content><![CDATA[<p>之前并没有学习过ROS，但是觉得这个东西很有用，现在也有一些空闲的时间，于是便打算学习一点新东西。</p>
+<h2 id="ROS是什么？"><a href="#ROS是什么？" class="headerlink" title="ROS是什么？"></a>ROS是什么？</h2><p>ROS是 robotic operating system 的缩写，一个能完整工作的较为复杂的机器人通常由非常多部分组成，需要许多资源共同工作，相互传递信息来完成一个任务。<br>然而每一次去开发机器人，都要重新去搞底层的通信架构，有种重新造轮子的感觉，增加工作量，ROS就是来解决这个问题的，让能复用的软件、功能不需要再去重新开发一遍，拿来就用。</p>
+<h2 id="ROS1和ROS2的一些区别"><a href="#ROS1和ROS2的一些区别" class="headerlink" title="ROS1和ROS2的一些区别"></a>ROS1和ROS2的一些区别</h2><p>ROS已经广泛应用在很多地方了，但是设计之初的一些缺陷导致他一直停留在一些原型机和实验室里边，难以在工业化生产中真正用到，并且只支持Linux系统<br>ROS2从2014年开始提出，在2022年首次推出一个长期支持版本ROS2 humble，与ROS1相较起来通信延迟更低，可靠性更高，对商业化工业化应用更加友好。取消了master节点，使用基于DDS分布式架构进行通信。<br><img src="/2024/11/27/Ros2Learn1/ROS2andROS.png" alt="aaa"><br>既然要学那就学最新的，在游览许多博客之后，也推荐在当前的情况下可以选择直接去学习ROS2<br>由于之前使用过Ubuntu，而且在后面的实际的机器人项目中大概率还是会使用Linux来进行开发，所以我就使用虚拟机在Ubuntu下使用ROS2</p>
+<h2 id="ROS2的下载和配置"><a href="#ROS2的下载和配置" class="headerlink" title="ROS2的下载和配置"></a>ROS2的下载和配置</h2><p>以下的所有操作都是在虚拟机的Ubuntu-22.04.5下进行操作的<br>要学习ROS2的最好方式就是直接上手，这里有两个法子来配置ROS2的环境，一个是直接使用小鱼ROS的集成命令，一条搞定所有</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget http://fishros.com/install -O fishros &amp;&amp; . fishros</span><br></pre></td></tr></table></figure>
+<p>另外一个就是跟着官网去下载配置安装，直接百度ROS官网，进去跟着搞<br>在小鱼的自动命令是真的香<br>在Linux中经常会碰到</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt update</span><br></pre></td></tr></table></figure>
+<p>这个命令，sudo在这里指的是：<strong>superuser do</strong>，超级用户 要干！简单点说就和你平时以管理员身份运行一样，通常在运行系统级的任务的时候会用到这个。apt在这里面是Advanced Package Tool的缩写</p>
+]]></content>
+      <tags>
+        <tag>ROS2</tag>
+      </tags>
   </entry>
   <entry>
     <title>Gazebo仿真遇到的一些问题</title>

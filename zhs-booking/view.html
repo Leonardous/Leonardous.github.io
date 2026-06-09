@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="ZHS Buchung">
+<title>ZHS Buchungsbestätigung</title>
+<style>
+  body { margin: 0; background: #f6f6f6; font-family: Arial, sans-serif; }
+  #zhs-loading {
+    display: flex; align-items: center; justify-content: center;
+    height: 100vh; flex-direction: column; gap: 16px;
+    font-size: 16px; color: #888;
+  }
+  .spinner {
+    width: 36px; height: 36px; border: 3px solid #e0e0e0;
+    border-top-color: #3b82f6; border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+<div id="zhs-loading">
+  <div class="spinner"></div>
+  <span>Wird geladen...</span>
+</div>
+
+<script>
+(function () {
+  var p = new URLSearchParams(window.location.search);
+  var vorname  = p.get('v') || '';
+  var nachname = p.get('n') || '';
+  var date     = p.get('d') || '';   // DD.MM.YYYY
+  var start    = p.get('s') || '';
+  var end      = p.get('e') || '';
+
+  if (!vorname || !date) {
+    document.getElementById('zhs-loading').innerHTML =
+      '<p style="color:#c00">Ungültige Parameter. Bitte das Formular erneut ausfüllen.</p>' +
+      '<a href="/zhs-booking/" style="color:#3b82f6">← Zurück</a>';
+    return;
+  }
+
+  var fullName = vorname + ' ' + nachname;
+
+  // DD.MM.YYYY → day of week
+  var parts   = date.split('.');
+  var dateObj = new Date(parts[2] + '-' + parts[1] + '-' + parts[0] + 'T12:00:00');
+  var days    = ['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'];
+  var dayName = days[dateObj.getDay()];
+
+  var base = window.location.origin;
+
+  fetch(base + '/zhs-booking/template.html')
+    .then(function (r) { return r.text(); })
+    .then(function (html) {
+      html = html.split('{{BASE_URL}}').join(base);
+      html = html.split('{{VORNAME}}').join(vorname);
+      html = html.split('{{NACHNAME}}').join(nachname);
+      html = html.split('{{FULLNAME}}').join(fullName);
+      html = html.split('{{DATE}}').join(date);
+      html = html.split('{{DAYNAME}}').join(dayName);
+      html = html.split('{{STARTTIME}}').join(start);
+      html = html.split('{{ENDTIME}}').join(end);
+
+      // Inject PWA meta tags into the template's <head>
+      var pwaMeta = '<meta name="apple-mobile-web-app-capable" content="yes">\n' +
+                    '<meta name="mobile-web-app-capable" content="yes">\n' +
+                    '<meta name="apple-mobile-web-app-status-bar-style" content="default">\n' +
+                    '<meta name="apple-mobile-web-app-title" content="ZHS Buchung">\n';
+      html = html.replace('<meta name="viewport"', pwaMeta + '<meta name="viewport"');
+
+      document.open();
+      document.write(html);
+      document.close();
+    })
+    .catch(function (err) {
+      document.getElementById('zhs-loading').innerHTML =
+        '<p style="color:#c00">Fehler: ' + err.message + '</p>' +
+        '<a href="/zhs-booking/" style="color:#3b82f6">← Zurück</a>';
+    });
+})();
+</script>
+</body>
+</html>

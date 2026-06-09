@@ -74,6 +74,9 @@
                     '<meta name="apple-mobile-web-app-title" content="ZHS Buchung">\n';
       html = html.replace('<meta name="viewport"', pwaMeta + '<meta name="viewport"');
 
+      // Clean up the address bar - hide the ugly query params
+      history.replaceState(null, '', '/zhs-booking/view.html');
+
       document.open();
       document.write(html);
       document.close();

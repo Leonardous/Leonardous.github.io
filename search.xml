@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>在Jetson-Orin-Nano部署Yolov8</title>
+    <url>/2025/01/19/Jetson-Orin-Nano-with-Yolov8/</url>
+    <content><![CDATA[<h2 id="先决条件"><a href="#先决条件" class="headerlink" title="先决条件"></a>先决条件</h2><p>　　我使用的是Jetson Orin Nano Super，使用的系统是Ubuntu22，安装的Jetpack6.2，可开启最大功率。CUDA版本是12.6。使用GPU进行预测需要安装的的Pytorch版本为2.3，torchvision版本为0.18，torchaudio的版本为2.3。Pytorch版本、torchvision、torchaudio需要根据实际的CUDA的版本来定</p>
+<h2 id="1-系统烧录需要准备的："><a href="#1-系统烧录需要准备的：" class="headerlink" title="1.系统烧录需要准备的："></a>1.系统烧录需要准备的：</h2><p>　　1.质量较好的usb转c口的线。这点不能忽视，官方文档当中强调了一些USB电缆可能导致连接错误。如果在刷机过程中出现错误，请考虑换线<br>　　2.至少64G的SD卡，使用前需要用读卡器接电脑格式化<br>　　3.DP转HDMI线缆<br>　　4.支持HDMI的显示屏，初始化需要用到GUI<br>　　5.能直接连接开发板的键盘和鼠标<br>　　6.电脑上要有VMware虚拟机，运行Ubuntu系统（22.04），官方的刷机软件SDK Manager只支持Linux系统，后面用SSH远程终端操作的时候连接也比Windows的putty稳定（我在win11上使用Putty去连接经常出现软件中断）</p>
+<p>　　软件资源在我硬盘里，后面或考虑上传某处备份,下面是我用到的一些资源，可以先去找下载下来：<br>　　–Ubuntu 22.04.5LTS.iso 系统映像文件<br>　　–sdkmanager_2.2.0-12028_amd64.deb<br>　　–VMware虚拟机软件<br>　　<strong>在设置虚拟机的时候，把存储空间拉到70G以上，运行内存8G以上！！！</strong></p>
+<p>　　<strong>以上条件满足，开干</strong><br>　　以下的操作是建立在你已经安装好虚拟机的情况之上<br>　　在Ubuntu系统中下载好sdkmanager的.deb文件，在终端中打开该文件的所在目录</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo dpkg -i &lt;你的.deb文件名，不需要括号&gt;</span><br><span class="line">sudo dpkg -i sdkmanager_2.2.0-12028_amd64.deb <span class="comment">#这是示例，我安装这个软件的命令</span></span><br></pre></td></tr></table></figure>
+<p>　　如果你之前没接触过Linux系统，那么你需要了解一下命令的含义都是什么<br>　　sudo的意思是：super user do，也就是超级管理员要干这件事，每个终端第一次用sudo的时候会需要你输入密码，就是你的开机密码，输入密码的时候终端不会显示，会隐藏你输入的字符，输入密码直接按回车就行，不要纠结。<br>　　dpkg是用于安装、构建和删除.deb包的工具，-i告诉dpkg去安装后面这个文件，而不是删除或者其他操作。<br>　　运行完后，如果没有什么意外，你会在应用程序当中发现SDK Manager，双击打开<br>　　Host Machine不需要<br>　　我的JetPack选的是6.2，选的最新的,然后点击continue<br><img src="/2025/01/19/Jetson-Orin-Nano-with-Yolov8/01.png" alt="SDKManager界面"><br>　　<strong>在刷机之前，你要短接板子上的两个引脚，分别是FC_REC和GND，让板子进入Recover模式</strong><br><img src="/2025/01/19/Jetson-Orin-Nano-with-Yolov8/01.png" alt="SDKManager界面"><br>　　在这里你可以看到三部分选项，Jetson Linux就是会烧到板子上的系统部分，剩下两个都是Nvidia的工具，在下方点击接受license，然后选择Dowwload now install later。下完之后会自动跳过第三步，直接退出。<br>　　这时候再重新进去，就可以直接安装了<br>　　安装的时候会跳出一个要输入密码的，照常输入就好，然后会跳出来一个框要你输入账号和密码的框，这个就是你之后登录板子的账号和密码<br>　　<strong>这里有一个要注意的，就是第一次安装只装Jetson Linux部分，安装完之后接上显示屏，设置完账号密码之后再进SDK Manager 再安装一次，把剩下两部分安装完</strong><br>　　在安装剩下两部分的时候SDK Manager是通过SSH登录板子系统进行安装的，在安装后两部分的时候会跳出来一个框，要输入登录的账号和密码，就是你之前设置的。<br>　　如果出现连接不上的情况，要么你没初始化好板子（拿显示屏，鼠标，键盘去设置好系统的基础，让他能正常用，给他接上WIFI），要么USB没连接到虚拟机上，要么USB连接上了，系统自动把USB以太网关了（可以在右上角改，会有两个USB有线以太网连接，打开一个就行）</p>
+]]></content>
+      <tags>
+        <tag>ROS2</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Deutch_Dictionary</title>
     <url>/2024/04/14/Deutch-Dictionary/</url>
     <content><![CDATA[<p>14.04.2003</p>
@@ -178,29 +192,6 @@
       </tags>
   </entry>
   <entry>
-    <title>TCP和UDP</title>
-    <url>/2024/03/31/ESP32-S3/</url>
-    <content><![CDATA[<span id="more"></span>
-<h2 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h2><h2 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h2><p>持续更新</p>
-]]></content>
-      <tags>
-        <tag>ESP32</tag>
-        <tag>传输协议</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hallo</title>
-    <url>/2024/03/30/hello-world/</url>
-    <content><![CDATA[<p>welcome！</p>
-<span id="more"></span>
-<h2 id="欢迎来到我的博客"><a href="#欢迎来到我的博客" class="headerlink" title="欢迎来到我的博客"></a>欢迎来到我的博客</h2><p>我之后将会在这个博客网站上记录我开发一些项目时遇到的一些我认为有意义的问题，同时也会写一些学习的内容来巩固所学知识，与大家分享。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">printf</span>(<span class="string">&quot;hello,world&quot;</span>);</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="www.leonardtin.com">my page</a></p>
-<p>The end</p>
-]]></content>
-  </entry>
-  <entry>
     <title>ROS是什么东西？</title>
     <url>/2024/11/27/Ros2Learn1/</url>
     <content><![CDATA[<p>之前并没有学习过ROS，但是觉得这个东西很有用，现在也有一些空闲的时间，于是便打算学习一点新东西。</p>
@@ -217,6 +208,22 @@
       </tags>
   </entry>
   <entry>
+    <title>TCP和UDP</title>
+    <url>/2024/03/31/ESP32-S3/</url>
+    <content><![CDATA[<span id="more"></span>
+<h2 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h2><h2 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h2><p>持续更新</p>
+]]></content>
+      <tags>
+        <tag>ESP32</tag>
+        <tag>传输协议</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ROS2_problem_record</title>
+    <url>/2025/09/05/ROS2-problem-record/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
     <title>有关雾化器的研究</title>
     <url>/2024/11/27/atomizer/</url>
     <content><![CDATA[<h2 id="为什么是雾化器"><a href="#为什么是雾化器" class="headerlink" title="为什么是雾化器"></a>为什么是雾化器</h2><p>工学院原有一台雾化器，购入价格较为昂贵，得有5万？因此我本次的毕业设计的主要目的是设计出一个比这雾化器拥有更佳的性能的，学院“国产化”的雾化器。</p>
@@ -225,36 +232,6 @@
 ]]></content>
       <tags>
         <tag>毕业设计</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Gazebo仿真遇到的一些问题</title>
-    <url>/2024/12/07/ros-gazebo/</url>
-    <content><![CDATA[<h2 id="soildwork导出urdf"><a href="#soildwork导出urdf" class="headerlink" title="soildwork导出urdf"></a>soildwork导出urdf</h2><p>为了将自己的机械臂导入Gazebo进行仿真，首先我们需要在Soildwork上下载一个将soildwork模型转化成urdf文件的插件，可以在ros的官网找到，稍后我插入链接</p>
-<p>在安装完插件，导出文件时有一点需要<strong>非常注意</strong>，那就是<strong>导出文件的名称不能有大写字母和中文！！！</strong>这是ros的命名规则，否则在后面进行编译的时候会有错！！！</p>
-<p>在导出后，会有以下这几个目录<br><img src="/2024/12/07/ros-gazebo/urdf_file.png" alt="文件目录"><br>忽略掉model.sdf和model.config。这是后面在使用gazebo的时候需要自己再额外搞的。<br>其中，如果我们使用的是ROS2，则需要去CMakeLisits。txt文件中去修改，导出的文件配置是按ROS1来的，点进去CMake文件会发现有catkin，这个是ROS1的工具，要全部改成ament_cmake,可以参考我这个</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cmake_minimum_required(VERSION 3.5)</span><br><span class="line"></span><br><span class="line">project(leonardoss)</span><br><span class="line"></span><br><span class="line">find_package(ament_cmake REQUIRED)</span><br><span class="line"></span><br><span class="line">ament_package()</span><br><span class="line"></span><br><span class="line">foreach(<span class="built_in">dir</span> config launch meshes urdf)</span><br><span class="line">        install(DIRECTORY <span class="variable">$&#123;dir&#125;</span>/</span><br><span class="line">                DESTINATION share/<span class="variable">$&#123;PROJECT_NAME&#125;</span>/<span class="variable">$&#123;dir&#125;</span>)</span><br><span class="line">endforeach(<span class="built_in">dir</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>以上是修改过后的CMakeLists.txt文件<br>然后就可以丢到自己搞的ROS2的工作空间里的src，在工作空间里打开终端，使用命令</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">colcon build</span><br></pre></td></tr></table></figure>
-
-<p>还没写完，持续更新</p>
-]]></content>
-      <tags>
-        <tag>ROS2</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>在Jetson-Orin-Nano部署Yolov8</title>
-    <url>/2025/01/19/Jetson-Orin-Nano-with-Yolov8/</url>
-    <content><![CDATA[<h2 id="先决条件"><a href="#先决条件" class="headerlink" title="先决条件"></a>先决条件</h2><p>　　我使用的是Jetson Orin Nano Super，使用的系统是Ubuntu22，安装的Jetpack6.2，可开启最大功率。CUDA版本是12.6。使用GPU进行预测需要安装的的Pytorch版本为2.3，torchvision版本为0.18，torchaudio的版本为2.3。Pytorch版本、torchvision、torchaudio需要根据实际的CUDA的版本来定</p>
-<h2 id="1-系统烧录需要准备的："><a href="#1-系统烧录需要准备的：" class="headerlink" title="1.系统烧录需要准备的："></a>1.系统烧录需要准备的：</h2><p>　　1.质量较好的usb转c口的线。这点不能忽视，官方文档当中强调了一些USB电缆可能导致连接错误。如果在刷机过程中出现错误，请考虑换线<br>　　2.至少64G的SD卡，使用前需要用读卡器接电脑格式化<br>　　3.DP转HDMI线缆<br>　　4.支持HDMI的显示屏，初始化需要用到GUI<br>　　5.能直接连接开发板的键盘和鼠标<br>　　6.电脑上要有VMware虚拟机，运行Ubuntu系统（22.04），官方的刷机软件SDK Manager只支持Linux系统，后面用SSH远程终端操作的时候连接也比Windows的putty稳定（我在win11上使用Putty去连接经常出现软件中断）</p>
-<p>　　软件资源在我硬盘里，后面或考虑上传某处备份,下面是我用到的一些资源，可以先去找下载下来：<br>　　–Ubuntu 22.04.5LTS.iso 系统映像文件<br>　　–sdkmanager_2.2.0-12028_amd64.deb<br>　　–VMware虚拟机软件<br>　　<strong>在设置虚拟机的时候，把存储空间拉到70G以上，运行内存8G以上！！！</strong></p>
-<p>　　<strong>以上条件满足，开干</strong><br>　　以下的操作是建立在你已经安装好虚拟机的情况之上<br>　　在Ubuntu系统中下载好sdkmanager的.deb文件，在终端中打开该文件的所在目录</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo dpkg -i &lt;你的.deb文件名，不需要括号&gt;</span><br><span class="line">sudo dpkg -i sdkmanager_2.2.0-12028_amd64.deb <span class="comment">#这是示例，我安装这个软件的命令</span></span><br></pre></td></tr></table></figure>
-<p>　　如果你之前没接触过Linux系统，那么你需要了解一下命令的含义都是什么<br>　　sudo的意思是：super user do，也就是超级管理员要干这件事，每个终端第一次用sudo的时候会需要你输入密码，就是你的开机密码，输入密码的时候终端不会显示，会隐藏你输入的字符，输入密码直接按回车就行，不要纠结。<br>　　dpkg是用于安装、构建和删除.deb包的工具，-i告诉dpkg去安装后面这个文件，而不是删除或者其他操作。<br>　　运行完后，如果没有什么意外，你会在应用程序当中发现SDK Manager，双击打开<br>　　Host Machine不需要<br>　　我的JetPack选的是6.2，选的最新的,然后点击continue<br><img src="/2025/01/19/Jetson-Orin-Nano-with-Yolov8/01.png" alt="SDKManager界面"><br>　　<strong>在刷机之前，你要短接板子上的两个引脚，分别是FC_REC和GND，让板子进入Recover模式</strong><br><img src="/2025/01/19/Jetson-Orin-Nano-with-Yolov8/01.png" alt="SDKManager界面"><br>　　在这里你可以看到三部分选项，Jetson Linux就是会烧到板子上的系统部分，剩下两个都是Nvidia的工具，在下方点击接受license，然后选择Dowwload now install later。下完之后会自动跳过第三步，直接退出。<br>　　这时候再重新进去，就可以直接安装了<br>　　安装的时候会跳出一个要输入密码的，照常输入就好，然后会跳出来一个框要你输入账号和密码的框，这个就是你之后登录板子的账号和密码<br>　　<strong>这里有一个要注意的，就是第一次安装只装Jetson Linux部分，安装完之后接上显示屏，设置完账号密码之后再进SDK Manager 再安装一次，把剩下两部分安装完</strong><br>　　在安装剩下两部分的时候SDK Manager是通过SSH登录板子系统进行安装的，在安装后两部分的时候会跳出来一个框，要输入登录的账号和密码，就是你之前设置的。<br>　　如果出现连接不上的情况，要么你没初始化好板子（拿显示屏，鼠标，键盘去设置好系统的基础，让他能正常用，给他接上WIFI），要么USB没连接到虚拟机上，要么USB连接上了，系统自动把USB以太网关了（可以在右上角改，会有两个USB有线以太网连接，打开一个就行）</p>
-]]></content>
-      <tags>
-        <tag>ROS2</tag>
       </tags>
   </entry>
   <entry>
@@ -285,5 +262,39 @@
       <tags>
         <tag>ROS2</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Hallo</title>
+    <url>/2024/03/30/hello-world/</url>
+    <content><![CDATA[<p>welcome！</p>
+<span id="more"></span>
+<h2 id="欢迎来到我的博客"><a href="#欢迎来到我的博客" class="headerlink" title="欢迎来到我的博客"></a>欢迎来到我的博客</h2><p>我之后将会在这个博客网站上记录我开发一些项目时遇到的一些我认为有意义的问题，同时也会写一些学习的内容来巩固所学知识，与大家分享。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">printf</span>(<span class="string">&quot;hello,world&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="www.leonardtin.com">my page</a></p>
+<p>The end</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>Gazebo仿真遇到的一些问题</title>
+    <url>/2024/12/07/ros-gazebo/</url>
+    <content><![CDATA[<h2 id="soildwork导出urdf"><a href="#soildwork导出urdf" class="headerlink" title="soildwork导出urdf"></a>soildwork导出urdf</h2><p>为了将自己的机械臂导入Gazebo进行仿真，首先我们需要在Soildwork上下载一个将soildwork模型转化成urdf文件的插件，可以在ros的官网找到，稍后我插入链接</p>
+<p>在安装完插件，导出文件时有一点需要<strong>非常注意</strong>，那就是<strong>导出文件的名称不能有大写字母和中文！！！</strong>这是ros的命名规则，否则在后面进行编译的时候会有错！！！</p>
+<p>在导出后，会有以下这几个目录<br><img src="/2024/12/07/ros-gazebo/urdf_file.png" alt="文件目录"><br>忽略掉model.sdf和model.config。这是后面在使用gazebo的时候需要自己再额外搞的。<br>其中，如果我们使用的是ROS2，则需要去CMakeLisits。txt文件中去修改，导出的文件配置是按ROS1来的，点进去CMake文件会发现有catkin，这个是ROS1的工具，要全部改成ament_cmake,可以参考我这个</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cmake_minimum_required(VERSION 3.5)</span><br><span class="line"></span><br><span class="line">project(leonardoss)</span><br><span class="line"></span><br><span class="line">find_package(ament_cmake REQUIRED)</span><br><span class="line"></span><br><span class="line">ament_package()</span><br><span class="line"></span><br><span class="line">foreach(<span class="built_in">dir</span> config launch meshes urdf)</span><br><span class="line">        install(DIRECTORY <span class="variable">$&#123;dir&#125;</span>/</span><br><span class="line">                DESTINATION share/<span class="variable">$&#123;PROJECT_NAME&#125;</span>/<span class="variable">$&#123;dir&#125;</span>)</span><br><span class="line">endforeach(<span class="built_in">dir</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>以上是修改过后的CMakeLists.txt文件<br>然后就可以丢到自己搞的ROS2的工作空间里的src，在工作空间里打开终端，使用命令</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">colcon build</span><br></pre></td></tr></table></figure>
+
+<p>还没写完，持续更新</p>
+]]></content>
+      <tags>
+        <tag>ROS2</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux学习记录</title>
+    <url>/2025/07/14/work-log/</url>
+    <content><![CDATA[<p><strong>Linux的世界中，一切皆文件</strong><br>和Win不一样的是，Linux没有分什么C盘，D盘，他只有文件结构，一个根目录之下存放所有文件。<br>Linux的文件结构是需要去记忆的，每个目录之下存放什么文件都是全部规定好的。比如说根目录下的root文件，他是用于存放root用户所使用的文件，home文件夹下则会存放不同用户的文件，比如我在该系统创建一个leonard用户，则他会在home下面建立一个leonard文件夹作为我的主文件夹。而boot文件夹下则是存放的linux开机时候需要的文件，缺少该文件夹会使得电脑开不了机。dev就相当于设备管理器，任何设备接入都会在dev文件夹下以文件的形式出现。<br>&#x2F;lib下面会存放系统开机所需要的最基本的动态链接共享库，几乎所有的应用程序都需要用到这些共享库。</p>
+]]></content>
   </entry>
 </search>

@@ -66,6 +66,17 @@
 ]]></content>
   </entry>
   <entry>
+    <title>TCP和UDP</title>
+    <url>/2024/03/31/ESP32-S3/</url>
+    <content><![CDATA[<span id="more"></span>
+<h2 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h2><h2 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h2><p>持续更新</p>
+]]></content>
+      <tags>
+        <tag>ESP32</tag>
+        <tag>传输协议</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Adjektivdeklination im Nominativ/Akkusativ/Dativ/</title>
     <url>/2024/04/14/Deutch/</url>
     <content><![CDATA[<p>在不同格中定冠词，不定冠词，形容词等等都会根据其名词的不同性和单复数而变化，以下是需要去熟练使用的变化，记录在此以便随时复习。</p>
@@ -178,22 +189,6 @@
       </tags>
   </entry>
   <entry>
-    <title>TCP和UDP</title>
-    <url>/2024/03/31/ESP32-S3/</url>
-    <content><![CDATA[<span id="more"></span>
-<h2 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h2><h2 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h2><p>持续更新</p>
-]]></content>
-      <tags>
-        <tag>ESP32</tag>
-        <tag>传输协议</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>ROS2_problem_record</title>
-    <url>/2025/09/05/ROS2-problem-record/</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
     <title>在Jetson-Orin-Nano部署Yolov8</title>
     <url>/2025/01/19/Jetson-Orin-Nano-with-Yolov8/</url>
     <content><![CDATA[<h2 id="先决条件"><a href="#先决条件" class="headerlink" title="先决条件"></a>先决条件</h2><p>　　我使用的是Jetson Orin Nano Super，使用的系统是Ubuntu22，安装的Jetpack6.2，可开启最大功率。CUDA版本是12.6。使用GPU进行预测需要安装的的Pytorch版本为2.3，torchvision版本为0.18，torchaudio的版本为2.3。Pytorch版本、torchvision、torchaudio需要根据实际的CUDA的版本来定</p>
@@ -205,6 +200,22 @@
 ]]></content>
       <tags>
         <tag>ROS2</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ROS2_problem_record</title>
+    <url>/2025/09/05/ROS2-problem-record/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>有关雾化器的研究</title>
+    <url>/2024/11/27/atomizer/</url>
+    <content><![CDATA[<h2 id="为什么是雾化器"><a href="#为什么是雾化器" class="headerlink" title="为什么是雾化器"></a>为什么是雾化器</h2><p>工学院原有一台雾化器，购入价格较为昂贵，得有5万？因此我本次的毕业设计的主要目的是设计出一个比这雾化器拥有更佳的性能的，学院“国产化”的雾化器。</p>
+<h2 id="我需要干什么"><a href="#我需要干什么" class="headerlink" title="我需要干什么"></a>我需要干什么</h2><p>首先从学长那得到了一些建议，和一些需要学习的东西<br>工学院的雾化器我去参观了一下，通过学长的介绍，了解到<br><strong>该雾化器目前主要有几个槽点：</strong><br>1.功率不可调，电源供电模块目测就是个稳压模块，没了<br>2.雾化装置部件不固定，每一次加原料拿出瓶子再装回去都需要繁琐的校正过程<br>3.发热严重，不能一次性用太久<br><strong>我要在这里面做的部分有：</strong><br>1.雾化器的外壳、结构设计<br>2.雾化器控制系统的设计，很可能需要搞个上位机来进行操控<br>3.可调的电源功率模块，通过上位机进行操控<br>4.水冷系统，超声波发生器发热严重，需要水冷来加强可持续使用性。<br>5.雾化仿真，找出最佳的瓶子的角度和位置，主要考虑的变量是瓶子和超声波发生器的距离以及瓶子的倾斜角度。<br>目前我先要去学习一下雾化的整个流程和学长推荐的Comsol来进行流体的仿真</p>
+<h2 id="雾化器的原理是什么？"><a href="#雾化器的原理是什么？" class="headerlink" title="雾化器的原理是什么？"></a>雾化器的原理是什么？</h2><p>我在这里主要去学习的是超声波雾化的原理。<br>超声波利用高频振动，将液体分散成微小的武器颗粒，武器的直径再0.5um到10um左右（可能这是评判雾化好坏的一个指标？）超声波雾化器一般的工作频率在几十kHZ到几百kHZ之间。常见的是1MHZ的。<br>不过这里存在一个疑问和可能会在<strong>后面面临的问题</strong>，超声波如何避免去雾化作为介质的水，从而去雾化瓶中的目标液体，目前可能从<strong>超声波频率、超声波能量大小、结构上的改变使得超声波能量集中在瓶子上</strong><br>这是一点需要十分注意的，目标的雾化方式是<strong>间接雾化</strong>，而不是与液体直接接触的。<br>我们先来看普通的雾化器是怎么工作的吧！<br>普通的雾化器的主要核心部件是一个压电陶瓷片，我们通过去改变上面的电压，可以让陶瓷片产生微小的震动，只要往上面施加高频率的电压，就可以让他产生“超声波”，重点来了，压电陶瓷片中心有小孔，小孔并不是一个圆柱体，而是一个漏斗形状的小孔，口小的一边是正面，口大的一边是反面，在压电陶瓷片工作时，无论是在正面还是反面加上水，水都会成雾状从正面喷出来。<br><img src="/2024/11/27/atomizer/small_hole.jpg" alt="陶瓷片微观结构示意图"><br>如图所示，这是雾化器陶瓷片的横截面示意图，蓝色的部分是水，当水在陶瓷片背面时，陶瓷片通过高频振动，带动水通过小孔，而由于小孔呈现漏斗状，流量不变的情况下横截面积变小，流速就会增加，就会从正面加速喷出，由于小孔十分微小，看起来就像水雾喷出了。<br>但是可能会有个问题，那为什么<strong>只会从正面喷出，而不是从背面呢？</strong>这也是因为流量不变的原因，因为流量不变，液体从开口小的地方流向开口大的地方，速度会减缓下来，由于速度不够大（水自身的张力会拉住他），就会在背面堆积起来，堆到一定程度后，就又会像上一段说的一样从正面喷出来了</p>
+]]></content>
+      <tags>
+        <tag>毕业设计</tag>
       </tags>
   </entry>
   <entry>
@@ -253,17 +264,6 @@
       </tags>
   </entry>
   <entry>
-    <title>有关雾化器的研究</title>
-    <url>/2024/11/27/atomizer/</url>
-    <content><![CDATA[<h2 id="为什么是雾化器"><a href="#为什么是雾化器" class="headerlink" title="为什么是雾化器"></a>为什么是雾化器</h2><p>工学院原有一台雾化器，购入价格较为昂贵，得有5万？因此我本次的毕业设计的主要目的是设计出一个比这雾化器拥有更佳的性能的，学院“国产化”的雾化器。</p>
-<h2 id="我需要干什么"><a href="#我需要干什么" class="headerlink" title="我需要干什么"></a>我需要干什么</h2><p>首先从学长那得到了一些建议，和一些需要学习的东西<br>工学院的雾化器我去参观了一下，通过学长的介绍，了解到<br><strong>该雾化器目前主要有几个槽点：</strong><br>1.功率不可调，电源供电模块目测就是个稳压模块，没了<br>2.雾化装置部件不固定，每一次加原料拿出瓶子再装回去都需要繁琐的校正过程<br>3.发热严重，不能一次性用太久<br><strong>我要在这里面做的部分有：</strong><br>1.雾化器的外壳、结构设计<br>2.雾化器控制系统的设计，很可能需要搞个上位机来进行操控<br>3.可调的电源功率模块，通过上位机进行操控<br>4.水冷系统，超声波发生器发热严重，需要水冷来加强可持续使用性。<br>5.雾化仿真，找出最佳的瓶子的角度和位置，主要考虑的变量是瓶子和超声波发生器的距离以及瓶子的倾斜角度。<br>目前我先要去学习一下雾化的整个流程和学长推荐的Comsol来进行流体的仿真</p>
-<h2 id="雾化器的原理是什么？"><a href="#雾化器的原理是什么？" class="headerlink" title="雾化器的原理是什么？"></a>雾化器的原理是什么？</h2><p>我在这里主要去学习的是超声波雾化的原理。<br>超声波利用高频振动，将液体分散成微小的武器颗粒，武器的直径再0.5um到10um左右（可能这是评判雾化好坏的一个指标？）超声波雾化器一般的工作频率在几十kHZ到几百kHZ之间。常见的是1MHZ的。<br>不过这里存在一个疑问和可能会在<strong>后面面临的问题</strong>，超声波如何避免去雾化作为介质的水，从而去雾化瓶中的目标液体，目前可能从<strong>超声波频率、超声波能量大小、结构上的改变使得超声波能量集中在瓶子上</strong><br>这是一点需要十分注意的，目标的雾化方式是<strong>间接雾化</strong>，而不是与液体直接接触的。<br>我们先来看普通的雾化器是怎么工作的吧！<br>普通的雾化器的主要核心部件是一个压电陶瓷片，我们通过去改变上面的电压，可以让陶瓷片产生微小的震动，只要往上面施加高频率的电压，就可以让他产生“超声波”，重点来了，压电陶瓷片中心有小孔，小孔并不是一个圆柱体，而是一个漏斗形状的小孔，口小的一边是正面，口大的一边是反面，在压电陶瓷片工作时，无论是在正面还是反面加上水，水都会成雾状从正面喷出来。<br><img src="/2024/11/27/atomizer/small_hole.jpg" alt="陶瓷片微观结构示意图"><br>如图所示，这是雾化器陶瓷片的横截面示意图，蓝色的部分是水，当水在陶瓷片背面时，陶瓷片通过高频振动，带动水通过小孔，而由于小孔呈现漏斗状，流量不变的情况下横截面积变小，流速就会增加，就会从正面加速喷出，由于小孔十分微小，看起来就像水雾喷出了。<br>但是可能会有个问题，那为什么<strong>只会从正面喷出，而不是从背面呢？</strong>这也是因为流量不变的原因，因为流量不变，液体从开口小的地方流向开口大的地方，速度会减缓下来，由于速度不够大（水自身的张力会拉住他），就会在背面堆积起来，堆到一定程度后，就又会像上一段说的一样从正面喷出来了</p>
-]]></content>
-      <tags>
-        <tag>毕业设计</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Hallo</title>
     <url>/2024/03/30/hello-world/</url>
     <content><![CDATA[<p>welcome！</p>
@@ -273,12 +273,6 @@
 
 <p>More info: <a href="www.leonardtin.com">my page</a></p>
 <p>The end</p>
-]]></content>
-  </entry>
-  <entry>
-    <title>Linux学习记录</title>
-    <url>/2025/07/14/work-log/</url>
-    <content><![CDATA[<p><strong>Linux的世界中，一切皆文件</strong><br>和Win不一样的是，Linux没有分什么C盘，D盘，他只有文件结构，一个根目录之下存放所有文件。<br>Linux的文件结构是需要去记忆的，每个目录之下存放什么文件都是全部规定好的。比如说根目录下的root文件，他是用于存放root用户所使用的文件，home文件夹下则会存放不同用户的文件，比如我在该系统创建一个leonard用户，则他会在home下面建立一个leonard文件夹作为我的主文件夹。而boot文件夹下则是存放的linux开机时候需要的文件，缺少该文件夹会使得电脑开不了机。dev就相当于设备管理器，任何设备接入都会在dev文件夹下以文件的形式出现。<br>&#x2F;lib下面会存放系统开机所需要的最基本的动态链接共享库，几乎所有的应用程序都需要用到这些共享库。</p>
 ]]></content>
   </entry>
   <entry>
@@ -296,5 +290,11 @@
       <tags>
         <tag>ROS2</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Linux学习记录</title>
+    <url>/2025/07/14/work-log/</url>
+    <content><![CDATA[<p><strong>Linux的世界中，一切皆文件</strong><br>和Win不一样的是，Linux没有分什么C盘，D盘，他只有文件结构，一个根目录之下存放所有文件。<br>Linux的文件结构是需要去记忆的，每个目录之下存放什么文件都是全部规定好的。比如说根目录下的root文件，他是用于存放root用户所使用的文件，home文件夹下则会存放不同用户的文件，比如我在该系统创建一个leonard用户，则他会在home下面建立一个leonard文件夹作为我的主文件夹。而boot文件夹下则是存放的linux开机时候需要的文件，缺少该文件夹会使得电脑开不了机。dev就相当于设备管理器，任何设备接入都会在dev文件夹下以文件的形式出现。<br>&#x2F;lib下面会存放系统开机所需要的最基本的动态链接共享库，几乎所有的应用程序都需要用到这些共享库。</p>
+]]></content>
   </entry>
 </search>

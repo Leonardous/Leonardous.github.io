@@ -1,11 +1,26 @@
 // 本地相册过滤与瀑布流布局
 
+// 过滤模式下安全的瀑布流：先移出隐藏元素，排布后放回，避免 display:none 元素破坏列计算
+function waterfallFiltered() {
+  const container = document.querySelector('.gallery-photos');
+  if (!container) return;
+  const hiddenItems = Array.from(container.querySelectorAll('.gallery-photo'))
+    .filter(p => p.style.display === 'none')
+    .map(p => ({ el: p, next: p.nextSibling }));
+  hiddenItems.forEach(({ el }) => container.removeChild(el));
+  waterfall('.gallery-photos');
+  hiddenItems.forEach(({ el, next }) => {
+    if (next && next.parentNode === container) container.insertBefore(el, next);
+    else container.appendChild(el);
+  });
+}
+
 function whenDOMReady() {
   if (location.pathname == '/photos/') {
     const localPhotos = document.querySelectorAll('.gallery-photo[data-category]');
     if (localPhotos.length > 0) {
       // 本地模式：先渲染本地照片，再追加 memos 照片
-      imgStatus.watch('.photo-img', () => { waterfall('.gallery-photos'); });
+      imgStatus.watch('.photo-img', () => { waterfallFiltered(); });
       window.Lately && Lately.init({ target: '.photo-time' });
       appendMemosPhotos();
     } else {
@@ -18,7 +33,7 @@ whenDOMReady();
 document.addEventListener("pjax:complete", whenDOMReady);
 
 window.onresize = () => {
-  if (location.pathname == '/photos/') waterfall('.gallery-photos');
+  if (location.pathname == '/photos/') waterfallFiltered();
 };
 
 // 本地相册分类过滤
@@ -43,21 +58,8 @@ function filterPhotos(category, el) {
     }
   });
 
-  // waterfall 遍历容器所有 children（含 display:none），隐藏元素 clientWidth/Height=0
-  // 会破坏列宽计算导致堆叠。解决：排布前临时移出隐藏元素，排布完再放回原位。
-  requestAnimationFrame(() => requestAnimationFrame(() => {
-    const container = document.querySelector('.gallery-photos');
-    if (!container) return;
-    const hiddenItems = Array.from(container.querySelectorAll('.gallery-photo'))
-      .filter(p => p.style.display === 'none')
-      .map(p => ({ el: p, next: p.nextSibling }));
-    hiddenItems.forEach(({ el }) => container.removeChild(el));
-    waterfall('.gallery-photos');
-    hiddenItems.forEach(({ el, next }) => {
-      if (next && next.parentNode === container) container.insertBefore(el, next);
-      else container.appendChild(el);
-    });
-  }));
+  // waterfall 遍历所有 children（含 display:none），统一改用 waterfallFiltered
+  requestAnimationFrame(() => requestAnimationFrame(() => waterfallFiltered()));
 }
 
 // 构建 memos 照片 HTML 片段
@@ -96,7 +98,7 @@ function photos(tag) {
     const html = buildMemosHtml(data, url);
     const container = document.querySelector('.gallery-photos.page');
     if (container) container.innerHTML = html;
-    imgStatus.watch('.photo-img', () => { waterfall('.gallery-photos'); });
+    imgStatus.watch('.photo-img', () => { waterfallFiltered(); });
     window.Lately && Lately.init({ target: '.photo-time' });
   }).catch(() => {});
 }
@@ -112,7 +114,7 @@ function appendMemosPhotos(tag) {
     if (html) {
       container.insertAdjacentHTML('beforeend', html);
       // 新图片加载完后重新排布瀑布流
-      imgStatus.watch('.photo-img', () => { waterfall('.gallery-photos'); });
+      imgStatus.watch('.photo-img', () => { waterfallFiltered(); });
       window.Lately && Lately.init({ target: '.photo-time' });
     }
   }).catch(() => {});

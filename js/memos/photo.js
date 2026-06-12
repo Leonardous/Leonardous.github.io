@@ -32,8 +32,12 @@ function whenDOMReady() {
 whenDOMReady();
 document.addEventListener("pjax:complete", whenDOMReady);
 
+let _resizeTimer = null;
 window.onresize = () => {
-  if (location.pathname == '/photos/') waterfallFiltered();
+  if (location.pathname == '/photos/') {
+    clearTimeout(_resizeTimer);
+    _resizeTimer = setTimeout(waterfallFiltered, 150);
+  }
 };
 
 // 本地相册分类过滤

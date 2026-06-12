@@ -43,8 +43,8 @@ function filterPhotos(category, el) {
     }
   });
 
-  // 重新计算瀑布流布局
-  waterfall('.gallery-photos');
+  // 等浏览器完成 display 切换后再重排，避免坐标计算错误导致重叠
+  requestAnimationFrame(() => requestAnimationFrame(() => waterfall('.gallery-photos')));
 }
 
 // 构建 memos 照片 HTML 片段

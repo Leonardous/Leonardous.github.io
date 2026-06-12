@@ -43,8 +43,21 @@ function filterPhotos(category, el) {
     }
   });
 
-  // 等浏览器完成 display 切换后再重排，避免坐标计算错误导致重叠
-  requestAnimationFrame(() => requestAnimationFrame(() => waterfall('.gallery-photos')));
+  // waterfall 遍历容器所有 children（含 display:none），隐藏元素 clientWidth/Height=0
+  // 会破坏列宽计算导致堆叠。解决：排布前临时移出隐藏元素，排布完再放回原位。
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    const container = document.querySelector('.gallery-photos');
+    if (!container) return;
+    const hiddenItems = Array.from(container.querySelectorAll('.gallery-photo'))
+      .filter(p => p.style.display === 'none')
+      .map(p => ({ el: p, next: p.nextSibling }));
+    hiddenItems.forEach(({ el }) => container.removeChild(el));
+    waterfall('.gallery-photos');
+    hiddenItems.forEach(({ el, next }) => {
+      if (next && next.parentNode === container) container.insertBefore(el, next);
+      else container.appendChild(el);
+    });
+  }));
 }
 
 // 构建 memos 照片 HTML 片段

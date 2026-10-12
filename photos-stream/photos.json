@@ -1,0 +1,194 @@
+{
+  "photos": [
+    {
+      "id": "prague-photo1",
+      "src": "assets/photos/prague-photo1.jpg",
+      "source_path": "/photos/albums/prague/photo1.jpg",
+      "description": "伏尔塔瓦河畔"
+    },
+    {
+      "id": "prague-photo2",
+      "src": "assets/photos/prague-photo2.jpg",
+      "source_path": "/photos/albums/prague/photo2.jpg",
+      "description": "布拉格城堡塔顶"
+    },
+    {
+      "id": "prague-photo3",
+      "src": "assets/photos/prague-photo3.jpg",
+      "source_path": "/photos/albums/prague/photo3.jpg",
+      "description": "通往城堡的路上"
+    },
+    {
+      "id": "prague-photo4",
+      "src": "assets/photos/prague-photo4.jpg",
+      "source_path": "/photos/albums/prague/photo4.jpg",
+      "description": "卡夫卡头像"
+    },
+    {
+      "id": "munich-photo1",
+      "src": "assets/photos/munich-photo1.jpg",
+      "source_path": "/photos/albums/munich/photo1.jpg",
+      "description": "TUM主校区，如果有人走过就更好了"
+    },
+    {
+      "id": "munich-photo2",
+      "src": "assets/photos/munich-photo2.jpg",
+      "source_path": "/photos/albums/munich/photo2.jpg",
+      "description": "徒步雪山"
+    },
+    {
+      "id": "munich-photo3",
+      "src": "assets/photos/munich-photo3.jpg",
+      "source_path": "/photos/albums/munich/photo3.jpg"
+    },
+    {
+      "id": "munich-photo4",
+      "src": "assets/photos/munich-photo4.jpg",
+      "source_path": "/photos/albums/munich/photo4.jpg"
+    },
+    {
+      "id": "munich-photo5",
+      "src": "assets/photos/munich-photo5.jpg",
+      "source_path": "/photos/albums/munich/photo5.jpg"
+    },
+    {
+      "id": "munich-photo6",
+      "src": "assets/photos/munich-photo6.jpg",
+      "source_path": "/photos/albums/munich/photo6.jpg",
+      "description": "市中心的教堂"
+    },
+    {
+      "id": "munich-photo7",
+      "src": "assets/photos/munich-photo7.jpg",
+      "source_path": "/photos/albums/munich/photo7.jpg"
+    },
+    {
+      "id": "lisbon-photo1",
+      "src": "assets/photos/lisbon-photo1.jpg",
+      "source_path": "/photos/albums/lisbon/photo1.jpg",
+      "description": "热罗尼莫斯修道院"
+    },
+    {
+      "id": "lisbon-photo2",
+      "src": "assets/photos/lisbon-photo2.jpg",
+      "source_path": "/photos/albums/lisbon/photo2.jpg",
+      "description": "罗卡角，傍晚"
+    },
+    {
+      "id": "lisbon-photo3",
+      "src": "assets/photos/lisbon-photo3.jpg",
+      "source_path": "/photos/albums/lisbon/photo3.jpg",
+      "description": "罗卡角，我会来这里求婚的"
+    },
+    {
+      "id": "paris-photo1",
+      "src": "assets/photos/paris-photo1.jpg",
+      "source_path": "/photos/albums/paris/photo1.jpg"
+    },
+    {
+      "id": "paris-photo2",
+      "src": "assets/photos/paris-photo2.jpg",
+      "source_path": "/photos/albums/paris/photo2.jpg"
+    },
+    {
+      "id": "paris-photo3",
+      "src": "assets/photos/paris-photo3.jpg",
+      "source_path": "/photos/albums/paris/photo3.jpg"
+    },
+    {
+      "id": "porto-photo1",
+      "src": "assets/photos/porto-photo1.jpg",
+      "source_path": "/photos/albums/porto/photo1.jpg"
+    },
+    {
+      "id": "porto-photo2",
+      "src": "assets/photos/porto-photo2.jpg",
+      "source_path": "/photos/albums/porto/photo2.jpg"
+    },
+    {
+      "id": "porto-photo3",
+      "src": "assets/photos/porto-photo3.jpg",
+      "source_path": "/photos/albums/porto/photo3.jpg"
+    },
+    {
+      "id": "barcelona-photo1",
+      "src": "assets/photos/barcelona-photo1.jpg",
+      "source_path": "/photos/albums/barcelona/photo1.jpg"
+    },
+    {
+      "id": "barcelona-photo2",
+      "src": "assets/photos/barcelona-photo2.jpg",
+      "source_path": "/photos/albums/barcelona/photo2.jpg"
+    },
+    {
+      "id": "istanbul-photot1",
+      "src": "assets/photos/istanbul-photot1.jpg",
+      "source_path": "/photos/albums/istanbul/photot1.jpg"
+    },
+    {
+      "id": "istanbul-photo2",
+      "src": "assets/photos/istanbul-photo2.jpg",
+      "source_path": "/photos/albums/istanbul/photo2.jpg"
+    },
+    {
+      "id": "istanbul-photo3",
+      "src": "assets/photos/istanbul-photo3.jpg",
+      "source_path": "/photos/albums/istanbul/photo3.jpg"
+    },
+    {
+      "id": "istanbul-photo4",
+      "src": "assets/photos/istanbul-photo4.jpg",
+      "source_path": "/photos/albums/istanbul/photo4.jpg"
+    },
+    {
+      "id": "bled-photo1",
+      "src": "assets/photos/bled-photo1.jpg",
+      "source_path": "/photos/albums/bled/photo1.jpg"
+    },
+    {
+      "id": "bled-photo2",
+      "src": "assets/photos/bled-photo2.jpg",
+      "source_path": "/photos/albums/bled/photo2.jpg"
+    },
+    {
+      "id": "bled-photo3",
+      "src": "assets/photos/bled-photo3.jpg",
+      "source_path": "/photos/albums/bled/photo3.jpg"
+    },
+    {
+      "id": "bled-photo4",
+      "src": "assets/photos/bled-photo4.jpg",
+      "source_path": "/photos/albums/bled/photo4.jpg"
+    },
+    {
+      "id": "madrid-photo1",
+      "src": "assets/photos/madrid-photo1.jpg",
+      "source_path": "/photos/albums/madrid/photo1.jpg"
+    },
+    {
+      "id": "madrid-photo2",
+      "src": "assets/photos/madrid-photo2.jpg",
+      "source_path": "/photos/albums/madrid/photo2.jpg"
+    },
+    {
+      "id": "ljubljana-photo1",
+      "src": "assets/photos/ljubljana-photo1.jpg",
+      "source_path": "/photos/albums/ljubljana/photo1.jpg"
+    },
+    {
+      "id": "ljubljana-photo2",
+      "src": "assets/photos/ljubljana-photo2.jpg",
+      "source_path": "/photos/albums/ljubljana/photo2.jpg"
+    },
+    {
+      "id": "dresden-photo1",
+      "src": "assets/photos/dresden-photo1.jpg",
+      "source_path": "/photos/albums/dresden/photo1.jpg"
+    },
+    {
+      "id": "dresden-photo2",
+      "src": "assets/photos/dresden-photo2.jpg",
+      "source_path": "/photos/albums/dresden/photo2.jpg"
+    }
+  ]
+}

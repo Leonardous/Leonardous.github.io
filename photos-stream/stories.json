@@ -1,0 +1,224 @@
+{
+  "stories": [
+    {
+      "id": "prague",
+      "title": "布拉格",
+      "chapters": [
+        {
+          "photo": "prague-photo1",
+          "date": "2026-05-25",
+          "text": "伏尔塔瓦河畔"
+        },
+        {
+          "photo": "prague-photo2",
+          "date": "2026-05-25",
+          "text": "布拉格城堡塔顶"
+        },
+        {
+          "photo": "prague-photo3",
+          "date": "2026-05-24",
+          "text": "通往城堡的路上"
+        },
+        {
+          "photo": "prague-photo4",
+          "date": "2026-05-25",
+          "text": "卡夫卡头像"
+        }
+      ]
+    },
+    {
+      "id": "munich",
+      "title": "慕尼黑",
+      "chapters": [
+        {
+          "photo": "munich-photo1",
+          "date": "2026-02-28",
+          "text": "TUM主校区，如果有人走过就更好了"
+        },
+        {
+          "photo": "munich-photo2",
+          "date": "2025-11-13",
+          "text": "徒步雪山"
+        },
+        {
+          "photo": "munich-photo3",
+          "text": ""
+        },
+        {
+          "photo": "munich-photo4",
+          "text": ""
+        },
+        {
+          "photo": "munich-photo5",
+          "text": ""
+        },
+        {
+          "photo": "munich-photo6",
+          "date": "2026-05-18",
+          "text": "市中心的教堂"
+        },
+        {
+          "photo": "munich-photo7",
+          "text": ""
+        }
+      ]
+    },
+    {
+      "id": "lisbon",
+      "title": "里斯本",
+      "chapters": [
+        {
+          "photo": "lisbon-photo1",
+          "date": "2025-12-30",
+          "text": "热罗尼莫斯修道院"
+        },
+        {
+          "photo": "lisbon-photo2",
+          "date": "2025-12-29",
+          "text": "罗卡角，傍晚"
+        },
+        {
+          "photo": "lisbon-photo3",
+          "date": "2025-12-29",
+          "text": "罗卡角，我会来这里求婚的"
+        }
+      ]
+    },
+    {
+      "id": "paris",
+      "title": "巴黎",
+      "chapters": [
+        {
+          "photo": "paris-photo1",
+          "text": ""
+        },
+        {
+          "photo": "paris-photo2",
+          "text": ""
+        },
+        {
+          "photo": "paris-photo3",
+          "text": ""
+        }
+      ]
+    },
+    {
+      "id": "porto",
+      "title": "波尔图",
+      "chapters": [
+        {
+          "photo": "porto-photo1",
+          "text": ""
+        },
+        {
+          "photo": "porto-photo2",
+          "text": ""
+        },
+        {
+          "photo": "porto-photo3",
+          "text": ""
+        }
+      ]
+    },
+    {
+      "id": "barcelona",
+      "title": "巴塞罗那",
+      "chapters": [
+        {
+          "photo": "barcelona-photo1",
+          "text": ""
+        },
+        {
+          "photo": "barcelona-photo2",
+          "text": ""
+        }
+      ]
+    },
+    {
+      "id": "istanbul",
+      "title": "伊斯坦布尔",
+      "chapters": [
+        {
+          "photo": "istanbul-photot1",
+          "text": ""
+        },
+        {
+          "photo": "istanbul-photo2",
+          "text": ""
+        },
+        {
+          "photo": "istanbul-photo3",
+          "text": ""
+        },
+        {
+          "photo": "istanbul-photo4",
+          "text": ""
+        }
+      ]
+    },
+    {
+      "id": "bled",
+      "title": "布莱德",
+      "chapters": [
+        {
+          "photo": "bled-photo1",
+          "text": ""
+        },
+        {
+          "photo": "bled-photo2",
+          "text": ""
+        },
+        {
+          "photo": "bled-photo3",
+          "text": ""
+        },
+        {
+          "photo": "bled-photo4",
+          "text": ""
+        }
+      ]
+    },
+    {
+      "id": "madrid",
+      "title": "马德里",
+      "chapters": [
+        {
+          "photo": "madrid-photo1",
+          "text": ""
+        },
+        {
+          "photo": "madrid-photo2",
+          "text": ""
+        }
+      ]
+    },
+    {
+      "id": "ljubljana",
+      "title": "卢布尔雅那",
+      "chapters": [
+        {
+          "photo": "ljubljana-photo1",
+          "text": ""
+        },
+        {
+          "photo": "ljubljana-photo2",
+          "text": ""
+        }
+      ]
+    },
+    {
+      "id": "dresden",
+      "title": "德累斯顿",
+      "chapters": [
+        {
+          "photo": "dresden-photo1",
+          "text": ""
+        },
+        {
+          "photo": "dresden-photo2",
+          "text": ""
+        }
+      ]
+    }
+  ]
+}

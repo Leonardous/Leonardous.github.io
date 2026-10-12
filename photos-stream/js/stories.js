@@ -21,7 +21,9 @@ export function buildStories(photos, authored = [], journal = []) {
   for (const s of stories) {
     s.chapters = s.chapters.map(c => {
       const layer = byId.get(String(c.photo)), p = photos[layer];
-      return { ...c, layer, src: p.src, aspect: p.aspect, caption: c.caption ?? p.description, credit: c.credit ?? p.photographer };
+      // LOCAL ADDITION (photos-stream): carry the reduced sizes through so the story view
+      // can show a thumbnail immediately and swap in the larger file once it has loaded.
+      return { ...c, layer, src: p.src, thumb: p.thumb, full: p.full, aspect: p.aspect, caption: c.caption ?? p.description, credit: c.credit ?? p.photographer };
     });
     // Journal entries: authored text wins; otherwise the shared template, spread so that every
     // story, however short, begins with the first entry and ends with the last.

@@ -15,9 +15,12 @@ import { StoryView } from './story.js';
 import { clamp, smooth, damp, mulberry } from './math.js';
 import { createGLHelpers } from './gl.js';
 import { loadCatalog } from './catalog.js';
-import { loadTextures } from './photos.js';
+import { loadPass, LAYER, THUMB_LAYER } from './photos.js';
 import { buildStories, NF } from './stories.js';
 import { IDLE, FIBRE_VS, FIBRE_FS, FLOOR_VS, FLOOR_FS, POST_VS, DOWN_FS, UP_FS, BLUR_FS, COMPOSITE_FS } from './shaders.js';
+// LOCAL ADDITION (photos-stream): generated ambience, started on the first user gesture.
+// Delete this import and the initAmbience() call in boot() to return to upstream behaviour.
+import { initAmbience } from './ambience.js';
 
 const canvas = document.getElementById('stream');
 const CAPTURE = new URLSearchParams(location.search).has('capture');
@@ -45,7 +48,11 @@ const fib = {
   flow: new Float64Array(NF), hold: new Float32Array(NF),   // hold: 1 while a thread is being looked at
 };
 const P = {}, T = {}, vaos = {};
-let RT = null, arrTex = null;
+let RT = null;
+// Progressive loading: the curtain renders from thumbnails while the full-resolution
+// array is built in the background, then swaps in when a story is opened.
+let arrTexLow = null, arrTexFull = null, fullReady = false, wantFull = false, usingFull = false;
+let fullLoad = null; // { progress } while pass 2 is running
 let program, dataTexture, updateTexture, target, freeTarget;
 
 const cam = { x: 0, y: 0, ls: 0, lsT: 0, vx: 0, vy: 0 };
@@ -156,10 +163,14 @@ function onStoryShow(i) {
   select.line = i; select.target = 1;
   if (lsBeforeStory == null) lsBeforeStory = cam.lsT;
   hideLabel();
+  // Photographs are large on screen here, so this is when the full-resolution array
+  // should be in use (if it has finished loading).
+  wantFull = true;
 }
 function onStoryCovered() { sleeping = true; }
 function onStoryHide() {
   sleeping = false; last = performance.now();
+  wantFull = false;
   select.target = 0;
   if (lsBeforeStory != null) { cam.lsT = lsBeforeStory; lsBeforeStory = null; }
   canvas.focus({ preventScroll: true });
@@ -384,7 +395,7 @@ function drawWorld(rt, mirror) {
   const pr = P.fibre, u = pr.u; gl.useProgram(pr.p); bindCommon(pr, rt.h, mirror);
   gl.activeTexture(gl.TEXTURE2); gl.bindTexture(gl.TEXTURE_2D, T.story.t); gl.uniform1i(u.uStory, 2);
   gl.activeTexture(gl.TEXTURE3); gl.bindTexture(gl.TEXTURE_2D, T.layers.t); gl.uniform1i(u.uLayers, 3);
-  gl.activeTexture(gl.TEXTURE4); gl.bindTexture(gl.TEXTURE_2D_ARRAY, arrTex); gl.uniform1i(u.uArr, 4);
+  gl.activeTexture(gl.TEXTURE4); gl.bindTexture(gl.TEXTURE_2D_ARRAY, usingFull && arrTexFull ? arrTexFull : arrTexLow); gl.uniform1i(u.uArr, 4);
   gl.uniform1f(u.uMinPx, mirror ? 1.6 : 1.0);
   gl.uniform1f(u.uSpacing, SPACING); gl.uniform1f(u.uW, PHOTO_W); gl.uniform1f(u.uS, SLOT);
   gl.uniform1f(u.uGain, (mirror ? 0.55 : 0.78) * (1.05 - 0.2 * zt));
@@ -455,6 +466,11 @@ function render() {
 function frame(now) {
   requestAnimationFrame(frame);
   const dt = Math.min(0.05, (now - last) / 1000); last = now;
+  // Swap texture arrays at a frame boundary, never mid-frame. Taking full resolution
+  // is deferred until a story is open — that is where the images are large enough for
+  // the change to be invisible, and where it actually matters.
+  const nextUsingFull = wantFull && fullReady;
+  if (nextUsingFull !== usingFull) usingFull = nextUsingFull;
   if (sleeping || document.hidden) return;
   step(dt, now);
   render();
@@ -489,7 +505,17 @@ async function boot() {
   resize();
   const catalog = await loadCatalog();
   photos = catalog.photos;
-  arrTex = await loadTextures(gl, photos, progress => $loader.style.setProperty('--p', progress.toFixed(3)));
+
+  // ── progressive load ───────────────────────────────────────────────────────
+  // Pass 1: thumbnails. ~330 KB for the whole library, so the curtain appears fast.
+  const thumb = p => p.thumb || p.src;
+  arrTexLow = await loadPass(gl, photos, {
+    size: THUMB_LAYER,
+    srcOf: thumb,
+    workers: 6,
+    onProgress: (done, total) => $loader.style.setProperty('--p', (done / total).toFixed(3)),
+  });
+
   buildFibres();
   stories = buildStories(photos, catalog.authored, catalog.journal);
   uploadStories();
@@ -501,6 +527,33 @@ async function boot() {
   requestAnimationFrame(frame);
   view.route(); // a shared link opens straight into its story
   window.__undertow = { cam, stories, fib, get hover() { return hover; }, pickLine, chapterAt, project, unproject, openStory, zoomBy, LS_MIN, LS_MAX, get slot() { return SLOT; } };
+  // LOCAL ADDITION — generated sound; no-op where Web Audio is unavailable.
+  window.__undertow.sound = initAmbience();
+  window.__undertow.loading = () => ({
+    fullReady, wantFull, usingFull,
+    fullProgress: fullLoad ? Number(fullLoad.progress.toFixed(3)) : 0,
+  });
+
+  // Pass 2: full resolution. Started only once the curtain is on screen and the
+  // browser is idle — otherwise a ~13 MB download competes with the first frames.
+  const startFullLoad = () => {
+    if (fullLoad) return;
+    fullLoad = { progress: 0 };
+    loadPass(gl, photos, {
+      size: LAYER,
+      srcOf: p => p.src,
+      workers: 3,
+      onProgress: (done, total) => { fullLoad.progress = done / total; },
+    })
+      .then(tex => { arrTexFull = tex; fullReady = true; })
+      .catch(err => { console.warn('Full-resolution pass failed; staying on thumbnails.', err); });
+  };
+  const scheduleFullLoad = () => {
+    if ('requestIdleCallback' in window) requestIdleCallback(startFullLoad, { timeout: 2500 });
+    else setTimeout(startFullLoad, 800);
+  };
+  if (document.readyState === 'complete') scheduleFullLoad();
+  else addEventListener('load', scheduleFullLoad, { once: true });
 }
 boot().catch(err => {
   console.error(err);

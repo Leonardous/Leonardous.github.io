@@ -1,5 +1,11 @@
 import { NF, MAX_CHAPTERS } from './stories.js';
 
+// Local relaxation for progressive loading: the page stores three sizes of each
+// photograph (assets/photos = original, medium = 1024px for the GPU and story view,
+// thumb = 256px for first paint), so the path check accepts those three roots while
+// keeping the original intent — a relative local path with no traversal.
+const LOCAL_PHOTO = /^(assets\/photos|medium|thumb)\/[\w./-]+$/;
+
 // Shared by the browser and the offline catalog check. No DOM or WebGL dependencies.
 export function validateCatalog(catalog, data) {
   const fail = message => { throw new Error(message); };
@@ -9,8 +15,14 @@ export function validateCatalog(catalog, data) {
   const ids = new Set();
   const photos = catalog.photos.map(p => {
     if (!text(p?.id) || ids.has(p.id)) fail(`Missing or duplicate photo id: ${p?.id}`);
-    if (!text(p.src) || !/^assets\/photos\/[\w./-]+$/.test(p.src) || p.src.split('/').includes('..')) {
-      fail(`Photo ${p.id}: src must be a local path under assets/photos/ (use filenames without spaces).`);
+    if (!text(p.src) || !LOCAL_PHOTO.test(p.src) || p.src.split('/').includes('..')) {
+      fail(`Photo ${p.id}: src must be a local path under assets/photos/, medium/ or thumb/ (no spaces, no "..").`);
+    }
+    for (const key of ['thumb', 'full']) {
+      if (p[key] == null) continue;
+      if (!text(p[key]) || !LOCAL_PHOTO.test(p[key]) || p[key].split('/').includes('..')) {
+        fail(`Photo ${p.id}: ${key} must be a local path under assets/photos/, medium/ or thumb/.`);
+      }
     }
     ids.add(p.id);
     return { ...p, description: p.description ?? '', photographer: p.photographer ?? '', avg: [0.5, 0.5, 0.5] };

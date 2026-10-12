@@ -7,6 +7,51 @@ const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
 import { clamp, smooth, damp, mod } from './math.js';
 const DRIFT = 30; // px/s the stream flows on its own
 
+// ── progressive photographs ────────────────────────────────────────────────────
+// Each frame shows a small thumbnail at once, then swaps to the full-size file once it
+// has decoded. The display sizes are known up front, so the swap never reflows.
+const upgraded = new Map();
+let loadQueue = [];
+let activeLoads = 0;
+const MAX_LOADS = 3;
+
+function flushQueue() {
+  while (activeLoads < MAX_LOADS && loadQueue.length) {
+    const item = loadQueue.shift();
+    activeLoads++;
+    let settled = false;
+    const finish = ok => {
+      if (settled) return;
+      settled = true;
+      activeLoads--;
+      if (ok) {
+        item.img.src = item.hi;
+        item.img.dataset.tier = 'full';
+        upgraded.set(item.hi, item.img);
+        requestAnimationFrame(flushQueue);
+      } else {
+        flushQueue();
+      }
+    };
+    item.img.onload = () => finish(true);
+    item.img.onerror = () => finish(false);
+    item.img.src = item.hi;
+  }
+}
+
+function upgradePhotos(root) {
+  if (!root) return;
+  for (const img of root.querySelectorAll('img[data-hi]')) {
+    const hi = img.dataset.hi;
+    if (!hi || img.src.endsWith(hi)) continue;
+    const cached = upgraded.get(hi);
+    if (cached) { img.src = hi; img.dataset.tier = 'full'; continue; }
+    img.dataset.tier = 'thumb';
+    loadQueue.push({ img, hi });
+  }
+  flushQueue();
+}
+
 export class StoryView {
   constructor({ stories, onShow, onCovered, onHide }) {
     this.stories = stories;
@@ -197,7 +242,7 @@ export class StoryView {
       el.style.width = `${w}px`;
       el.innerHTML = `
         <button class="shot" type="button" data-i="${c.i}" style="height:${h}px" aria-label="${esc(c.caption || 'Photograph')}, larger">
-          <span class="frame"><img alt="" decoding="async" src="${esc(c.src)}"></span>
+          <span class="frame"><img alt="" decoding="async" src="${esc(c.thumb || c.src)}" data-hi="${esc(c.src)}"></span>
         </button>
         ${c.text || c.date ? `<div class="entry ${c.i % 2 ? 'right' : 'left'}">
           ${c.date ? `<span class="date">${esc(c.date)}</span>` : ''}
@@ -231,6 +276,8 @@ export class StoryView {
     const side = beside ? Math.min(vw * 0.5 - 28, base / 2 + gutter + textW + 44) : Math.min(vw * 0.5 - 28, base / 2 + clamp(vw * 0.12, 56, 200));
     this.el.style.setProperty('--side', `${Math.round(side)}px`);
     this.place();
+    // Thumbnails are already on screen; start pulling the full-size files in behind them.
+    upgradePhotos(this.strip);
   }
 
   // Put moment `i` in the middle of the screen.
@@ -305,6 +352,10 @@ export class StoryView {
     const c = this.stories[this.index].chapters[i];
     this.lbIndex = i;
     const img = this.lb.querySelector('img');
+    // The lightbox shows the large file immediately; a thumbnail placeholder would only
+    // be a blur at this size. Assigning src cancels any pending load.
+    img.onload = null;
+    img.onerror = null;
     img.src = c.src; img.alt = c.caption || '';
     this.lb.querySelector('.lb-cap').textContent = [c.date, c.credit].filter(Boolean).join('  ·  ');
     if (this.lb.hidden) { this.lb.hidden = false; requestAnimationFrame(() => this.lb.classList.add('on')); }

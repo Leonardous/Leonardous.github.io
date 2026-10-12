@@ -1,22 +1,31 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#03040a">
-  <meta name="description" content="A waterfall of light. Every strand is a story; every falling glint is a moment.">
-  <title>Undertow</title>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2303040a'/%3E%3Cpath d='M9 6v19M13 6v21M16 6v22M19 6v21M23 6v19' stroke='%237d8cff' stroke-width='1.2' stroke-linecap='round'/%3E%3C/svg%3E">
+  <meta name="description" content="照片流：每一根丝线都是一座城市，每一道坠落的微光都是一张照片。">
+  <title>照片流 | LeonardTin</title>
+  <!-- 本页绕过了主题布局，所以标签标题和图标要自己声明；与影集页（影集 | LeonardTin）保持一致。 -->
+  <link rel="icon" href="/img/leonard.jpg">
+  <link rel="apple-touch-icon" href="/img/leonard.jpg">
   <link rel="stylesheet" href="./style.css">
   <style>
-    /* Local addition: this page is served outside the Butterfly layout, so it
-       needs its own way back to the blog. Kept inline so style.css stays exactly
-       as upstream ships it (easier to diff when pulling new versions). */
-    #back-to-blog {
+    /* Local additions. This page deliberately stays outside the Butterfly layout,
+       so its own chrome lives here instead of in style.css — that keeps style.css
+       byte-identical to upstream and easy to diff against new versions. */
+    #page-ui {
       position: fixed;
       top: max(18px, env(safe-area-inset-top));
       left: max(18px, env(safe-area-inset-left));
       z-index: 20;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font: 500 13px/1 -apple-system, BlinkMacSystemFont, 'Segoe UI',
+        'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+    }
+    #page-ui .pill {
       display: inline-flex;
       align-items: center;
       gap: 7px;
@@ -27,26 +36,85 @@
       backdrop-filter: blur(9px);
       -webkit-backdrop-filter: blur(9px);
       color: rgba(255, 255, 255, 0.78);
-      font: 500 13px/1 -apple-system, BlinkMacSystemFont, 'Segoe UI',
-        'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
       letter-spacing: 0.04em;
       text-decoration: none;
+      cursor: pointer;
       transition: color 0.25s ease, border-color 0.25s ease, background 0.25s ease;
     }
-    #back-to-blog:hover,
-    #back-to-blog:focus-visible {
+    #page-ui .pill:hover,
+    #page-ui .pill:focus-visible {
       color: #fff;
       border-color: rgba(255, 255, 255, 0.38);
       background: rgba(8, 10, 24, 0.66);
       outline: none;
     }
+    /* The speaker button is icon-only so it never competes with the way back. */
+    #sound-toggle {
+      position: relative;
+      width: 36px;
+      height: 36px;
+      padding: 0;
+      justify-content: center;
+    }
+    #sound-toggle .icon-on,
+    #sound-toggle .icon-off { display: none; }
+    #sound-toggle[data-state='playing'] .icon-on { display: block; }
+    #sound-toggle[data-state='muted'] .icon-off { display: block; }
+    /* Before audio starts, show sound as available but not yet running. */
+    #sound-toggle[data-state='idle'] .icon-on { display: block; opacity: 0.55; }
+    #sound-toggle[data-state='idle']::after {
+      content: '';
+      position: absolute;
+      top: 7px;
+      right: 7px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #9fb0ff;
+      box-shadow: 0 0 8px 2px rgba(159, 176, 255, 0.7);
+      animation: pulse 2.4s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.35; }
+      50% { opacity: 1; }
+    }
+    /* One-time hint; removed by script after the first gesture. */
+    #sound-hint {
+      position: fixed;
+      top: calc(max(18px, env(safe-area-inset-top)) + 52px);
+      left: max(18px, env(safe-area-inset-left));
+      z-index: 20;
+      margin: 0;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(8, 10, 24, 0.4);
+      backdrop-filter: blur(9px);
+      -webkit-backdrop-filter: blur(9px);
+      color: rgba(255, 255, 255, 0.5);
+      font: 400 12px/1 -apple-system, BlinkMacSystemFont, 'Segoe UI',
+        'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+      letter-spacing: 0.06em;
+      pointer-events: none;
+      transition: opacity 0.8s ease;
+    }
+    #sound-hint[data-done='true'] { opacity: 0; }
+    @media (prefers-reduced-motion: reduce) {
+      #sound-toggle[data-state='idle']::after { animation: none; }
+    }
   </style>
 </head>
 <body>
-  <a id="back-to-blog" href="/photos/">
-    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
-    返回博客相册
-  </a>
+  <div id="page-ui">
+    <a id="back-to-blog" class="pill" href="/photos/">
+      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+      返回博客相册
+    </a>
+    <button id="sound-toggle" class="pill" type="button" data-state="idle" aria-label="开启声音" aria-pressed="false">
+      <svg class="icon-on" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>
+      <svg class="icon-off" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="m16 9 5 6M21 9l-5 6"/></svg>
+    </button>
+  </div>
+  <p id="sound-hint">点击任意处开启声音</p>
   <canvas id="stream" tabindex="0" aria-label="A curtain of light made of stories. Every thread is a story. Use left and right arrows to move between threads and Enter to open one. Scroll or pinch to zoom."></canvas>
   <p id="error" role="alert" hidden></p>
   <div id="loader" aria-hidden="true"><i></i></div>

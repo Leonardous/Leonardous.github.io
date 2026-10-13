@@ -5,7 +5,8 @@
       "src": "medium/prague-photo1.jpg",
       "source_path": "/photos/albums/prague/photo1.jpg",
       "thumb": "thumb/prague-photo1.jpg",
-      "full": "assets/photos/prague-photo1.jpg",
+      "full": "/photos/albums/prague/photo1.jpg",
+      "city": "布拉格",
       "description": "伏尔塔瓦河畔"
     },
     {
@@ -13,7 +14,8 @@
       "src": "medium/prague-photo2.jpg",
       "source_path": "/photos/albums/prague/photo2.jpg",
       "thumb": "thumb/prague-photo2.jpg",
-      "full": "assets/photos/prague-photo2.jpg",
+      "full": "/photos/albums/prague/photo2.jpg",
+      "city": "布拉格",
       "description": "布拉格城堡塔顶"
     },
     {
@@ -21,7 +23,8 @@
       "src": "medium/prague-photo3.jpg",
       "source_path": "/photos/albums/prague/photo3.jpg",
       "thumb": "thumb/prague-photo3.jpg",
-      "full": "assets/photos/prague-photo3.jpg",
+      "full": "/photos/albums/prague/photo3.jpg",
+      "city": "布拉格",
       "description": "通往城堡的路上"
     },
     {
@@ -29,7 +32,8 @@
       "src": "medium/prague-photo4.jpg",
       "source_path": "/photos/albums/prague/photo4.jpg",
       "thumb": "thumb/prague-photo4.jpg",
-      "full": "assets/photos/prague-photo4.jpg",
+      "full": "/photos/albums/prague/photo4.jpg",
+      "city": "布拉格",
       "description": "卡夫卡头像"
     },
     {
@@ -37,7 +41,8 @@
       "src": "medium/munich-photo1.jpg",
       "source_path": "/photos/albums/munich/photo1.jpg",
       "thumb": "thumb/munich-photo1.jpg",
-      "full": "assets/photos/munich-photo1.jpg",
+      "full": "/photos/albums/munich/photo1.jpg",
+      "city": "慕尼黑",
       "description": "TUM主校区，如果有人走过就更好了"
     },
     {
@@ -45,7 +50,8 @@
       "src": "medium/munich-photo2.jpg",
       "source_path": "/photos/albums/munich/photo2.jpg",
       "thumb": "thumb/munich-photo2.jpg",
-      "full": "assets/photos/munich-photo2.jpg",
+      "full": "/photos/albums/munich/photo2.jpg",
+      "city": "慕尼黑",
       "description": "徒步雪山"
     },
     {
@@ -53,28 +59,32 @@
       "src": "medium/munich-photo3.jpg",
       "source_path": "/photos/albums/munich/photo3.jpg",
       "thumb": "thumb/munich-photo3.jpg",
-      "full": "assets/photos/munich-photo3.jpg"
+      "full": "/photos/albums/munich/photo3.jpg",
+      "city": "慕尼黑"
     },
     {
       "id": "munich-photo4",
       "src": "medium/munich-photo4.jpg",
       "source_path": "/photos/albums/munich/photo4.jpg",
       "thumb": "thumb/munich-photo4.jpg",
-      "full": "assets/photos/munich-photo4.jpg"
+      "full": "/photos/albums/munich/photo4.jpg",
+      "city": "慕尼黑"
     },
     {
       "id": "munich-photo5",
       "src": "medium/munich-photo5.jpg",
       "source_path": "/photos/albums/munich/photo5.jpg",
       "thumb": "thumb/munich-photo5.jpg",
-      "full": "assets/photos/munich-photo5.jpg"
+      "full": "/photos/albums/munich/photo5.jpg",
+      "city": "慕尼黑"
     },
     {
       "id": "munich-photo6",
       "src": "medium/munich-photo6.jpg",
       "source_path": "/photos/albums/munich/photo6.jpg",
       "thumb": "thumb/munich-photo6.jpg",
-      "full": "assets/photos/munich-photo6.jpg",
+      "full": "/photos/albums/munich/photo6.jpg",
+      "city": "慕尼黑",
       "description": "市中心的教堂"
     },
     {
@@ -82,35 +92,40 @@
       "src": "medium/munich-photo7.jpg",
       "source_path": "/photos/albums/munich/photo7.jpg",
       "thumb": "thumb/munich-photo7.jpg",
-      "full": "assets/photos/munich-photo7.jpg"
+      "full": "/photos/albums/munich/photo7.jpg",
+      "city": "慕尼黑"
     },
     {
       "id": "munich-photo10",
       "src": "medium/munich-photo10.jpg",
       "source_path": "/photos/albums/munich/photo10.jpg",
       "thumb": "thumb/munich-photo10.jpg",
-      "full": "assets/photos/munich-photo10.jpg"
+      "full": "/photos/albums/munich/photo10.jpg",
+      "city": "慕尼黑"
     },
     {
       "id": "munich-photo8",
       "src": "medium/munich-photo8.jpg",
       "source_path": "/photos/albums/munich/photo8.jpg",
       "thumb": "thumb/munich-photo8.jpg",
-      "full": "assets/photos/munich-photo8.jpg"
+      "full": "/photos/albums/munich/photo8.jpg",
+      "city": "慕尼黑"
     },
     {
       "id": "munich-photo9",
       "src": "medium/munich-photo9.jpg",
       "source_path": "/photos/albums/munich/photo9.jpg",
       "thumb": "thumb/munich-photo9.jpg",
-      "full": "assets/photos/munich-photo9.jpg"
+      "full": "/photos/albums/munich/photo9.jpg",
+      "city": "慕尼黑"
     },
     {
       "id": "lisbon-photo1",
       "src": "medium/lisbon-photo1.jpg",
       "source_path": "/photos/albums/lisbon/photo1.jpg",
       "thumb": "thumb/lisbon-photo1.jpg",
-      "full": "assets/photos/lisbon-photo1.jpg",
+      "full": "/photos/albums/lisbon/photo1.jpg",
+      "city": "里斯本",
       "description": "热罗尼莫斯修道院"
     },
     {
@@ -118,7 +133,8 @@
       "src": "medium/lisbon-photo2.jpg",
       "source_path": "/photos/albums/lisbon/photo2.jpg",
       "thumb": "thumb/lisbon-photo2.jpg",
-      "full": "assets/photos/lisbon-photo2.jpg",
+      "full": "/photos/albums/lisbon/photo2.jpg",
+      "city": "里斯本",
       "description": "罗卡角，傍晚"
     },
     {
@@ -126,7 +142,8 @@
       "src": "medium/lisbon-photo3.jpg",
       "source_path": "/photos/albums/lisbon/photo3.jpg",
       "thumb": "thumb/lisbon-photo3.jpg",
-      "full": "assets/photos/lisbon-photo3.jpg",
+      "full": "/photos/albums/lisbon/photo3.jpg",
+      "city": "里斯本",
       "description": "罗卡角，我会来这里求婚的"
     },
     {
@@ -134,224 +151,256 @@
       "src": "medium/paris-photo1.jpg",
       "source_path": "/photos/albums/paris/photo1.jpg",
       "thumb": "thumb/paris-photo1.jpg",
-      "full": "assets/photos/paris-photo1.jpg"
+      "full": "/photos/albums/paris/photo1.jpg",
+      "city": "巴黎"
     },
     {
       "id": "paris-photo2",
       "src": "medium/paris-photo2.jpg",
       "source_path": "/photos/albums/paris/photo2.jpg",
       "thumb": "thumb/paris-photo2.jpg",
-      "full": "assets/photos/paris-photo2.jpg"
+      "full": "/photos/albums/paris/photo2.jpg",
+      "city": "巴黎"
     },
     {
       "id": "paris-photo3",
       "src": "medium/paris-photo3.jpg",
       "source_path": "/photos/albums/paris/photo3.jpg",
       "thumb": "thumb/paris-photo3.jpg",
-      "full": "assets/photos/paris-photo3.jpg"
+      "full": "/photos/albums/paris/photo3.jpg",
+      "city": "巴黎"
     },
     {
       "id": "paris-photo4",
       "src": "medium/paris-photo4.jpg",
       "source_path": "/photos/albums/paris/photo4.jpg",
       "thumb": "thumb/paris-photo4.jpg",
-      "full": "assets/photos/paris-photo4.jpg"
+      "full": "/photos/albums/paris/photo4.jpg",
+      "city": "巴黎"
     },
     {
       "id": "paris-photo5",
       "src": "medium/paris-photo5.jpg",
       "source_path": "/photos/albums/paris/photo5.jpg",
       "thumb": "thumb/paris-photo5.jpg",
-      "full": "assets/photos/paris-photo5.jpg"
+      "full": "/photos/albums/paris/photo5.jpg",
+      "city": "巴黎"
     },
     {
       "id": "porto-photo1",
       "src": "medium/porto-photo1.jpg",
       "source_path": "/photos/albums/porto/photo1.jpg",
       "thumb": "thumb/porto-photo1.jpg",
-      "full": "assets/photos/porto-photo1.jpg"
+      "full": "/photos/albums/porto/photo1.jpg",
+      "city": "波尔图"
     },
     {
       "id": "porto-photo2",
       "src": "medium/porto-photo2.jpg",
       "source_path": "/photos/albums/porto/photo2.jpg",
       "thumb": "thumb/porto-photo2.jpg",
-      "full": "assets/photos/porto-photo2.jpg"
+      "full": "/photos/albums/porto/photo2.jpg",
+      "city": "波尔图"
     },
     {
       "id": "porto-photo3",
       "src": "medium/porto-photo3.jpg",
       "source_path": "/photos/albums/porto/photo3.jpg",
       "thumb": "thumb/porto-photo3.jpg",
-      "full": "assets/photos/porto-photo3.jpg"
+      "full": "/photos/albums/porto/photo3.jpg",
+      "city": "波尔图"
     },
     {
       "id": "barcelona-photo1",
       "src": "medium/barcelona-photo1.jpg",
       "source_path": "/photos/albums/barcelona/photo1.jpg",
       "thumb": "thumb/barcelona-photo1.jpg",
-      "full": "assets/photos/barcelona-photo1.jpg"
+      "full": "/photos/albums/barcelona/photo1.jpg",
+      "city": "巴塞罗那"
     },
     {
       "id": "barcelona-photo2",
       "src": "medium/barcelona-photo2.jpg",
       "source_path": "/photos/albums/barcelona/photo2.jpg",
       "thumb": "thumb/barcelona-photo2.jpg",
-      "full": "assets/photos/barcelona-photo2.jpg"
+      "full": "/photos/albums/barcelona/photo2.jpg",
+      "city": "巴塞罗那"
     },
     {
       "id": "barcelona-photo3",
       "src": "medium/barcelona-photo3.jpg",
       "source_path": "/photos/albums/barcelona/photo3.jpg",
       "thumb": "thumb/barcelona-photo3.jpg",
-      "full": "assets/photos/barcelona-photo3.jpg"
+      "full": "/photos/albums/barcelona/photo3.jpg",
+      "city": "巴塞罗那"
     },
     {
       "id": "barcelona-photo4",
       "src": "medium/barcelona-photo4.jpg",
       "source_path": "/photos/albums/barcelona/photo4.jpg",
       "thumb": "thumb/barcelona-photo4.jpg",
-      "full": "assets/photos/barcelona-photo4.jpg"
+      "full": "/photos/albums/barcelona/photo4.jpg",
+      "city": "巴塞罗那"
     },
     {
       "id": "barcelona-photo5",
       "src": "medium/barcelona-photo5.jpg",
       "source_path": "/photos/albums/barcelona/photo5.jpg",
       "thumb": "thumb/barcelona-photo5.jpg",
-      "full": "assets/photos/barcelona-photo5.jpg"
+      "full": "/photos/albums/barcelona/photo5.jpg",
+      "city": "巴塞罗那"
     },
     {
       "id": "istanbul-photot1",
       "src": "medium/istanbul-photot1.jpg",
       "source_path": "/photos/albums/istanbul/photot1.jpg",
       "thumb": "thumb/istanbul-photot1.jpg",
-      "full": "assets/photos/istanbul-photot1.jpg"
+      "full": "/photos/albums/istanbul/photot1.jpg",
+      "city": "伊斯坦布尔"
     },
     {
       "id": "istanbul-photo2",
       "src": "medium/istanbul-photo2.jpg",
       "source_path": "/photos/albums/istanbul/photo2.jpg",
       "thumb": "thumb/istanbul-photo2.jpg",
-      "full": "assets/photos/istanbul-photo2.jpg"
+      "full": "/photos/albums/istanbul/photo2.jpg",
+      "city": "伊斯坦布尔"
     },
     {
       "id": "istanbul-photo3",
       "src": "medium/istanbul-photo3.jpg",
       "source_path": "/photos/albums/istanbul/photo3.jpg",
       "thumb": "thumb/istanbul-photo3.jpg",
-      "full": "assets/photos/istanbul-photo3.jpg"
+      "full": "/photos/albums/istanbul/photo3.jpg",
+      "city": "伊斯坦布尔"
     },
     {
       "id": "istanbul-photo4",
       "src": "medium/istanbul-photo4.jpg",
       "source_path": "/photos/albums/istanbul/photo4.jpg",
       "thumb": "thumb/istanbul-photo4.jpg",
-      "full": "assets/photos/istanbul-photo4.jpg"
+      "full": "/photos/albums/istanbul/photo4.jpg",
+      "city": "伊斯坦布尔"
     },
     {
       "id": "bled-photo1",
       "src": "medium/bled-photo1.jpg",
       "source_path": "/photos/albums/bled/photo1.jpg",
       "thumb": "thumb/bled-photo1.jpg",
-      "full": "assets/photos/bled-photo1.jpg"
+      "full": "/photos/albums/bled/photo1.jpg",
+      "city": "布莱德"
     },
     {
       "id": "bled-photo2",
       "src": "medium/bled-photo2.jpg",
       "source_path": "/photos/albums/bled/photo2.jpg",
       "thumb": "thumb/bled-photo2.jpg",
-      "full": "assets/photos/bled-photo2.jpg"
+      "full": "/photos/albums/bled/photo2.jpg",
+      "city": "布莱德"
     },
     {
       "id": "bled-photo3",
       "src": "medium/bled-photo3.jpg",
       "source_path": "/photos/albums/bled/photo3.jpg",
       "thumb": "thumb/bled-photo3.jpg",
-      "full": "assets/photos/bled-photo3.jpg"
+      "full": "/photos/albums/bled/photo3.jpg",
+      "city": "布莱德"
     },
     {
       "id": "bled-photo4",
       "src": "medium/bled-photo4.jpg",
       "source_path": "/photos/albums/bled/photo4.jpg",
       "thumb": "thumb/bled-photo4.jpg",
-      "full": "assets/photos/bled-photo4.jpg"
+      "full": "/photos/albums/bled/photo4.jpg",
+      "city": "布莱德"
     },
     {
       "id": "madrid-photo1",
       "src": "medium/madrid-photo1.jpg",
       "source_path": "/photos/albums/madrid/photo1.jpg",
       "thumb": "thumb/madrid-photo1.jpg",
-      "full": "assets/photos/madrid-photo1.jpg"
+      "full": "/photos/albums/madrid/photo1.jpg",
+      "city": "马德里"
     },
     {
       "id": "madrid-photo2",
       "src": "medium/madrid-photo2.jpg",
       "source_path": "/photos/albums/madrid/photo2.jpg",
       "thumb": "thumb/madrid-photo2.jpg",
-      "full": "assets/photos/madrid-photo2.jpg"
+      "full": "/photos/albums/madrid/photo2.jpg",
+      "city": "马德里"
     },
     {
       "id": "ljubljana-photo1",
       "src": "medium/ljubljana-photo1.jpg",
       "source_path": "/photos/albums/ljubljana/photo1.jpg",
       "thumb": "thumb/ljubljana-photo1.jpg",
-      "full": "assets/photos/ljubljana-photo1.jpg"
+      "full": "/photos/albums/ljubljana/photo1.jpg",
+      "city": "卢布尔雅那"
     },
     {
       "id": "ljubljana-photo2",
       "src": "medium/ljubljana-photo2.jpg",
       "source_path": "/photos/albums/ljubljana/photo2.jpg",
       "thumb": "thumb/ljubljana-photo2.jpg",
-      "full": "assets/photos/ljubljana-photo2.jpg"
+      "full": "/photos/albums/ljubljana/photo2.jpg",
+      "city": "卢布尔雅那"
     },
     {
       "id": "dresden-photo1",
       "src": "medium/dresden-photo1.jpg",
       "source_path": "/photos/albums/dresden/photo1.jpg",
       "thumb": "thumb/dresden-photo1.jpg",
-      "full": "assets/photos/dresden-photo1.jpg"
+      "full": "/photos/albums/dresden/photo1.jpg",
+      "city": "德累斯顿"
     },
     {
       "id": "dresden-photo2",
       "src": "medium/dresden-photo2.jpg",
       "source_path": "/photos/albums/dresden/photo2.jpg",
       "thumb": "thumb/dresden-photo2.jpg",
-      "full": "assets/photos/dresden-photo2.jpg"
+      "full": "/photos/albums/dresden/photo2.jpg",
+      "city": "德累斯顿"
     },
     {
       "id": "longyearbyen-photo1",
       "src": "medium/longyearbyen-photo1.jpg",
       "source_path": "/photos/albums/longyearbyen/photo1.jpg",
       "thumb": "thumb/longyearbyen-photo1.jpg",
-      "full": "assets/photos/longyearbyen-photo1.jpg"
+      "full": "/photos/albums/longyearbyen/photo1.jpg",
+      "city": "朗伊尔城"
     },
     {
       "id": "longyearbyen-photo2",
       "src": "medium/longyearbyen-photo2.jpg",
       "source_path": "/photos/albums/longyearbyen/photo2.jpg",
       "thumb": "thumb/longyearbyen-photo2.jpg",
-      "full": "assets/photos/longyearbyen-photo2.jpg"
+      "full": "/photos/albums/longyearbyen/photo2.jpg",
+      "city": "朗伊尔城"
     },
     {
       "id": "longyearbyen-photo3",
       "src": "medium/longyearbyen-photo3.jpg",
       "source_path": "/photos/albums/longyearbyen/photo3.jpg",
       "thumb": "thumb/longyearbyen-photo3.jpg",
-      "full": "assets/photos/longyearbyen-photo3.jpg"
+      "full": "/photos/albums/longyearbyen/photo3.jpg",
+      "city": "朗伊尔城"
     },
     {
       "id": "longyearbyen-photo4",
       "src": "medium/longyearbyen-photo4.jpg",
       "source_path": "/photos/albums/longyearbyen/photo4.jpg",
       "thumb": "thumb/longyearbyen-photo4.jpg",
-      "full": "assets/photos/longyearbyen-photo4.jpg"
+      "full": "/photos/albums/longyearbyen/photo4.jpg",
+      "city": "朗伊尔城"
     },
     {
       "id": "longyearbyen-photo5",
       "src": "medium/longyearbyen-photo5.jpg",
       "source_path": "/photos/albums/longyearbyen/photo5.jpg",
       "thumb": "thumb/longyearbyen-photo5.jpg",
-      "full": "assets/photos/longyearbyen-photo5.jpg"
+      "full": "/photos/albums/longyearbyen/photo5.jpg",
+      "city": "朗伊尔城"
     }
   ]
 }

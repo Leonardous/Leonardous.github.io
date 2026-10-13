@@ -15,7 +15,7 @@ import { StoryView } from './story.js';
 import { clamp, smooth, damp, mulberry } from './math.js';
 import { createGLHelpers } from './gl.js';
 import { loadCatalog } from './catalog.js';
-import { loadPass, LAYER, THUMB_LAYER } from './photos.js';
+import { loadPass, FULL_LAYER, THUMB_LAYER } from './photos.js';
 import { buildStories, NF } from './stories.js';
 import { IDLE, FIBRE_VS, FIBRE_FS, FLOOR_VS, FLOOR_FS, POST_VS, DOWN_FS, UP_FS, BLUR_FS, COMPOSITE_FS } from './shaders.js';
 // LOCAL ADDITION (photos-stream): generated ambience, started on the first user gesture.
@@ -52,6 +52,9 @@ let RT = null;
 // Progressive loading: the curtain renders from thumbnails while the full-resolution
 // array is built in the background, then swaps in when a story is opened.
 let arrTexLow = null, arrTexFull = null, fullReady = false, wantFull = false, usingFull = false;
+// 高清档一就绪就把整幕换过去（不必等点进故事）。可以在控制台用
+// window.__undertow.forceLow() 关掉，用来对比低清效果。
+let autoUpgradeOverride = true;
 let fullLoad = null; // { progress } while pass 2 is running
 let program, dataTexture, updateTexture, target, freeTarget;
 
@@ -103,13 +106,22 @@ function buildFibres() {
 }
 
 function uploadStories() {
-  const data = new Float32Array(1024 * Math.ceil(NF * 3 / 1024) * 4);
+  // 每个故事 4 个 texel（每行 1024 个 texel，所以一个故事绝不会跨行）：
+  //   texel 0 : x=章节数, yzw=故事颜色
+  //   texel 1 : 章节 0-3 的层号
+  //   texel 2 : 章节 4-7 的层号
+  //   texel 3 : 章节 8-15 的层号
+  // 上限因此是 16 章（旧版是每故事 2 个 texel = 8 章）。
+  const STRIDE = 4;
+  const data = new Float32Array(1024 * Math.ceil(NF * STRIDE / 1024) * 4);
   stories.forEach((s, i) => {
-    const L = s.chapters.map(c => c.layer);
-    data.set([s.chapters.length, ...s.col], i * 12);
-    data.set([L[0] ?? 0, L[1] ?? 0, L[2] ?? 0, L[3] ?? 0, L[4] ?? 0, L[5] ?? 0, L[6] ?? 0, L[7] ?? 0], i * 12 + 4);
+    const base = i * STRIDE * 4;
+    data.set([s.chapters.length, ...s.col], base);
+    for (let k = 0; k < 16; k++) {
+      data[base + 4 + k] = s.chapters[k] ? s.chapters[k].layer : 0;
+    }
   });
-  T.story = dataTexture(1024, Math.ceil(NF * 3 / 1024), data);
+  T.story = dataTexture(1024, Math.ceil(NF * STRIDE / 1024), data);
   T.layers = dataTexture(photos.length, 1, new Float32Array(photos.flatMap(p => [p.aspect, 0, 0, 0])));
 }
 
@@ -396,6 +408,8 @@ function drawWorld(rt, mirror) {
   gl.activeTexture(gl.TEXTURE2); gl.bindTexture(gl.TEXTURE_2D, T.story.t); gl.uniform1i(u.uStory, 2);
   gl.activeTexture(gl.TEXTURE3); gl.bindTexture(gl.TEXTURE_2D, T.layers.t); gl.uniform1i(u.uLayers, 3);
   gl.activeTexture(gl.TEXTURE4); gl.bindTexture(gl.TEXTURE_2D_ARRAY, usingFull && arrTexFull ? arrTexFull : arrTexLow); gl.uniform1i(u.uArr, 4);
+  // 着色器按这个边长决定 mip 层级，必须跟着当前绑定的数组走。
+  gl.uniform1f(u.uArrSize, usingFull && arrTexFull ? FULL_LAYER : THUMB_LAYER);
   gl.uniform1f(u.uMinPx, mirror ? 1.6 : 1.0);
   gl.uniform1f(u.uSpacing, SPACING); gl.uniform1f(u.uW, PHOTO_W); gl.uniform1f(u.uS, SLOT);
   gl.uniform1f(u.uGain, (mirror ? 0.55 : 0.78) * (1.05 - 0.2 * zt));
@@ -466,10 +480,9 @@ function render() {
 function frame(now) {
   requestAnimationFrame(frame);
   const dt = Math.min(0.05, (now - last) / 1000); last = now;
-  // Swap texture arrays at a frame boundary, never mid-frame. Taking full resolution
-  // is deferred until a story is open — that is where the images are large enough for
-  // the change to be invisible, and where it actually matters.
-  const nextUsingFull = wantFull && fullReady;
+  // 换纹理数组只在帧边界做，避免半帧状态。高清档一旦就绪就整幕切过去；
+  // 故事打开时也用它（那时照片最大，最需要细节）。
+  const nextUsingFull = fullReady && (wantFull || autoUpgradeOverride);
   if (nextUsingFull !== usingFull) usingFull = nextUsingFull;
   if (sleeping || document.hidden) return;
   step(dt, now);
@@ -533,15 +546,17 @@ async function boot() {
     fullReady, wantFull, usingFull,
     fullProgress: fullLoad ? Number(fullLoad.progress.toFixed(3)) : 0,
   });
+  // 仅供对比调试：?lowres=1 时不自动升到高清档，用来复现旧的低清效果。
+  window.__undertow.forceLow = () => { autoUpgradeOverride = false; };
 
-  // Pass 2: full resolution. Started only once the curtain is on screen and the
-  // browser is idle — otherwise a ~13 MB download competes with the first frames.
+  // Pass 2: 最高画质。等首屏稳定后开始，来源用相册原图（流目录里的 full/），
+  // 这样 2048 的层里装的是真正的细节，而不是把 1024 放大。
   const startFullLoad = () => {
     if (fullLoad) return;
     fullLoad = { progress: 0 };
     loadPass(gl, photos, {
-      size: LAYER,
-      srcOf: p => p.src,
+      size: FULL_LAYER,
+      srcOf: p => p.full || p.src,
       workers: 3,
       onProgress: (done, total) => { fullLoad.progress = done / total; },
     })

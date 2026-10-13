@@ -9,8 +9,11 @@
 // Both arrays are 2D arrays so they share one sampler and one set of shader uniforms,
 // and so a single `gl.bindTexture` swaps between them.
 
-export const LAYER = 512;
+// 两层纹理数组。256 让首屏先出画面，1920 的那层在后台构建完成后自动替换整幕。
+// 为什么最高档要跟相册原图一样大：照片在屏幕上被放大时，着色器按"贴图层边长 / 屏幕像素"
+// 取 mip，层越小就越早掉进更粗的 mip，看起来越糊。1920 让最大缩放下仍停留在第 0 级。
 export const THUMB_LAYER = 256;
+export const FULL_LAYER = 1920;
 
 function decode(src) {
   return new Promise((res, rej) => {
@@ -44,7 +47,7 @@ function measureAspect(photos, i, img) {
  * Upload one pass of photographs into a fresh 2D texture array.
  *
  * @param {object} opts
- * @param {number} opts.size          layer edge in pixels (THUMB_LAYER or LAYER)
+ * @param {number} opts.size          layer edge in pixels (THUMB_LAYER or FULL_LAYER)
  * @param {(photo, i) => string} opts.srcOf  which file to read for this pass
  * @param {number} opts.workers       concurrent decodes
  * @param {(done:number, total:number) => void} [opts.onProgress]
@@ -54,6 +57,8 @@ export async function loadPass(gl, photos, { size, srcOf, workers = 4, onProgres
   if (photos.length > limit) {
     throw new Error(`This device supports at most ${limit} photos; the catalog has ${photos.length}.`);
   }
+  const maxTex = gl.getParameter(gl.MAX_TEXTURE_SIZE);
+  if (size > maxTex) throw new Error(`This device supports textures up to ${maxTex}px; asked for ${size}.`);
 
   const tex = gl.createTexture();
   gl.bindTexture(gl.TEXTURE_2D_ARRAY, tex);

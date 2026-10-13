@@ -1,4 +1,3 @@
-import { LAYER } from './photos.js';
 export const IDLE = 3;
 
 const COMMON = `#version 300 es
@@ -40,6 +39,7 @@ export const FIBRE_VS = COMMON + NOISE + `
 layout(location=0) in vec2 aV;           // x: position along the fibre, y: side
 uniform highp sampler2D uStory;
 uniform vec3 uCam; uniform float uF, uAspect, uHpx, uMinPx, uMirror, uSpacing;
+uniform float uArrSize;                  // 仅用于顶点阶段；片元阶段另有同名声明
 uniform vec2 uSelect;                    // line, amount
 uniform float uIdleL[${IDLE}], uIdleA[${IDLE}];
 out float vU, vY, vX0, vSeed, vFlare, vSide, vHalfPx, vQuadPx, vNorm, vCl, vCl2, vSpacePx, vPpu, vXw;
@@ -88,7 +88,7 @@ void main(){
 export const FIBRE_FS = COMMON + NOISE + `
 uniform sampler2DArray uArr;
 uniform highp sampler2D uStory, uLayers;
-uniform float uGain, uMirror, uIntro, uW, uS, uDim;
+uniform float uGain, uMirror, uIntro, uW, uS, uDim, uArrSize;
 uniform vec2 uSelect;
 in float vU, vY, vX0, vSeed, vFlare, vSide, vHalfPx, vQuadPx, vNorm, vCl, vCl2, vSpacePx, vPpu, vXw;
 flat in int vId; flat in float vN, vPhase, vHov, vSel, vFlowT; flat in vec3 vCol;
@@ -124,9 +124,12 @@ void main(){
     float slot=floor(sc/uS), local=sc-slot*uS;
     int n=max(int(vN+.5),1);
     int ch=int(mod(slot,float(n)));
-    vec4 L=texelFetch(uStory,at(vId*3+1+ch/4),0);
-    int cc=ch-(ch/4)*4;
-    float layer=cc==0?L.x:cc==1?L.y:cc==2?L.z:L.w;
+    // 每个故事占 4 个 texel：第 0 个存章节数与颜色，第 1、2 个存章节 0-7 的层号，
+    // 第 3 个存章节 8-15。上限 16 章。
+    vec4 L=texelFetch(uStory,at(vId*4+1+ch/8),0);
+    int cc=ch-(ch/8)*8;
+    int c4=cc-(cc/4)*4;
+    float layer=c4==0?L.x:c4==1?L.y:c4==2?L.z:L.w;
     float aspect=texelFetch(uLayers,ivec2(int(layer),0),0).x;
     float h=uW/aspect;
     float vp=(local-(uS-h)*.5)/h, up=.5+vXw/uW;
@@ -135,7 +138,10 @@ void main(){
     vec3 st=vCol*(.5+.35*cl);
     float inside=0., core=1.;
     if(detail>.001){
-      float lod=log2(max(1.,${LAYER}./(min(uW,h)*vPpu)));
+      // 放大时不要采样更粗的 mip：照片在屏幕上大于它的基础分辨率时，应该用第 0 级
+      // 去拉伸，至少保留原始细节。原来这里硬编码了 512，而贴图是 1024，
+      // 导致放大后一律偏糊（白丢一半分辨率）。
+      float lod=max(0.,log2(uArrSize/(min(uW,h)*vPpu)));
       vec3 img=textureLod(uArr,vec3(clamp(up,0.,1.),clamp(vp,0.,1.),layer),lod).rgb;
       float e=1./max(h*vPpu,1.);
       inside=ss(0.,e,vp)*ss(1.,1.-e,vp)*ss(uYB,uYB+3.*uS,y)*ss(uCH,uCH-2.*uS,y);

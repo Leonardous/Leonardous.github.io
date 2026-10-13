@@ -1,10 +1,11 @@
 import { NF, MAX_CHAPTERS } from './stories.js';
 
-// Local relaxation for progressive loading: the page stores three sizes of each
-// photograph (assets/photos = original, medium = 1024px for the GPU and story view,
-// thumb = 256px for first paint), so the path check accepts those three roots while
-// keeping the original intent — a relative local path with no traversal.
-const LOCAL_PHOTO = /^(assets\/photos|medium|thumb)\/[\w./-]+$/;
+// Local relaxation for progressive loading: the page keeps three sizes of each photograph
+// (thumb = 256px for first paint, medium = 1024px for the curtain, and the album's own
+// 1920px copy for the highest tier), so these four roots are accepted while keeping the
+// original intent — a relative local path with no traversal.
+// full 用站点绝对路径（/photos/albums/...），其它两个是相对页面的路径，所以斜杠可有可无。
+const LOCAL_PHOTO = /^\/?(assets\/photos|medium|thumb|photos\/albums)\/[\w./-]+$/;
 
 // Shared by the browser and the offline catalog check. No DOM or WebGL dependencies.
 export function validateCatalog(catalog, data) {
@@ -21,11 +22,11 @@ export function validateCatalog(catalog, data) {
     for (const key of ['thumb', 'full']) {
       if (p[key] == null) continue;
       if (!text(p[key]) || !LOCAL_PHOTO.test(p[key]) || p[key].split('/').includes('..')) {
-        fail(`Photo ${p.id}: ${key} must be a local path under assets/photos/, medium/ or thumb/.`);
+        fail(`Photo ${p.id}: ${key} must be a local path under medium/, thumb/, assets/photos/ or /photos/albums/.`);
       }
     }
     ids.add(p.id);
-    return { ...p, description: p.description ?? '', photographer: p.photographer ?? '', avg: [0.5, 0.5, 0.5] };
+    return { ...p, description: p.description ?? '', photographer: p.photographer ?? '', city: p.city ?? '', avg: [0.5, 0.5, 0.5] };
   });
   const lines = new Set(), storyIds = new Set();
   const authored = data.stories.map((s, k) => {

@@ -11,16 +11,16 @@
 // half-float buffer, with a mirrored, blurred copy for the floor, a mip-chain bloom, and a
 // final tone-mapping pass.
 
-import { StoryView } from './story.js?v=41d560f05337';
-import { clamp, smooth, damp, mulberry } from './math.js?v=41d560f05337';
-import { createGLHelpers } from './gl.js?v=41d560f05337';
-import { loadCatalog } from './catalog.js?v=41d560f05337';
-import { loadPass, FULL_LAYER, THUMB_LAYER } from './photos.js?v=41d560f05337';
-import { buildStories, packStoryTexture, NF } from './stories.js?v=41d560f05337';
-import { IDLE, FIBRE_VS, FIBRE_FS, FLOOR_VS, FLOOR_FS, POST_VS, DOWN_FS, UP_FS, BLUR_FS, COMPOSITE_FS } from './shaders.js?v=41d560f05337';
+import { StoryView } from './story.js?v=e8b40f6f86ec';
+import { clamp, smooth, damp, mulberry } from './math.js?v=e8b40f6f86ec';
+import { createGLHelpers } from './gl.js?v=e8b40f6f86ec';
+import { loadCatalog } from './catalog.js?v=e8b40f6f86ec';
+import { loadPass, FULL_LAYER, THUMB_LAYER } from './photos.js?v=e8b40f6f86ec';
+import { buildStories, packStoryTexture, NF } from './stories.js?v=e8b40f6f86ec';
+import { IDLE, FIBRE_VS, FIBRE_FS, FLOOR_VS, FLOOR_FS, POST_VS, DOWN_FS, UP_FS, BLUR_FS, COMPOSITE_FS } from './shaders.js?v=e8b40f6f86ec';
 // LOCAL ADDITION (photos-stream): generated ambience, started on the first user gesture.
 // Delete this import and the initAmbience() call in boot() to return to upstream behaviour.
-import { initAmbience } from './ambience.js?v=41d560f05337';
+import { initAmbience } from './ambience.js?v=e8b40f6f86ec';
 
 const canvas = document.getElementById('stream');
 const CAPTURE = new URLSearchParams(location.search).has('capture');

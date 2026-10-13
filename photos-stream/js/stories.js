@@ -1,4 +1,4 @@
-import { clamp } from './math.js?v=41d560f05337';
+import { clamp, mulberry } from './math.js?v=e8b40f6f86ec';
 export const NF = 2400;
 // One RGBA texel stores the chapter count and colour, followed by four chapter
 // indices per texel. Keep the CPU packing and both shader stages on this layout.
@@ -19,7 +19,8 @@ export function packStoryTexture(stories) {
   return { width, height, data };
 }
 
-// Keep the dense curtain, with consecutive groups of threads for each city.
+// Interleave cities throughout the dense curtain, with no equal neighbours and
+// a stable seed per line.
 // Every thread contains that city's complete album, in its authored story order.
 export function buildStories(photos, authored = [], journal = []) {
   const stories = new Array(NF);
@@ -60,6 +61,22 @@ export function buildStories(photos, authored = [], journal = []) {
     };
   });
 
+  // Work backwards from authored lines before choosing randomly. A city is
+  // feasible here if the next line can use a different one. This also handles
+  // two-city albums, where an authored line fixes the alternating sequence.
+  const cityChoices = new Array(NF);
+  if (cities.length > 1) {
+    for (let i = NF - 1; i >= 0; i--) {
+      let choices = stories[i]
+        ? cities.filter(candidate => candidate.city === cityOf(stories[i].chapters[0].photo))
+        : cities;
+      const next = cityChoices[i + 1];
+      if (next?.length === 1) choices = choices.filter(candidate => candidate.city !== next[0].city);
+      if (!choices.length) throw new Error('Authored story positions cannot be arranged without adjacent cities repeating.');
+      cityChoices[i] = choices;
+    }
+  }
+
   for (let i = 0; i < NF; i++) {
     if (stories[i]) {
       const story = stories[i];
@@ -76,7 +93,12 @@ export function buildStories(photos, authored = [], journal = []) {
       continue;
     }
 
-    const { name, chapters } = cities[Math.floor(i * cities.length / NF)];
+    const previousCity = i > 0 ? cityOf(stories[i - 1].chapters[0].photo) : null;
+    const choices = cities.length > 1
+      ? cityChoices[i].filter(candidate => candidate.city !== previousCity)
+      : cities;
+    const random = mulberry(i * 2654435761 + 97);
+    const { name, chapters } = choices[Math.floor(random() * choices.length)];
     stories[i] = { id: `line-${i + 1}`, line: i, title: name, chapters: chapters.map(chapter => ({ ...chapter })) };
   }
   const byId = new Map(photos.map((p, j) => [p.id, j]));

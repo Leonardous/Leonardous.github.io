@@ -147,8 +147,9 @@
       "width": 1920,
       "height": 1440,
       "city": "慕尼黑",
-      "title": "",
-      "text": ""
+      "title": "乌鸦",
+      "text": "慕尼黑有挺多的",
+      "description": "乌鸦"
     },
     {
       "id": "munich-photo6",
@@ -160,7 +161,7 @@
       "height": 2560,
       "city": "慕尼黑",
       "title": "市中心的教堂",
-      "text": "",
+      "text": "从年轻一直到老年，他们实现了婚礼上的誓言",
       "date": "2026-05-18",
       "description": "市中心的教堂"
     },
@@ -173,8 +174,9 @@
       "width": 1920,
       "height": 1440,
       "city": "慕尼黑",
-      "title": "",
-      "text": ""
+      "title": "主火附近",
+      "text": "从地铁口出来，去亚超的路上就能路过，晚上的蓝色灯光异常抓眼",
+      "description": "主火附近"
     },
     {
       "id": "munich-photo10",
@@ -185,9 +187,10 @@
       "width": 1920,
       "height": 1440,
       "city": "慕尼黑",
-      "title": "",
+      "title": "天鹅堡脚下",
       "text": "",
-      "date": "2026-06-14"
+      "date": "2026-06-14",
+      "description": "天鹅堡脚下"
     },
     {
       "id": "munich-photo8",
@@ -198,9 +201,10 @@
       "width": 1920,
       "height": 1440,
       "city": "慕尼黑",
-      "title": "",
-      "text": "",
-      "date": "2026-04-20"
+      "title": "奥林附近的必胜客",
+      "text": "不知道味道怎么样",
+      "date": "2026-04-20",
+      "description": "奥林附近的必胜客"
     },
     {
       "id": "munich-photo9",
@@ -211,9 +215,10 @@
       "width": 1920,
       "height": 1440,
       "city": "慕尼黑",
-      "title": "",
-      "text": "",
-      "date": "2026-04-20"
+      "title": "路灯月亮",
+      "text": "是不是很像月亮",
+      "date": "2026-04-20",
+      "description": "路灯月亮"
     },
     {
       "id": "lisbon-photo1",
@@ -252,9 +257,10 @@
       "width": 1920,
       "height": 1440,
       "city": "里斯本",
-      "title": "",
-      "text": "",
-      "date": "2025-12-29"
+      "title": "罗卡角的山浪",
+      "text": "这个山有点像神奈川冲浪里的浪",
+      "date": "2025-12-29",
+      "description": "罗卡角的山浪"
     },
     {
       "id": "paris-photo1",
@@ -265,8 +271,9 @@
       "width": 1920,
       "height": 1440,
       "city": "巴黎",
-      "title": "",
-      "text": ""
+      "title": "凯旋门",
+      "text": "这个视角的凯旋门不常见",
+      "description": "凯旋门"
     },
     {
       "id": "paris-photo2",
@@ -277,8 +284,9 @@
       "width": 1920,
       "height": 1443,
       "city": "巴黎",
-      "title": "",
-      "text": ""
+      "title": "卢浮宫",
+      "text": "预约的最早入场时间段，很幸运没什么人，淡淡的雪很衬",
+      "description": "卢浮宫"
     },
     {
       "id": "paris-photo3",
@@ -289,8 +297,9 @@
       "width": 1920,
       "height": 2560,
       "city": "巴黎",
-      "title": "",
-      "text": ""
+      "title": "埃菲尔铁塔",
+      "text": "夜晚的埃菲尔铁塔灯光璀璨，浪漫至极",
+      "description": "埃菲尔铁塔"
     },
     {
       "id": "paris-photo4",
@@ -301,9 +310,10 @@
       "width": 1920,
       "height": 2560,
       "city": "巴黎",
-      "title": "",
-      "text": "",
-      "date": "2026-01-03"
+      "title": "梵高",
+      "text": "大部分人都是冲着这幅画来的这个博物馆",
+      "date": "2026-01-03",
+      "description": "梵高"
     },
     {
       "id": "paris-photo5",
@@ -314,9 +324,10 @@
       "width": 1920,
       "height": 1437,
       "city": "巴黎",
-      "title": "",
-      "text": "",
-      "date": "2026-01-01"
+      "title": "凯旋门下",
+      "text": "这个火似乎每天定时都会放，用于纪念二战中逝去的人",
+      "date": "2026-01-01",
+      "description": "凯旋门下"
     },
     {
       "id": "porto-photo1",
@@ -643,9 +654,10 @@
       "width": 1920,
       "height": 1440,
       "city": "朗伊尔城",
-      "title": "",
-      "text": "",
-      "date": "2026-08-07"
+      "title": "极昼",
+      "text": "午夜时分的太阳，差一点就到午夜了",
+      "date": "2026-08-07",
+      "description": "极昼"
     },
     {
       "id": "longyearbyen-photo2",
@@ -656,9 +668,10 @@
       "width": 1920,
       "height": 1440,
       "city": "朗伊尔城",
-      "title": "",
-      "text": "",
-      "date": "2026-08-08"
+      "title": "斯瓦尔巴种子库",
+      "text": "世界上最北的种子库，保存着全球的种子，终于站在它前面了",
+      "date": "2026-08-08",
+      "description": "斯瓦尔巴种子库"
     },
     {
       "id": "longyearbyen-photo3",
@@ -669,9 +682,10 @@
       "width": 1920,
       "height": 1440,
       "city": "朗伊尔城",
-      "title": "",
-      "text": "",
-      "date": "2026-08-10"
+      "title": "轮船",
+      "text": "“我们一起去码头搞点薯条”",
+      "date": "2026-08-10",
+      "description": "轮船"
     },
     {
       "id": "longyearbyen-photo4",
@@ -682,9 +696,10 @@
       "width": 1920,
       "height": 1440,
       "city": "朗伊尔城",
-      "title": "",
-      "text": "",
-      "date": "2026-08-07"
+      "title": "洞",
+      "text": "路很难走，前进困难",
+      "date": "2026-08-07",
+      "description": "洞"
     },
     {
       "id": "longyearbyen-photo5",
@@ -695,9 +710,10 @@
       "width": 1920,
       "height": 1440,
       "city": "朗伊尔城",
-      "title": "",
-      "text": "",
-      "date": "2026-08-10"
+      "title": "哈士奇咖啡馆",
+      "text": "似乎在巡视它的领地",
+      "date": "2026-08-10",
+      "description": "哈士奇咖啡馆"
     },
     {
       "id": "luoyang-photo1",

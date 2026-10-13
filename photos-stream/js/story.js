@@ -4,8 +4,8 @@
 // story has an address and the back button returns to the waterfall.
 
 const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
-import { clamp, smooth, damp, mod } from './math.js?v=a36e81fd0116';
-import { upgradeStoryPhotos } from './story-images.js?v=a36e81fd0116';
+import { clamp, smooth, damp, mod } from './math.js?v=3f92743c23ca';
+import { upgradeStoryPhotos } from './story-images.js?v=3f92743c23ca';
 const DRIFT = 30; // px/s the stream flows on its own
 
 // ── progressive photographs ────────────────────────────────────────────────────

@@ -4,8 +4,8 @@
 // story has an address and the back button returns to the waterfall.
 
 const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
-import { clamp, smooth, damp, mod } from './math.js?v=fc4b61c98ec5';
-import { upgradeStoryPhotos } from './story-images.js?v=fc4b61c98ec5';
+import { clamp, smooth, damp, mod } from './math.js?v=a36e81fd0116';
+import { upgradeStoryPhotos } from './story-images.js?v=a36e81fd0116';
 const DRIFT = 30; // px/s the stream flows on its own
 
 // ── progressive photographs ────────────────────────────────────────────────────
@@ -203,19 +203,21 @@ export class StoryView {
         <button class="shot" type="button" data-i="${c.i}" style="height:${h}px" aria-label="${esc(c.caption || 'Photograph')}, larger">
           <span class="frame"><img alt="" decoding="async" src="${esc(c.src)}" data-hi="${esc(c.full || c.src)}" data-fallback="${esc(c.thumb || c.src)}" data-tier="medium"></span>
         </button>
-        ${c.text || c.date ? `<div class="entry ${c.i % 2 ? 'right' : 'left'}">
+        ${c.title || c.text || c.date ? `<div class="entry ${c.i % 2 ? 'right' : 'left'}">
           ${c.date ? `<span class="date">${esc(c.date)}</span>` : ''}
-          ${c.text ? `<p>${esc(c.text)}</p>` : ''}
+          ${c.title ? `<h2 class="chapter-title">${esc(c.title)}</h2>` : ''}
+          ${c.text ? `<p class="chapter-text">${esc(c.text)}</p>` : ''}
         </div>` : ''}`;
       this.strip.appendChild(el);
       return { c, el, w, h };
     });
-    // Measure once the entries are in the page (they add height only when stacked).
+    // Reserve room for the complete body, including entries taller than their photo.
     let y = 0;
     this.items = first.map(({ c, el, w, h }) => {
       const entry = el.querySelector('.entry');
-      const H = beside || !entry ? h : h + entry.offsetHeight + 22;
+      const H = !entry ? h : beside ? Math.max(h, entry.offsetHeight) : h + entry.offsetHeight + 22;
       el.style.height = `${H}px`;
+      if (beside) el.querySelector('.shot').style.top = `${(H - h) / 2}px`;
       const it = { ...c, w, h, H, y0: y, el };
       y += H + gap;
       return it;

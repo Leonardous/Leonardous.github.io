@@ -5,32 +5,40 @@
       "title": "布拉格",
       "chapters": [
         {
-          "photo": "prague-photo5",
-          "text": ""
-        },
-        {
-          "photo": "prague-photo6",
-          "text": ""
-        },
-        {
           "photo": "prague-photo3",
           "date": "2026-05-24",
-          "text": "通往城堡的路上"
+          "title": "通往城堡的路上",
+          "text": "抬头看到一只熊趴在窗口看游客，原来楼底下是一家玩偶店"
         },
         {
           "photo": "prague-photo1",
           "date": "2026-05-25",
-          "text": "伏尔塔瓦河畔"
+          "title": "伏尔塔瓦河畔",
+          "text": ""
         },
         {
           "photo": "prague-photo2",
           "date": "2026-05-25",
-          "text": "布拉格城堡塔顶"
+          "title": "布拉格城堡塔顶",
+          "text": ""
         },
         {
           "photo": "prague-photo4",
           "date": "2026-05-25",
-          "text": "卡夫卡头像"
+          "title": "卡夫卡头像",
+          "text": "会在每天的特定时间转动，前面站着好多人在等待"
+        },
+        {
+          "photo": "prague-photo5",
+          "date": "2026-05-25",
+          "title": "某个教堂",
+          "text": "看起来像极了艾尔登法环里的建筑，魔法学院"
+        },
+        {
+          "photo": "prague-photo6",
+          "date": "2026-05-25",
+          "title": "查理大桥",
+          "text": "桥上有许多雕像和街头艺人，我还在这里碰到了游客求婚，帮他们记录了这一瞬间"
         }
       ]
     },
@@ -40,48 +48,59 @@
       "chapters": [
         {
           "photo": "munich-photo3",
-          "text": ""
-        },
-        {
-          "photo": "munich-photo4",
+          "title": "",
           "text": ""
         },
         {
           "photo": "munich-photo5",
+          "title": "",
           "text": ""
         },
         {
           "photo": "munich-photo7",
+          "title": "",
           "text": ""
         },
         {
           "photo": "munich-photo2",
           "date": "2025-11-13",
-          "text": "徒步雪山"
+          "title": "徒步雪山",
+          "text": "我穿着板鞋，上去之后感觉自己下不来了"
         },
         {
           "photo": "munich-photo1",
           "date": "2026-02-28",
-          "text": "TUM主校区，如果有人走过就更好了"
+          "title": "TUM主校区",
+          "text": "如果有人走过就更好了"
+        },
+        {
+          "photo": "munich-photo4",
+          "date": "2026-04-20",
+          "title": "奥林山上的生日",
+          "text": "吴同学的生日，很难得看到这么早的慕尼黑景色"
         },
         {
           "photo": "munich-photo8",
           "date": "2026-04-20",
+          "title": "",
           "text": ""
         },
         {
           "photo": "munich-photo9",
           "date": "2026-04-20",
+          "title": "",
           "text": ""
         },
         {
           "photo": "munich-photo6",
           "date": "2026-05-18",
-          "text": "市中心的教堂"
+          "title": "市中心的教堂",
+          "text": ""
         },
         {
           "photo": "munich-photo10",
           "date": "2026-06-14",
+          "title": "",
           "text": ""
         }
       ]
@@ -93,17 +112,20 @@
         {
           "photo": "lisbon-photo2",
           "date": "2025-12-29",
-          "text": "罗卡角，傍晚"
+          "title": "罗卡角，傍晚",
+          "text": "我会回来这里的"
         },
         {
           "photo": "lisbon-photo3",
           "date": "2025-12-29",
-          "text": "罗卡角，我会来这里求婚的"
+          "title": "",
+          "text": ""
         },
         {
           "photo": "lisbon-photo1",
           "date": "2025-12-30",
-          "text": "热罗尼莫斯修道院"
+          "title": "热罗尼莫斯修道院",
+          "text": ""
         }
       ]
     },
@@ -113,24 +135,29 @@
       "chapters": [
         {
           "photo": "paris-photo1",
+          "title": "",
           "text": ""
         },
         {
           "photo": "paris-photo2",
+          "title": "",
           "text": ""
         },
         {
           "photo": "paris-photo3",
+          "title": "",
           "text": ""
         },
         {
           "photo": "paris-photo5",
           "date": "2026-01-01",
+          "title": "",
           "text": ""
         },
         {
           "photo": "paris-photo4",
           "date": "2026-01-03",
+          "title": "",
           "text": ""
         }
       ]
@@ -141,14 +168,17 @@
       "chapters": [
         {
           "photo": "porto-photo1",
+          "title": "",
           "text": ""
         },
         {
           "photo": "porto-photo2",
+          "title": "",
           "text": ""
         },
         {
           "photo": "porto-photo3",
+          "title": "",
           "text": ""
         }
       ]
@@ -159,25 +189,30 @@
       "chapters": [
         {
           "photo": "barcelona-photo1",
+          "title": "",
           "text": ""
         },
         {
           "photo": "barcelona-photo2",
+          "title": "",
           "text": ""
         },
         {
           "photo": "barcelona-photo3",
           "date": "2025-12-19",
+          "title": "",
           "text": ""
         },
         {
           "photo": "barcelona-photo4",
           "date": "2025-12-22",
+          "title": "",
           "text": ""
         },
         {
           "photo": "barcelona-photo5",
           "date": "2025-12-22",
+          "title": "",
           "text": ""
         }
       ]
@@ -188,18 +223,22 @@
       "chapters": [
         {
           "photo": "istanbul-photot1",
+          "title": "",
           "text": ""
         },
         {
           "photo": "istanbul-photo2",
+          "title": "",
           "text": ""
         },
         {
           "photo": "istanbul-photo3",
+          "title": "",
           "text": ""
         },
         {
           "photo": "istanbul-photo4",
+          "title": "",
           "text": ""
         }
       ]
@@ -210,18 +249,22 @@
       "chapters": [
         {
           "photo": "bled-photo1",
+          "title": "",
           "text": ""
         },
         {
           "photo": "bled-photo2",
+          "title": "",
           "text": ""
         },
         {
           "photo": "bled-photo3",
+          "title": "",
           "text": ""
         },
         {
           "photo": "bled-photo4",
+          "title": "",
           "text": ""
         }
       ]
@@ -232,19 +275,23 @@
       "chapters": [
         {
           "photo": "madrid-photo1",
+          "title": "",
           "text": ""
         },
         {
           "photo": "madrid-photo2",
+          "title": "",
           "text": ""
         },
         {
           "photo": "madrid-photo4",
+          "title": "",
           "text": ""
         },
         {
           "photo": "madrid-photo3",
           "date": "2025-12-26",
+          "title": "",
           "text": ""
         }
       ]
@@ -255,18 +302,22 @@
       "chapters": [
         {
           "photo": "ljubljana-photo1",
+          "title": "",
           "text": ""
         },
         {
           "photo": "ljubljana-photo2",
+          "title": "",
           "text": ""
         },
         {
           "photo": "ljubljana-photo3",
+          "title": "",
           "text": ""
         },
         {
           "photo": "ljubljana-photo4",
+          "title": "",
           "text": ""
         }
       ]
@@ -277,10 +328,12 @@
       "chapters": [
         {
           "photo": "dresden-photo1",
+          "title": "",
           "text": ""
         },
         {
           "photo": "dresden-photo2",
+          "title": "",
           "text": ""
         }
       ]
@@ -292,26 +345,31 @@
         {
           "photo": "longyearbyen-photo1",
           "date": "2026-08-07",
+          "title": "",
           "text": ""
         },
         {
           "photo": "longyearbyen-photo4",
           "date": "2026-08-07",
+          "title": "",
           "text": ""
         },
         {
           "photo": "longyearbyen-photo2",
           "date": "2026-08-08",
+          "title": "",
           "text": ""
         },
         {
           "photo": "longyearbyen-photo3",
           "date": "2026-08-10",
+          "title": "",
           "text": ""
         },
         {
           "photo": "longyearbyen-photo5",
           "date": "2026-08-10",
+          "title": "",
           "text": ""
         }
       ]
@@ -322,30 +380,44 @@
       "chapters": [
         {
           "photo": "luoyang-photo1",
+          "date": "2026-10-04",
+          "title": "",
           "text": ""
         },
         {
           "photo": "luoyang-photo2",
+          "date": "2026-10-04",
+          "title": "",
           "text": ""
         },
         {
           "photo": "luoyang-photo3",
+          "date": "2026-10-04",
+          "title": "",
           "text": ""
         },
         {
           "photo": "luoyang-photo4",
+          "date": "2026-10-05",
+          "title": "",
           "text": ""
         },
         {
           "photo": "luoyang-photo5",
+          "date": "2026-10-05",
+          "title": "",
           "text": ""
         },
         {
           "photo": "luoyang-photo6",
+          "date": "2026-10-05",
+          "title": "",
           "text": ""
         },
         {
           "photo": "luoyang-photo7",
+          "date": "2026-10-05",
+          "title": "",
           "text": ""
         }
       ]

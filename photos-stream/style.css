@@ -104,19 +104,22 @@ body.story-open #thread-label,body.dragging #thread-label{opacity:0}
 #story.unfolded .shot .frame{clip-path:inset(0);filter:none}
 #story.folding .shot .frame{transition:clip-path .45s cubic-bezier(.6,0,.4,1),filter .45s ease}
 
-/* The journal: a date and a few lines beside each photograph, as if written in its margin. */
+/* Chapter heading and body beside each photograph, as if written in its margin. */
 .entry{position:absolute;top:50%;width:var(--textw,260px);transform:translateY(-50%);cursor:default;
   opacity:0;translate:0 12px;filter:blur(5px);
   transition:opacity 1s ease,translate 1.2s cubic-bezier(.2,.75,.15,1),filter 1s ease}
 .entry.left{right:calc(100% + var(--gutter,48px));text-align:right}
 .entry.right{left:calc(100% + var(--gutter,48px))}
 .entry .date{display:block;font:500 10px/1 var(--mono);letter-spacing:.3em;text-transform:uppercase;color:rgb(var(--accent) / .9)}
-.entry p{margin:14px 0 0;font:400 16px/1.72 var(--serif);color:rgb(214 220 245 / .7);text-wrap:pretty;transition:color .5s ease}
-.item:hover .entry p{color:rgb(232 236 252 / .92)}
+.entry .chapter-title{margin:14px 0 0;font:500 21px/1.45 var(--serif);color:rgb(232 236 252 / .92);text-wrap:pretty;overflow-wrap:anywhere}
+.entry .chapter-text{margin:14px 0 0;font:400 16px/1.72 var(--serif);color:rgb(214 220 245 / .7);white-space:pre-line;overflow-wrap:anywhere;transition:color .5s ease}
+.entry>:first-child{margin-top:0}
+.item:hover .entry .chapter-text{color:rgb(232 236 252 / .92)}
 #story.unfolded .entry{opacity:1;translate:0 0;filter:none}
 #story.folding .entry{transition:opacity .3s ease,translate .3s ease,filter .3s ease;transition-delay:0s!important}
 #story.stacked .entry{position:relative;top:auto;left:auto;right:auto;width:auto;max-width:34ch;margin:22px auto 0;transform:none;text-align:center}
-#story.stacked .entry p{font-size:15px;margin-top:12px}
+#story.stacked .entry .chapter-title{font-size:19px}
+#story.stacked .entry .chapter-text{font-size:15px}
 
 .story-back{position:absolute;z-index:6;top:max(22px,env(safe-area-inset-top));left:max(22px,env(safe-area-inset-left));
   width:44px;height:44px;padding:0;border-radius:50%;border:1px solid rgb(200 210 255 / .14);

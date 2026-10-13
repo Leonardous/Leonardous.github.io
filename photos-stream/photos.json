@@ -9,6 +9,8 @@
       "width": 1920,
       "height": 1440,
       "city": "布拉格",
+      "title": "伏尔塔瓦河畔",
+      "text": "",
       "date": "2026-05-25",
       "description": "伏尔塔瓦河畔"
     },
@@ -21,6 +23,8 @@
       "width": 1920,
       "height": 2560,
       "city": "布拉格",
+      "title": "布拉格城堡塔顶",
+      "text": "",
       "date": "2026-05-25",
       "description": "布拉格城堡塔顶"
     },
@@ -33,6 +37,8 @@
       "width": 1920,
       "height": 1440,
       "city": "布拉格",
+      "title": "通往城堡的路上",
+      "text": "抬头看到一只熊趴在窗口看游客，原来楼底下是一家玩偶店",
       "date": "2026-05-24",
       "description": "通往城堡的路上"
     },
@@ -45,6 +51,8 @@
       "width": 1920,
       "height": 2560,
       "city": "布拉格",
+      "title": "卡夫卡头像",
+      "text": "会在每天的特定时间转动，前面站着好多人在等待",
       "date": "2026-05-25",
       "description": "卡夫卡头像"
     },
@@ -56,7 +64,11 @@
       "full": "/photos/albums/prague/photo5.jpg",
       "width": 1920,
       "height": 2559,
-      "city": "布拉格"
+      "city": "布拉格",
+      "title": "某个教堂",
+      "text": "看起来像极了艾尔登法环里的建筑，魔法学院",
+      "date": "2026-05-25",
+      "description": "某个教堂"
     },
     {
       "id": "prague-photo6",
@@ -66,7 +78,11 @@
       "full": "/photos/albums/prague/photo6.jpg",
       "width": 1920,
       "height": 1440,
-      "city": "布拉格"
+      "city": "布拉格",
+      "title": "查理大桥",
+      "text": "桥上有许多雕像和街头艺人，我还在这里碰到了游客求婚，帮他们记录了这一瞬间",
+      "date": "2026-05-25",
+      "description": "查理大桥"
     },
     {
       "id": "munich-photo1",
@@ -77,8 +93,10 @@
       "width": 1920,
       "height": 2560,
       "city": "慕尼黑",
+      "title": "TUM主校区",
+      "text": "如果有人走过就更好了",
       "date": "2026-02-28",
-      "description": "TUM主校区，如果有人走过就更好了"
+      "description": "TUM主校区"
     },
     {
       "id": "munich-photo2",
@@ -89,6 +107,8 @@
       "width": 1920,
       "height": 1438,
       "city": "慕尼黑",
+      "title": "徒步雪山",
+      "text": "我穿着板鞋，上去之后感觉自己下不来了",
       "date": "2025-11-13",
       "description": "徒步雪山"
     },
@@ -100,7 +120,9 @@
       "full": "/photos/albums/munich/photo3.jpg",
       "width": 1920,
       "height": 2562,
-      "city": "慕尼黑"
+      "city": "慕尼黑",
+      "title": "",
+      "text": ""
     },
     {
       "id": "munich-photo4",
@@ -110,7 +132,11 @@
       "full": "/photos/albums/munich/photo4.jpg",
       "width": 1920,
       "height": 2560,
-      "city": "慕尼黑"
+      "city": "慕尼黑",
+      "title": "奥林山上的生日",
+      "text": "吴同学的生日，很难得看到这么早的慕尼黑景色",
+      "date": "2026-04-20",
+      "description": "奥林山上的生日"
     },
     {
       "id": "munich-photo5",
@@ -120,7 +146,9 @@
       "full": "/photos/albums/munich/photo5.jpg",
       "width": 1920,
       "height": 1440,
-      "city": "慕尼黑"
+      "city": "慕尼黑",
+      "title": "",
+      "text": ""
     },
     {
       "id": "munich-photo6",
@@ -131,6 +159,8 @@
       "width": 1920,
       "height": 2560,
       "city": "慕尼黑",
+      "title": "市中心的教堂",
+      "text": "",
       "date": "2026-05-18",
       "description": "市中心的教堂"
     },
@@ -142,7 +172,9 @@
       "full": "/photos/albums/munich/photo7.jpg",
       "width": 1920,
       "height": 1440,
-      "city": "慕尼黑"
+      "city": "慕尼黑",
+      "title": "",
+      "text": ""
     },
     {
       "id": "munich-photo10",
@@ -153,6 +185,8 @@
       "width": 1920,
       "height": 1440,
       "city": "慕尼黑",
+      "title": "",
+      "text": "",
       "date": "2026-06-14"
     },
     {
@@ -164,6 +198,8 @@
       "width": 1920,
       "height": 1440,
       "city": "慕尼黑",
+      "title": "",
+      "text": "",
       "date": "2026-04-20"
     },
     {
@@ -175,6 +211,8 @@
       "width": 1920,
       "height": 1440,
       "city": "慕尼黑",
+      "title": "",
+      "text": "",
       "date": "2026-04-20"
     },
     {
@@ -186,6 +224,8 @@
       "width": 1920,
       "height": 1443,
       "city": "里斯本",
+      "title": "热罗尼莫斯修道院",
+      "text": "",
       "date": "2025-12-30",
       "description": "热罗尼莫斯修道院"
     },
@@ -198,6 +238,8 @@
       "width": 1920,
       "height": 1440,
       "city": "里斯本",
+      "title": "罗卡角，傍晚",
+      "text": "我会回来这里的",
       "date": "2025-12-29",
       "description": "罗卡角，傍晚"
     },
@@ -210,8 +252,9 @@
       "width": 1920,
       "height": 1440,
       "city": "里斯本",
-      "date": "2025-12-29",
-      "description": "罗卡角，我会来这里求婚的"
+      "title": "",
+      "text": "",
+      "date": "2025-12-29"
     },
     {
       "id": "paris-photo1",
@@ -221,7 +264,9 @@
       "full": "/photos/albums/paris/photo1.jpg",
       "width": 1920,
       "height": 1440,
-      "city": "巴黎"
+      "city": "巴黎",
+      "title": "",
+      "text": ""
     },
     {
       "id": "paris-photo2",
@@ -231,7 +276,9 @@
       "full": "/photos/albums/paris/photo2.jpg",
       "width": 1920,
       "height": 1443,
-      "city": "巴黎"
+      "city": "巴黎",
+      "title": "",
+      "text": ""
     },
     {
       "id": "paris-photo3",
@@ -241,7 +288,9 @@
       "full": "/photos/albums/paris/photo3.jpg",
       "width": 1920,
       "height": 2560,
-      "city": "巴黎"
+      "city": "巴黎",
+      "title": "",
+      "text": ""
     },
     {
       "id": "paris-photo4",
@@ -252,6 +301,8 @@
       "width": 1920,
       "height": 2560,
       "city": "巴黎",
+      "title": "",
+      "text": "",
       "date": "2026-01-03"
     },
     {
@@ -263,6 +314,8 @@
       "width": 1920,
       "height": 1437,
       "city": "巴黎",
+      "title": "",
+      "text": "",
       "date": "2026-01-01"
     },
     {
@@ -273,7 +326,9 @@
       "full": "/photos/albums/porto/photo1.jpg",
       "width": 1920,
       "height": 1440,
-      "city": "波尔图"
+      "city": "波尔图",
+      "title": "",
+      "text": ""
     },
     {
       "id": "porto-photo2",
@@ -283,7 +338,9 @@
       "full": "/photos/albums/porto/photo2.jpg",
       "width": 1920,
       "height": 1440,
-      "city": "波尔图"
+      "city": "波尔图",
+      "title": "",
+      "text": ""
     },
     {
       "id": "porto-photo3",
@@ -293,7 +350,9 @@
       "full": "/photos/albums/porto/photo3.jpg",
       "width": 1920,
       "height": 1440,
-      "city": "波尔图"
+      "city": "波尔图",
+      "title": "",
+      "text": ""
     },
     {
       "id": "barcelona-photo1",
@@ -303,7 +362,9 @@
       "full": "/photos/albums/barcelona/photo1.jpg",
       "width": 1920,
       "height": 1440,
-      "city": "巴塞罗那"
+      "city": "巴塞罗那",
+      "title": "",
+      "text": ""
     },
     {
       "id": "barcelona-photo2",
@@ -313,7 +374,9 @@
       "full": "/photos/albums/barcelona/photo2.jpg",
       "width": 1920,
       "height": 2558,
-      "city": "巴塞罗那"
+      "city": "巴塞罗那",
+      "title": "",
+      "text": ""
     },
     {
       "id": "barcelona-photo3",
@@ -324,6 +387,8 @@
       "width": 1920,
       "height": 1437,
       "city": "巴塞罗那",
+      "title": "",
+      "text": "",
       "date": "2025-12-19"
     },
     {
@@ -335,6 +400,8 @@
       "width": 1920,
       "height": 2561,
       "city": "巴塞罗那",
+      "title": "",
+      "text": "",
       "date": "2025-12-22"
     },
     {
@@ -346,6 +413,8 @@
       "width": 1920,
       "height": 1440,
       "city": "巴塞罗那",
+      "title": "",
+      "text": "",
       "date": "2025-12-22"
     },
     {
@@ -356,7 +425,9 @@
       "full": "/photos/albums/istanbul/photot1.jpg",
       "width": 1920,
       "height": 1440,
-      "city": "伊斯坦布尔"
+      "city": "伊斯坦布尔",
+      "title": "",
+      "text": ""
     },
     {
       "id": "istanbul-photo2",
@@ -366,7 +437,9 @@
       "full": "/photos/albums/istanbul/photo2.jpg",
       "width": 1920,
       "height": 1443,
-      "city": "伊斯坦布尔"
+      "city": "伊斯坦布尔",
+      "title": "",
+      "text": ""
     },
     {
       "id": "istanbul-photo3",
@@ -376,7 +449,9 @@
       "full": "/photos/albums/istanbul/photo3.jpg",
       "width": 1920,
       "height": 1440,
-      "city": "伊斯坦布尔"
+      "city": "伊斯坦布尔",
+      "title": "",
+      "text": ""
     },
     {
       "id": "istanbul-photo4",
@@ -386,7 +461,9 @@
       "full": "/photos/albums/istanbul/photo4.jpg",
       "width": 1920,
       "height": 1440,
-      "city": "伊斯坦布尔"
+      "city": "伊斯坦布尔",
+      "title": "",
+      "text": ""
     },
     {
       "id": "bled-photo1",
@@ -396,7 +473,9 @@
       "full": "/photos/albums/bled/photo1.jpg",
       "width": 1920,
       "height": 1440,
-      "city": "布莱德"
+      "city": "布莱德",
+      "title": "",
+      "text": ""
     },
     {
       "id": "bled-photo2",
@@ -406,7 +485,9 @@
       "full": "/photos/albums/bled/photo2.jpg",
       "width": 1920,
       "height": 1440,
-      "city": "布莱德"
+      "city": "布莱德",
+      "title": "",
+      "text": ""
     },
     {
       "id": "bled-photo3",
@@ -416,7 +497,9 @@
       "full": "/photos/albums/bled/photo3.jpg",
       "width": 1920,
       "height": 1438,
-      "city": "布莱德"
+      "city": "布莱德",
+      "title": "",
+      "text": ""
     },
     {
       "id": "bled-photo4",
@@ -426,7 +509,9 @@
       "full": "/photos/albums/bled/photo4.jpg",
       "width": 1920,
       "height": 2560,
-      "city": "布莱德"
+      "city": "布莱德",
+      "title": "",
+      "text": ""
     },
     {
       "id": "madrid-photo1",
@@ -436,7 +521,9 @@
       "full": "/photos/albums/madrid/photo1.jpg",
       "width": 1920,
       "height": 1440,
-      "city": "马德里"
+      "city": "马德里",
+      "title": "",
+      "text": ""
     },
     {
       "id": "madrid-photo2",
@@ -446,7 +533,9 @@
       "full": "/photos/albums/madrid/photo2.jpg",
       "width": 1920,
       "height": 1440,
-      "city": "马德里"
+      "city": "马德里",
+      "title": "",
+      "text": ""
     },
     {
       "id": "madrid-photo3",
@@ -457,6 +546,8 @@
       "width": 1920,
       "height": 2560,
       "city": "马德里",
+      "title": "",
+      "text": "",
       "date": "2025-12-26"
     },
     {
@@ -467,7 +558,9 @@
       "full": "/photos/albums/madrid/photo4.jpg",
       "width": 1706,
       "height": 1279,
-      "city": "马德里"
+      "city": "马德里",
+      "title": "",
+      "text": ""
     },
     {
       "id": "ljubljana-photo1",
@@ -477,7 +570,9 @@
       "full": "/photos/albums/ljubljana/photo1.jpg",
       "width": 1920,
       "height": 2560,
-      "city": "卢布尔雅那"
+      "city": "卢布尔雅那",
+      "title": "",
+      "text": ""
     },
     {
       "id": "ljubljana-photo2",
@@ -487,7 +582,9 @@
       "full": "/photos/albums/ljubljana/photo2.jpg",
       "width": 1920,
       "height": 1440,
-      "city": "卢布尔雅那"
+      "city": "卢布尔雅那",
+      "title": "",
+      "text": ""
     },
     {
       "id": "ljubljana-photo3",
@@ -497,7 +594,9 @@
       "full": "/photos/albums/ljubljana/photo3.jpg",
       "width": 1706,
       "height": 1279,
-      "city": "卢布尔雅那"
+      "city": "卢布尔雅那",
+      "title": "",
+      "text": ""
     },
     {
       "id": "ljubljana-photo4",
@@ -507,7 +606,9 @@
       "full": "/photos/albums/ljubljana/photo4.jpg",
       "width": 1706,
       "height": 1279,
-      "city": "卢布尔雅那"
+      "city": "卢布尔雅那",
+      "title": "",
+      "text": ""
     },
     {
       "id": "dresden-photo1",
@@ -517,7 +618,9 @@
       "full": "/photos/albums/dresden/photo1.jpg",
       "width": 1920,
       "height": 2560,
-      "city": "德累斯顿"
+      "city": "德累斯顿",
+      "title": "",
+      "text": ""
     },
     {
       "id": "dresden-photo2",
@@ -527,7 +630,9 @@
       "full": "/photos/albums/dresden/photo2.jpg",
       "width": 1920,
       "height": 1440,
-      "city": "德累斯顿"
+      "city": "德累斯顿",
+      "title": "",
+      "text": ""
     },
     {
       "id": "longyearbyen-photo1",
@@ -538,6 +643,8 @@
       "width": 1920,
       "height": 1440,
       "city": "朗伊尔城",
+      "title": "",
+      "text": "",
       "date": "2026-08-07"
     },
     {
@@ -549,6 +656,8 @@
       "width": 1920,
       "height": 1440,
       "city": "朗伊尔城",
+      "title": "",
+      "text": "",
       "date": "2026-08-08"
     },
     {
@@ -560,6 +669,8 @@
       "width": 1920,
       "height": 1440,
       "city": "朗伊尔城",
+      "title": "",
+      "text": "",
       "date": "2026-08-10"
     },
     {
@@ -571,6 +682,8 @@
       "width": 1920,
       "height": 1440,
       "city": "朗伊尔城",
+      "title": "",
+      "text": "",
       "date": "2026-08-07"
     },
     {
@@ -582,6 +695,8 @@
       "width": 1920,
       "height": 1440,
       "city": "朗伊尔城",
+      "title": "",
+      "text": "",
       "date": "2026-08-10"
     },
     {
@@ -592,7 +707,10 @@
       "full": "/photos/albums/luoyang/photo1.jpg",
       "width": 1920,
       "height": 1440,
-      "city": "洛阳"
+      "city": "洛阳",
+      "title": "",
+      "text": "",
+      "date": "2026-10-04"
     },
     {
       "id": "luoyang-photo2",
@@ -602,7 +720,10 @@
       "full": "/photos/albums/luoyang/photo2.jpg",
       "width": 1920,
       "height": 1440,
-      "city": "洛阳"
+      "city": "洛阳",
+      "title": "",
+      "text": "",
+      "date": "2026-10-04"
     },
     {
       "id": "luoyang-photo3",
@@ -612,7 +733,10 @@
       "full": "/photos/albums/luoyang/photo3.jpg",
       "width": 1920,
       "height": 1440,
-      "city": "洛阳"
+      "city": "洛阳",
+      "title": "",
+      "text": "",
+      "date": "2026-10-04"
     },
     {
       "id": "luoyang-photo4",
@@ -622,7 +746,10 @@
       "full": "/photos/albums/luoyang/photo4.jpg",
       "width": 1707,
       "height": 1280,
-      "city": "洛阳"
+      "city": "洛阳",
+      "title": "",
+      "text": "",
+      "date": "2026-10-05"
     },
     {
       "id": "luoyang-photo5",
@@ -632,7 +759,10 @@
       "full": "/photos/albums/luoyang/photo5.jpg",
       "width": 1920,
       "height": 1440,
-      "city": "洛阳"
+      "city": "洛阳",
+      "title": "",
+      "text": "",
+      "date": "2026-10-05"
     },
     {
       "id": "luoyang-photo6",
@@ -642,7 +772,10 @@
       "full": "/photos/albums/luoyang/photo6.jpg",
       "width": 1920,
       "height": 1440,
-      "city": "洛阳"
+      "city": "洛阳",
+      "title": "",
+      "text": "",
+      "date": "2026-10-05"
     },
     {
       "id": "luoyang-photo7",
@@ -652,7 +785,10 @@
       "full": "/photos/albums/luoyang/photo7.jpg",
       "width": 1920,
       "height": 2559,
-      "city": "洛阳"
+      "city": "洛阳",
+      "title": "",
+      "text": "",
+      "date": "2026-10-05"
     }
   ]
 }

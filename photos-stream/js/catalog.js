@@ -1,4 +1,4 @@
-import { NF, MAX_CHAPTERS } from './stories.js?v=fc4b61c98ec5';
+import { NF, MAX_CHAPTERS } from './stories.js?v=a36e81fd0116';
 
 // Local relaxation for progressive loading: the page keeps three sizes of each photograph
 // (thumb = 256px for first paint, medium = 1024px for the curtain, and the album's own
@@ -59,6 +59,6 @@ export async function loadCatalog() {
     if (!response.ok) throw new Error(`Could not load ${path} (${response.status}).`);
     return response.json();
   };
-  const [catalog, data] = await Promise.all([read('./photos.json?v=fc4b61c98ec5'), read('./stories.json?v=fc4b61c98ec5')]);
+  const [catalog, data] = await Promise.all([read('./photos.json?v=a36e81fd0116'), read('./stories.json?v=a36e81fd0116')]);
   return validateCatalog(catalog, data);
 }

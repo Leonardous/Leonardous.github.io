@@ -1,4 +1,4 @@
-import { clamp, mulberry } from './math.js?v=fc4b61c98ec5';
+import { clamp, mulberry } from './math.js?v=a36e81fd0116';
 export const NF = 2400;
 // One RGBA texel stores the chapter count and colour, followed by four chapter
 // indices per texel. Keep the CPU packing and both shader stages on this layout.
@@ -46,7 +46,7 @@ export function buildStories(photos, authored = [], journal = []) {
       const photo = photos[j];
       if (seen.has(String(photo.id))) continue;
       seen.add(String(photo.id));
-      complete.push({ photo: photo.id, caption: photo.description });
+      complete.push({ photo: photo.id });
     }
     return complete;
   };
@@ -107,7 +107,10 @@ export function buildStories(photos, authored = [], journal = []) {
       const layer = byId.get(String(c.photo)), p = photos[layer];
       // LOCAL ADDITION (photos-stream): carry the reduced sizes through so the story view
       // can show a thumbnail immediately and swap in the larger file once it has loaded.
-      return { ...c, layer, src: p.src, thumb: p.thumb, full: p.full, aspect: p.aspect, date: c.date ?? p.date, caption: c.caption ?? p.description, credit: c.credit ?? p.photographer };
+      return { ...c, layer, src: p.src, thumb: p.thumb, full: p.full, aspect: p.aspect,
+        title: c.title ?? p.title ?? p.description ?? '',
+        text: c.text ?? p.text,
+        date: c.date ?? p.date, caption: c.caption ?? p.description ?? p.title, credit: c.credit ?? p.photographer };
     });
     // Journal entries: authored text wins; otherwise the shared template, spread so that every
     // story, however short, begins with the first entry and ends with the last.
@@ -115,7 +118,7 @@ export function buildStories(photos, authored = [], journal = []) {
     s.chapters.forEach((c, k) => {
       const t = T ? journal[Math.round(k * (T - 1) / Math.max(1, n - 1))] : {};
       c.date = c.date ?? t.date ?? '';
-      c.text = c.text ?? t.text ?? c.caption ?? '';
+      c.text = c.text ?? t.text ?? '';
     });
     colourStory(s, photos);
   }

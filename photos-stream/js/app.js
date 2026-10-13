@@ -409,12 +409,11 @@ function drawWorld(rt, mirror) {
   gl.activeTexture(gl.TEXTURE3); gl.bindTexture(gl.TEXTURE_2D, T.layers.t); gl.uniform1i(u.uLayers, 3);
   gl.activeTexture(gl.TEXTURE4); gl.bindTexture(gl.TEXTURE_2D_ARRAY, usingFull && arrTexFull ? arrTexFull : arrTexLow); gl.uniform1i(u.uArr, 4);
   // 着色器按这个边长决定 mip 层级，必须跟着当前绑定的数组走。
-  gl.uniform1f(u.uArrSize, usingFull && arrTexFull ? FULL_LAYER : THUMB_LAYER);
-  gl.uniform1f(u.uMinPx, mirror ? 1.6 : 1.0);
+  gl.uniform1f(u.uArrSize, usingFull && arrTexFull ? FULL_LAYER : THUMB_LAYER);  gl.uniform1f(u.uMinPx, mirror ? 1.6 : 1.0);
   gl.uniform1f(u.uSpacing, SPACING); gl.uniform1f(u.uW, PHOTO_W); gl.uniform1f(u.uS, SLOT);
   gl.uniform1f(u.uGain, (mirror ? 0.55 : 0.78) * (1.05 - 0.2 * zt));
   gl.uniform4f(u.uHover, hover.line, hover.t, 0, 0);
-  gl.uniform1f(u.uDim, 0.22 * hover.t);
+  gl.uniform1f(u.uDim, 0.12 * hover.t);
   gl.uniform2f(u.uSelect, select.line, select.t);
   gl.uniform1fv(u.uIdleL, idle.map(g => g.line)); gl.uniform1fv(u.uIdleA, idle.map(g => g.age));
   gl.bindVertexArray(vaos.fibre);
@@ -483,7 +482,11 @@ function frame(now) {
   // 换纹理数组只在帧边界做，避免半帧状态。高清档一旦就绪就整幕切过去；
   // 故事打开时也用它（那时照片最大，最需要细节）。
   const nextUsingFull = fullReady && (wantFull || autoUpgradeOverride);
-  if (nextUsingFull !== usingFull) usingFull = nextUsingFull;
+  if (nextUsingFull !== usingFull) {
+    usingFull = nextUsingFull;
+    // 切档时同步故事视图：高清档就绪后，故事里的照片也换成高清图。
+    view?.setQuality?.(usingFull);
+  }
   if (sleeping || document.hidden) return;
   step(dt, now);
   render();
@@ -549,8 +552,9 @@ async function boot() {
   // 仅供对比调试：?lowres=1 时不自动升到高清档，用来复现旧的低清效果。
   window.__undertow.forceLow = () => { autoUpgradeOverride = false; };
 
-  // Pass 2: 最高画质。等首屏稳定后开始，来源用相册原图（流目录里的 full/），
-  // 这样 2048 的层里装的是真正的细节，而不是把 1024 放大。
+  // Pass 2: 最高画质。等首屏稳定后开始，源直接用相册里那张 1920px 压缩图
+  //（photos.json 的 src），GPU 侧按 1536 建纹理数组。这样仓库里不需要再存一份
+  // 中间尺寸的副本，而 1536 的显存开销比 1920 省 36%。
   const startFullLoad = () => {
     if (fullLoad) return;
     fullLoad = { progress: 0 };

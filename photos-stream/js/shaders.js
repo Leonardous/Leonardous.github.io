@@ -147,7 +147,7 @@ void main(){
       inside=ss(0.,e,vp)*ss(1.,1.-e,vp)*ss(uYB,uYB+3.*uS,y)*ss(uCH,uCH-2.*uS,y);
       // Between moments only the thread itself remains, a hairline in its story's colour.
       core=clamp(1.2-abs(vXw)*vPpu,0.,1.);
-      vec3 thread=vCol*(.3+.25*cl+.5*vHov)*core;
+      vec3 thread=mix(vCol*(.3+.25*cl+.5*vHov)*core, ice*.95*core, vHov);
       st=mix(st,mix(thread,img,inside),detail);
     }
     st*=1.+vHov*.25*(1.-detail);
@@ -157,6 +157,8 @@ void main(){
 
   float front=uIntro*8.5-1.;
   c*=ss(front,front-3.,uCH-y);
+  // 鼠标划过的丝线发白光并提亮；其余丝线只是稍微压暗，不做重压。
+  c=mix(c, mix(c,ice,.72)*(1.+.9*vHov), vHov);
   c*=vHov>.01?1.:1.-uDim;
   c*=mix(1.-uSelect.y,1.+uSelect.y*1.2,vSel);
   if(uMirror>.5) c*=exp(-y*.3)*(.55+.45*cl2);

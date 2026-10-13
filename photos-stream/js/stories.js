@@ -36,6 +36,8 @@ export function buildStories(photos, authored = [], journal = []) {
     }
 
     const { name, idx } = cities[Math.floor(r() * cities.length)];
+    // 章节数不超过该城市的照片数：否则同一张照片会在一条丝线里重复出现，
+    // 放大后就是"一条线里全是同一张图"。
     const n = Math.min(idx.length, 4 + Math.floor(r() * 5));
     // 起点也按种子轮换，这样同一座城市的不同丝线不会每次都从同一张照片开始。
     const start = Math.floor(r() * idx.length);

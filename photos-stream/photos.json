@@ -2,7 +2,7 @@
   "photos": [
     {
       "id": "prague-photo1",
-      "src": "medium/prague-photo1.jpg",
+      "src": "/photos/albums/prague/photo1.jpg",
       "source_path": "/photos/albums/prague/photo1.jpg",
       "thumb": "thumb/prague-photo1.jpg",
       "full": "/photos/albums/prague/photo1.jpg",
@@ -11,7 +11,7 @@
     },
     {
       "id": "prague-photo2",
-      "src": "medium/prague-photo2.jpg",
+      "src": "/photos/albums/prague/photo2.jpg",
       "source_path": "/photos/albums/prague/photo2.jpg",
       "thumb": "thumb/prague-photo2.jpg",
       "full": "/photos/albums/prague/photo2.jpg",
@@ -20,7 +20,7 @@
     },
     {
       "id": "prague-photo3",
-      "src": "medium/prague-photo3.jpg",
+      "src": "/photos/albums/prague/photo3.jpg",
       "source_path": "/photos/albums/prague/photo3.jpg",
       "thumb": "thumb/prague-photo3.jpg",
       "full": "/photos/albums/prague/photo3.jpg",
@@ -29,7 +29,7 @@
     },
     {
       "id": "prague-photo4",
-      "src": "medium/prague-photo4.jpg",
+      "src": "/photos/albums/prague/photo4.jpg",
       "source_path": "/photos/albums/prague/photo4.jpg",
       "thumb": "thumb/prague-photo4.jpg",
       "full": "/photos/albums/prague/photo4.jpg",
@@ -38,7 +38,7 @@
     },
     {
       "id": "munich-photo1",
-      "src": "medium/munich-photo1.jpg",
+      "src": "/photos/albums/munich/photo1.jpg",
       "source_path": "/photos/albums/munich/photo1.jpg",
       "thumb": "thumb/munich-photo1.jpg",
       "full": "/photos/albums/munich/photo1.jpg",
@@ -47,7 +47,7 @@
     },
     {
       "id": "munich-photo2",
-      "src": "medium/munich-photo2.jpg",
+      "src": "/photos/albums/munich/photo2.jpg",
       "source_path": "/photos/albums/munich/photo2.jpg",
       "thumb": "thumb/munich-photo2.jpg",
       "full": "/photos/albums/munich/photo2.jpg",
@@ -56,7 +56,7 @@
     },
     {
       "id": "munich-photo3",
-      "src": "medium/munich-photo3.jpg",
+      "src": "/photos/albums/munich/photo3.jpg",
       "source_path": "/photos/albums/munich/photo3.jpg",
       "thumb": "thumb/munich-photo3.jpg",
       "full": "/photos/albums/munich/photo3.jpg",
@@ -64,7 +64,7 @@
     },
     {
       "id": "munich-photo4",
-      "src": "medium/munich-photo4.jpg",
+      "src": "/photos/albums/munich/photo4.jpg",
       "source_path": "/photos/albums/munich/photo4.jpg",
       "thumb": "thumb/munich-photo4.jpg",
       "full": "/photos/albums/munich/photo4.jpg",
@@ -72,7 +72,7 @@
     },
     {
       "id": "munich-photo5",
-      "src": "medium/munich-photo5.jpg",
+      "src": "/photos/albums/munich/photo5.jpg",
       "source_path": "/photos/albums/munich/photo5.jpg",
       "thumb": "thumb/munich-photo5.jpg",
       "full": "/photos/albums/munich/photo5.jpg",
@@ -80,7 +80,7 @@
     },
     {
       "id": "munich-photo6",
-      "src": "medium/munich-photo6.jpg",
+      "src": "/photos/albums/munich/photo6.jpg",
       "source_path": "/photos/albums/munich/photo6.jpg",
       "thumb": "thumb/munich-photo6.jpg",
       "full": "/photos/albums/munich/photo6.jpg",
@@ -89,7 +89,7 @@
     },
     {
       "id": "munich-photo7",
-      "src": "medium/munich-photo7.jpg",
+      "src": "/photos/albums/munich/photo7.jpg",
       "source_path": "/photos/albums/munich/photo7.jpg",
       "thumb": "thumb/munich-photo7.jpg",
       "full": "/photos/albums/munich/photo7.jpg",
@@ -97,7 +97,7 @@
     },
     {
       "id": "munich-photo10",
-      "src": "medium/munich-photo10.jpg",
+      "src": "/photos/albums/munich/photo10.jpg",
       "source_path": "/photos/albums/munich/photo10.jpg",
       "thumb": "thumb/munich-photo10.jpg",
       "full": "/photos/albums/munich/photo10.jpg",
@@ -105,7 +105,7 @@
     },
     {
       "id": "munich-photo8",
-      "src": "medium/munich-photo8.jpg",
+      "src": "/photos/albums/munich/photo8.jpg",
       "source_path": "/photos/albums/munich/photo8.jpg",
       "thumb": "thumb/munich-photo8.jpg",
       "full": "/photos/albums/munich/photo8.jpg",
@@ -113,7 +113,7 @@
     },
     {
       "id": "munich-photo9",
-      "src": "medium/munich-photo9.jpg",
+      "src": "/photos/albums/munich/photo9.jpg",
       "source_path": "/photos/albums/munich/photo9.jpg",
       "thumb": "thumb/munich-photo9.jpg",
       "full": "/photos/albums/munich/photo9.jpg",
@@ -121,7 +121,7 @@
     },
     {
       "id": "lisbon-photo1",
-      "src": "medium/lisbon-photo1.jpg",
+      "src": "/photos/albums/lisbon/photo1.jpg",
       "source_path": "/photos/albums/lisbon/photo1.jpg",
       "thumb": "thumb/lisbon-photo1.jpg",
       "full": "/photos/albums/lisbon/photo1.jpg",
@@ -130,7 +130,7 @@
     },
     {
       "id": "lisbon-photo2",
-      "src": "medium/lisbon-photo2.jpg",
+      "src": "/photos/albums/lisbon/photo2.jpg",
       "source_path": "/photos/albums/lisbon/photo2.jpg",
       "thumb": "thumb/lisbon-photo2.jpg",
       "full": "/photos/albums/lisbon/photo2.jpg",
@@ -139,7 +139,7 @@
     },
     {
       "id": "lisbon-photo3",
-      "src": "medium/lisbon-photo3.jpg",
+      "src": "/photos/albums/lisbon/photo3.jpg",
       "source_path": "/photos/albums/lisbon/photo3.jpg",
       "thumb": "thumb/lisbon-photo3.jpg",
       "full": "/photos/albums/lisbon/photo3.jpg",
@@ -148,7 +148,7 @@
     },
     {
       "id": "paris-photo1",
-      "src": "medium/paris-photo1.jpg",
+      "src": "/photos/albums/paris/photo1.jpg",
       "source_path": "/photos/albums/paris/photo1.jpg",
       "thumb": "thumb/paris-photo1.jpg",
       "full": "/photos/albums/paris/photo1.jpg",
@@ -156,7 +156,7 @@
     },
     {
       "id": "paris-photo2",
-      "src": "medium/paris-photo2.jpg",
+      "src": "/photos/albums/paris/photo2.jpg",
       "source_path": "/photos/albums/paris/photo2.jpg",
       "thumb": "thumb/paris-photo2.jpg",
       "full": "/photos/albums/paris/photo2.jpg",
@@ -164,7 +164,7 @@
     },
     {
       "id": "paris-photo3",
-      "src": "medium/paris-photo3.jpg",
+      "src": "/photos/albums/paris/photo3.jpg",
       "source_path": "/photos/albums/paris/photo3.jpg",
       "thumb": "thumb/paris-photo3.jpg",
       "full": "/photos/albums/paris/photo3.jpg",
@@ -172,7 +172,7 @@
     },
     {
       "id": "paris-photo4",
-      "src": "medium/paris-photo4.jpg",
+      "src": "/photos/albums/paris/photo4.jpg",
       "source_path": "/photos/albums/paris/photo4.jpg",
       "thumb": "thumb/paris-photo4.jpg",
       "full": "/photos/albums/paris/photo4.jpg",
@@ -180,7 +180,7 @@
     },
     {
       "id": "paris-photo5",
-      "src": "medium/paris-photo5.jpg",
+      "src": "/photos/albums/paris/photo5.jpg",
       "source_path": "/photos/albums/paris/photo5.jpg",
       "thumb": "thumb/paris-photo5.jpg",
       "full": "/photos/albums/paris/photo5.jpg",
@@ -188,7 +188,7 @@
     },
     {
       "id": "porto-photo1",
-      "src": "medium/porto-photo1.jpg",
+      "src": "/photos/albums/porto/photo1.jpg",
       "source_path": "/photos/albums/porto/photo1.jpg",
       "thumb": "thumb/porto-photo1.jpg",
       "full": "/photos/albums/porto/photo1.jpg",
@@ -196,7 +196,7 @@
     },
     {
       "id": "porto-photo2",
-      "src": "medium/porto-photo2.jpg",
+      "src": "/photos/albums/porto/photo2.jpg",
       "source_path": "/photos/albums/porto/photo2.jpg",
       "thumb": "thumb/porto-photo2.jpg",
       "full": "/photos/albums/porto/photo2.jpg",
@@ -204,7 +204,7 @@
     },
     {
       "id": "porto-photo3",
-      "src": "medium/porto-photo3.jpg",
+      "src": "/photos/albums/porto/photo3.jpg",
       "source_path": "/photos/albums/porto/photo3.jpg",
       "thumb": "thumb/porto-photo3.jpg",
       "full": "/photos/albums/porto/photo3.jpg",
@@ -212,7 +212,7 @@
     },
     {
       "id": "barcelona-photo1",
-      "src": "medium/barcelona-photo1.jpg",
+      "src": "/photos/albums/barcelona/photo1.jpg",
       "source_path": "/photos/albums/barcelona/photo1.jpg",
       "thumb": "thumb/barcelona-photo1.jpg",
       "full": "/photos/albums/barcelona/photo1.jpg",
@@ -220,7 +220,7 @@
     },
     {
       "id": "barcelona-photo2",
-      "src": "medium/barcelona-photo2.jpg",
+      "src": "/photos/albums/barcelona/photo2.jpg",
       "source_path": "/photos/albums/barcelona/photo2.jpg",
       "thumb": "thumb/barcelona-photo2.jpg",
       "full": "/photos/albums/barcelona/photo2.jpg",
@@ -228,7 +228,7 @@
     },
     {
       "id": "barcelona-photo3",
-      "src": "medium/barcelona-photo3.jpg",
+      "src": "/photos/albums/barcelona/photo3.jpg",
       "source_path": "/photos/albums/barcelona/photo3.jpg",
       "thumb": "thumb/barcelona-photo3.jpg",
       "full": "/photos/albums/barcelona/photo3.jpg",
@@ -236,7 +236,7 @@
     },
     {
       "id": "barcelona-photo4",
-      "src": "medium/barcelona-photo4.jpg",
+      "src": "/photos/albums/barcelona/photo4.jpg",
       "source_path": "/photos/albums/barcelona/photo4.jpg",
       "thumb": "thumb/barcelona-photo4.jpg",
       "full": "/photos/albums/barcelona/photo4.jpg",
@@ -244,7 +244,7 @@
     },
     {
       "id": "barcelona-photo5",
-      "src": "medium/barcelona-photo5.jpg",
+      "src": "/photos/albums/barcelona/photo5.jpg",
       "source_path": "/photos/albums/barcelona/photo5.jpg",
       "thumb": "thumb/barcelona-photo5.jpg",
       "full": "/photos/albums/barcelona/photo5.jpg",
@@ -252,7 +252,7 @@
     },
     {
       "id": "istanbul-photot1",
-      "src": "medium/istanbul-photot1.jpg",
+      "src": "/photos/albums/istanbul/photot1.jpg",
       "source_path": "/photos/albums/istanbul/photot1.jpg",
       "thumb": "thumb/istanbul-photot1.jpg",
       "full": "/photos/albums/istanbul/photot1.jpg",
@@ -260,7 +260,7 @@
     },
     {
       "id": "istanbul-photo2",
-      "src": "medium/istanbul-photo2.jpg",
+      "src": "/photos/albums/istanbul/photo2.jpg",
       "source_path": "/photos/albums/istanbul/photo2.jpg",
       "thumb": "thumb/istanbul-photo2.jpg",
       "full": "/photos/albums/istanbul/photo2.jpg",
@@ -268,7 +268,7 @@
     },
     {
       "id": "istanbul-photo3",
-      "src": "medium/istanbul-photo3.jpg",
+      "src": "/photos/albums/istanbul/photo3.jpg",
       "source_path": "/photos/albums/istanbul/photo3.jpg",
       "thumb": "thumb/istanbul-photo3.jpg",
       "full": "/photos/albums/istanbul/photo3.jpg",
@@ -276,7 +276,7 @@
     },
     {
       "id": "istanbul-photo4",
-      "src": "medium/istanbul-photo4.jpg",
+      "src": "/photos/albums/istanbul/photo4.jpg",
       "source_path": "/photos/albums/istanbul/photo4.jpg",
       "thumb": "thumb/istanbul-photo4.jpg",
       "full": "/photos/albums/istanbul/photo4.jpg",
@@ -284,7 +284,7 @@
     },
     {
       "id": "bled-photo1",
-      "src": "medium/bled-photo1.jpg",
+      "src": "/photos/albums/bled/photo1.jpg",
       "source_path": "/photos/albums/bled/photo1.jpg",
       "thumb": "thumb/bled-photo1.jpg",
       "full": "/photos/albums/bled/photo1.jpg",
@@ -292,7 +292,7 @@
     },
     {
       "id": "bled-photo2",
-      "src": "medium/bled-photo2.jpg",
+      "src": "/photos/albums/bled/photo2.jpg",
       "source_path": "/photos/albums/bled/photo2.jpg",
       "thumb": "thumb/bled-photo2.jpg",
       "full": "/photos/albums/bled/photo2.jpg",
@@ -300,7 +300,7 @@
     },
     {
       "id": "bled-photo3",
-      "src": "medium/bled-photo3.jpg",
+      "src": "/photos/albums/bled/photo3.jpg",
       "source_path": "/photos/albums/bled/photo3.jpg",
       "thumb": "thumb/bled-photo3.jpg",
       "full": "/photos/albums/bled/photo3.jpg",
@@ -308,7 +308,7 @@
     },
     {
       "id": "bled-photo4",
-      "src": "medium/bled-photo4.jpg",
+      "src": "/photos/albums/bled/photo4.jpg",
       "source_path": "/photos/albums/bled/photo4.jpg",
       "thumb": "thumb/bled-photo4.jpg",
       "full": "/photos/albums/bled/photo4.jpg",
@@ -316,7 +316,7 @@
     },
     {
       "id": "madrid-photo1",
-      "src": "medium/madrid-photo1.jpg",
+      "src": "/photos/albums/madrid/photo1.jpg",
       "source_path": "/photos/albums/madrid/photo1.jpg",
       "thumb": "thumb/madrid-photo1.jpg",
       "full": "/photos/albums/madrid/photo1.jpg",
@@ -324,7 +324,7 @@
     },
     {
       "id": "madrid-photo2",
-      "src": "medium/madrid-photo2.jpg",
+      "src": "/photos/albums/madrid/photo2.jpg",
       "source_path": "/photos/albums/madrid/photo2.jpg",
       "thumb": "thumb/madrid-photo2.jpg",
       "full": "/photos/albums/madrid/photo2.jpg",
@@ -332,7 +332,7 @@
     },
     {
       "id": "ljubljana-photo1",
-      "src": "medium/ljubljana-photo1.jpg",
+      "src": "/photos/albums/ljubljana/photo1.jpg",
       "source_path": "/photos/albums/ljubljana/photo1.jpg",
       "thumb": "thumb/ljubljana-photo1.jpg",
       "full": "/photos/albums/ljubljana/photo1.jpg",
@@ -340,7 +340,7 @@
     },
     {
       "id": "ljubljana-photo2",
-      "src": "medium/ljubljana-photo2.jpg",
+      "src": "/photos/albums/ljubljana/photo2.jpg",
       "source_path": "/photos/albums/ljubljana/photo2.jpg",
       "thumb": "thumb/ljubljana-photo2.jpg",
       "full": "/photos/albums/ljubljana/photo2.jpg",
@@ -348,7 +348,7 @@
     },
     {
       "id": "dresden-photo1",
-      "src": "medium/dresden-photo1.jpg",
+      "src": "/photos/albums/dresden/photo1.jpg",
       "source_path": "/photos/albums/dresden/photo1.jpg",
       "thumb": "thumb/dresden-photo1.jpg",
       "full": "/photos/albums/dresden/photo1.jpg",
@@ -356,7 +356,7 @@
     },
     {
       "id": "dresden-photo2",
-      "src": "medium/dresden-photo2.jpg",
+      "src": "/photos/albums/dresden/photo2.jpg",
       "source_path": "/photos/albums/dresden/photo2.jpg",
       "thumb": "thumb/dresden-photo2.jpg",
       "full": "/photos/albums/dresden/photo2.jpg",
@@ -364,7 +364,7 @@
     },
     {
       "id": "longyearbyen-photo1",
-      "src": "medium/longyearbyen-photo1.jpg",
+      "src": "/photos/albums/longyearbyen/photo1.jpg",
       "source_path": "/photos/albums/longyearbyen/photo1.jpg",
       "thumb": "thumb/longyearbyen-photo1.jpg",
       "full": "/photos/albums/longyearbyen/photo1.jpg",
@@ -372,7 +372,7 @@
     },
     {
       "id": "longyearbyen-photo2",
-      "src": "medium/longyearbyen-photo2.jpg",
+      "src": "/photos/albums/longyearbyen/photo2.jpg",
       "source_path": "/photos/albums/longyearbyen/photo2.jpg",
       "thumb": "thumb/longyearbyen-photo2.jpg",
       "full": "/photos/albums/longyearbyen/photo2.jpg",
@@ -380,7 +380,7 @@
     },
     {
       "id": "longyearbyen-photo3",
-      "src": "medium/longyearbyen-photo3.jpg",
+      "src": "/photos/albums/longyearbyen/photo3.jpg",
       "source_path": "/photos/albums/longyearbyen/photo3.jpg",
       "thumb": "thumb/longyearbyen-photo3.jpg",
       "full": "/photos/albums/longyearbyen/photo3.jpg",
@@ -388,7 +388,7 @@
     },
     {
       "id": "longyearbyen-photo4",
-      "src": "medium/longyearbyen-photo4.jpg",
+      "src": "/photos/albums/longyearbyen/photo4.jpg",
       "source_path": "/photos/albums/longyearbyen/photo4.jpg",
       "thumb": "thumb/longyearbyen-photo4.jpg",
       "full": "/photos/albums/longyearbyen/photo4.jpg",
@@ -396,7 +396,7 @@
     },
     {
       "id": "longyearbyen-photo5",
-      "src": "medium/longyearbyen-photo5.jpg",
+      "src": "/photos/albums/longyearbyen/photo5.jpg",
       "source_path": "/photos/albums/longyearbyen/photo5.jpg",
       "thumb": "thumb/longyearbyen-photo5.jpg",
       "full": "/photos/albums/longyearbyen/photo5.jpg",

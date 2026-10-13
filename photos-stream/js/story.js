@@ -39,17 +39,25 @@ function flushQueue() {
   }
 }
 
-function upgradePhotos(root) {
+function upgradePhotos(root, { queued = true } = {}) {
   if (!root) return;
   for (const img of root.querySelectorAll('img[data-hi]')) {
     const hi = img.dataset.hi;
     if (!hi || img.src.endsWith(hi)) continue;
     const cached = upgraded.get(hi);
     if (cached) { img.src = hi; img.dataset.tier = 'full'; continue; }
-    img.dataset.tier = 'thumb';
-    loadQueue.push({ img, hi });
+    if (queued) {
+      img.dataset.tier = 'thumb';
+      loadQueue.push({ img, hi });
+    } else {
+      // 高清档已经就绪时不需要限流：此时后台那趟纹理上传早已结束，
+      // 直接交给浏览器排队比挤在 3 个并发里快得多。
+      img.dataset.tier = 'full';
+      img.src = hi;
+      upgraded.set(hi, img);
+    }
   }
-  flushQueue();
+  if (queued) flushQueue();
 }
 
 export class StoryView {
@@ -277,12 +285,18 @@ export class StoryView {
     this.el.style.setProperty('--side', `${Math.round(side)}px`);
     this.place();
     // Thumbnails are already on screen; start pulling the full-size files in behind them.
-    upgradePhotos(this.strip);
+    // 高清档已就绪时不再限流，直接换。
+    upgradePhotos(this.strip, { queued: !this.highQuality });
+  }
+
+  // 高清档就绪后由 app 调用：故事里的照片也换成高清图。
+  setQuality(high) {
+    this.highQuality = high;
+    if (high && this.strip) upgradePhotos(this.strip, { queued: false });
   }
 
   // Put moment `i` in the middle of the screen.
-  centre(i, animate) {
-    const it = this.items.find(t => t.i === i) ?? this.items[0];
+  centre(i, animate) {    const it = this.items.find(t => t.i === i) ?? this.items[0];
     const want = innerHeight / 2 - it.H / 2 - it.y0;
     const now = this.target;
     const d = mod(want - now + this.cycle / 2, this.cycle) - this.cycle / 2; // shortest way round

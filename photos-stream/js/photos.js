@@ -9,11 +9,13 @@
 // Both arrays are 2D arrays so they share one sampler and one set of shader uniforms,
 // and so a single `gl.bindTexture` swaps between them.
 
-// 两层纹理数组。256 让首屏先出画面，1920 的那层在后台构建完成后自动替换整幕。
-// 为什么最高档要跟相册原图一样大：照片在屏幕上被放大时，着色器按"贴图层边长 / 屏幕像素"
-// 取 mip，层越小就越早掉进更粗的 mip，看起来越糊。1920 让最大缩放下仍停留在第 0 级。
+// 两档纹理数组：256 让首屏先出画面，1536 的那层在后台构建完成后自动替换整幕。
+//
+// 为什么最高档选 1536 而不是原图的 1920：这一层要为每张照片占 size²×4 字节显存，
+// 49 张的账是 1024→206MB、1536→462MB、1920→723MB（含 mipmap 还要再加三分之一）。
+// 1920 那一档在实测里 150 秒都传不完，而 1536 在最大缩放下仍然够清晰。
 export const THUMB_LAYER = 256;
-export const FULL_LAYER = 1920;
+export const FULL_LAYER = 1536;
 
 function decode(src) {
   return new Promise((res, rej) => {

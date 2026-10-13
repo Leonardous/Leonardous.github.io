@@ -4,62 +4,13 @@
 // story has an address and the back button returns to the waterfall.
 
 const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
-import { clamp, smooth, damp, mod } from './math.js';
+import { clamp, smooth, damp, mod } from './math.js?v=41d560f05337';
+import { upgradeStoryPhotos } from './story-images.js?v=41d560f05337';
 const DRIFT = 30; // px/s the stream flows on its own
 
 // ── progressive photographs ────────────────────────────────────────────────────
-// Each frame shows a small thumbnail at once, then swaps to the full-size file once it
+// Each frame starts with its 1024px display image, then swaps to the full-size file once it
 // has decoded. The display sizes are known up front, so the swap never reflows.
-const upgraded = new Map();
-let loadQueue = [];
-let activeLoads = 0;
-const MAX_LOADS = 3;
-
-function flushQueue() {
-  while (activeLoads < MAX_LOADS && loadQueue.length) {
-    const item = loadQueue.shift();
-    activeLoads++;
-    let settled = false;
-    const finish = ok => {
-      if (settled) return;
-      settled = true;
-      activeLoads--;
-      if (ok) {
-        item.img.src = item.hi;
-        item.img.dataset.tier = 'full';
-        upgraded.set(item.hi, item.img);
-        requestAnimationFrame(flushQueue);
-      } else {
-        flushQueue();
-      }
-    };
-    item.img.onload = () => finish(true);
-    item.img.onerror = () => finish(false);
-    item.img.src = item.hi;
-  }
-}
-
-function upgradePhotos(root, { queued = true } = {}) {
-  if (!root) return;
-  for (const img of root.querySelectorAll('img[data-hi]')) {
-    const hi = img.dataset.hi;
-    if (!hi || img.src.endsWith(hi)) continue;
-    const cached = upgraded.get(hi);
-    if (cached) { img.src = hi; img.dataset.tier = 'full'; continue; }
-    if (queued) {
-      img.dataset.tier = 'thumb';
-      loadQueue.push({ img, hi });
-    } else {
-      // 高清档已经就绪时不需要限流：此时后台那趟纹理上传早已结束，
-      // 直接交给浏览器排队比挤在 3 个并发里快得多。
-      img.dataset.tier = 'full';
-      img.src = hi;
-      upgraded.set(hi, img);
-    }
-  }
-  if (queued) flushQueue();
-}
-
 export class StoryView {
   constructor({ stories, onShow, onCovered, onHide }) {
     this.stories = stories;
@@ -250,7 +201,7 @@ export class StoryView {
       el.style.width = `${w}px`;
       el.innerHTML = `
         <button class="shot" type="button" data-i="${c.i}" style="height:${h}px" aria-label="${esc(c.caption || 'Photograph')}, larger">
-          <span class="frame"><img alt="" decoding="async" src="${esc(c.thumb || c.src)}" data-hi="${esc(c.src)}"></span>
+          <span class="frame"><img alt="" decoding="async" src="${esc(c.src)}" data-hi="${esc(c.full || c.src)}" data-fallback="${esc(c.thumb || c.src)}" data-tier="medium"></span>
         </button>
         ${c.text || c.date ? `<div class="entry ${c.i % 2 ? 'right' : 'left'}">
           ${c.date ? `<span class="date">${esc(c.date)}</span>` : ''}
@@ -284,19 +235,20 @@ export class StoryView {
     const side = beside ? Math.min(vw * 0.5 - 28, base / 2 + gutter + textW + 44) : Math.min(vw * 0.5 - 28, base / 2 + clamp(vw * 0.12, 56, 200));
     this.el.style.setProperty('--side', `${Math.round(side)}px`);
     this.place();
-    // Thumbnails are already on screen; start pulling the full-size files in behind them.
-    // 高清档已就绪时不再限流，直接换。
-    upgradePhotos(this.strip, { queued: !this.highQuality });
-  }
-
-  // 高清档就绪后由 app 调用：故事里的照片也换成高清图。
-  setQuality(high) {
-    this.highQuality = high;
-    if (high && this.strip) upgradePhotos(this.strip, { queued: false });
+    for (const img of this.strip.querySelectorAll('img')) {
+      img.addEventListener('error', () => {
+        img.src = img.dataset.fallback;
+        img.dataset.tier = 'thumb';
+      }, { once: true });
+    }
+    // The story starts at 1024px, then upgrades every copy of each photograph to
+    // the album original without waiting for the whole waterfall's GPU upload.
+    upgradeStoryPhotos(this.strip);
   }
 
   // Put moment `i` in the middle of the screen.
-  centre(i, animate) {    const it = this.items.find(t => t.i === i) ?? this.items[0];
+  centre(i, animate) {
+    const it = this.items.find(t => t.i === i) ?? this.items[0];
     const want = innerHeight / 2 - it.H / 2 - it.y0;
     const now = this.target;
     const d = mod(want - now + this.cycle / 2, this.cycle) - this.cycle / 2; // shortest way round
@@ -370,7 +322,7 @@ export class StoryView {
     // be a blur at this size. Assigning src cancels any pending load.
     img.onload = null;
     img.onerror = null;
-    img.src = c.src; img.alt = c.caption || '';
+    img.src = c.full || c.src; img.alt = c.caption || '';
     this.lb.querySelector('.lb-cap').textContent = [c.date, c.credit].filter(Boolean).join('  ·  ');
     if (this.lb.hidden) { this.lb.hidden = false; requestAnimationFrame(() => this.lb.classList.add('on')); }
   }

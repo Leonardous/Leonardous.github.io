@@ -9,7 +9,7 @@
   <!-- 本页绕过了主题布局，所以标签标题和图标要自己声明；与影集页（影集 | LeonardTin）保持一致。 -->
   <link rel="icon" href="/img/leonard.jpg">
   <link rel="apple-touch-icon" href="/img/leonard.jpg">
-  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./style.css?v=41d560f05337">
   <style>
     /* Local additions. This page deliberately stays outside the Butterfly layout,
        so its own chrome lives here instead of in style.css — that keeps style.css
@@ -120,6 +120,7 @@
   <div id="loader" aria-hidden="true"><i></i></div>
   <div id="meter" aria-hidden="true"><i></i></div>
   <div id="cursor" aria-hidden="true"></div>
+  <p id="thread-label" aria-hidden="true"></p>
   <p id="announce" class="sr-only" aria-live="polite"></p>
 
   <section id="story" role="dialog" aria-modal="true" aria-labelledby="story-title" hidden>
@@ -138,6 +139,6 @@
     </div>
   </section>
 
-  <script type="module" src="./js/app.js"></script>
+  <script type="module" src="./js/app.js?v=41d560f05337"></script>
 </body>
 </html>

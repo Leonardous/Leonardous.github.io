@@ -1,4 +1,4 @@
-import { NF, MAX_CHAPTERS } from './stories.js';
+import { NF, MAX_CHAPTERS } from './stories.js?v=41d560f05337';
 
 // Local relaxation for progressive loading: the page keeps three sizes of each photograph
 // (thumb = 256px for first paint, medium = 1024px for the curtain, and the album's own
@@ -26,7 +26,9 @@ export function validateCatalog(catalog, data) {
       }
     }
     ids.add(p.id);
-    return { ...p, description: p.description ?? '', photographer: p.photographer ?? '', city: p.city ?? '', avg: [0.5, 0.5, 0.5] };
+    const aspect = Number.isFinite(p.width) && Number.isFinite(p.height) && p.width > 0 && p.height > 0
+      ? p.width / p.height : undefined;
+    return { ...p, aspect, description: p.description ?? '', photographer: p.photographer ?? '', city: p.city ?? '', avg: [0.5, 0.5, 0.5] };
   });
   const lines = new Set(), storyIds = new Set();
   const authored = data.stories.map((s, k) => {
@@ -53,10 +55,10 @@ export function validateCatalog(catalog, data) {
 
 export async function loadCatalog() {
   const read = async path => {
-    const response = await fetch(path);
+    const response = await fetch(path, { cache: 'no-cache' });
     if (!response.ok) throw new Error(`Could not load ${path} (${response.status}).`);
     return response.json();
   };
-  const [catalog, data] = await Promise.all([read('./photos.json'), read('./stories.json')]);
+  const [catalog, data] = await Promise.all([read('./photos.json?v=41d560f05337'), read('./stories.json?v=41d560f05337')]);
   return validateCatalog(catalog, data);
 }

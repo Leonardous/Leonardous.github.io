@@ -11,23 +11,23 @@
 // half-float buffer, with a mirrored, blurred copy for the floor, a mip-chain bloom, and a
 // final tone-mapping pass.
 
-import { StoryView } from './story.js';
-import { clamp, smooth, damp, mulberry } from './math.js';
-import { createGLHelpers } from './gl.js';
-import { loadCatalog } from './catalog.js';
-import { loadPass, FULL_LAYER, THUMB_LAYER } from './photos.js';
-import { buildStories, NF } from './stories.js';
-import { IDLE, FIBRE_VS, FIBRE_FS, FLOOR_VS, FLOOR_FS, POST_VS, DOWN_FS, UP_FS, BLUR_FS, COMPOSITE_FS } from './shaders.js';
+import { StoryView } from './story.js?v=41d560f05337';
+import { clamp, smooth, damp, mulberry } from './math.js?v=41d560f05337';
+import { createGLHelpers } from './gl.js?v=41d560f05337';
+import { loadCatalog } from './catalog.js?v=41d560f05337';
+import { loadPass, FULL_LAYER, THUMB_LAYER } from './photos.js?v=41d560f05337';
+import { buildStories, packStoryTexture, NF } from './stories.js?v=41d560f05337';
+import { IDLE, FIBRE_VS, FIBRE_FS, FLOOR_VS, FLOOR_FS, POST_VS, DOWN_FS, UP_FS, BLUR_FS, COMPOSITE_FS } from './shaders.js?v=41d560f05337';
 // LOCAL ADDITION (photos-stream): generated ambience, started on the first user gesture.
 // Delete this import and the initAmbience() call in boot() to return to upstream behaviour.
-import { initAmbience } from './ambience.js';
+import { initAmbience } from './ambience.js?v=41d560f05337';
 
 const canvas = document.getElementById('stream');
 const CAPTURE = new URLSearchParams(location.search).has('capture');
 const gl = canvas.getContext('webgl2', { antialias: false, alpha: false, depth: false, stencil: false, powerPreference: 'high-performance', preserveDrawingBuffer: CAPTURE });
 const body = document.body;
 const $ = s => document.querySelector(s);
-const $loader = $('#loader i'), $meter = $('#meter'), $cursor = $('#cursor'), $announce = $('#announce');
+const $loader = $('#loader i'), $meter = $('#meter'), $cursor = $('#cursor'), $label = $('#thread-label'), $announce = $('#announce');
 
 const SEG = 64;           // segments per fibre
 const CH = 15;            // height of the bar the curtain hangs from
@@ -49,8 +49,8 @@ const fib = {
 };
 const P = {}, T = {}, vaos = {};
 let RT = null;
-// Progressive loading: the curtain renders from thumbnails while the full-resolution
-// array is built in the background, then swaps in when a story is opened.
+// The curtain starts with thumbnails, then swaps to its 1024px display images.
+// Story details load album originals independently of these texture arrays.
 let arrTexLow = null, arrTexFull = null, fullReady = false, wantFull = false, usingFull = false;
 // 高清档一就绪就把整幕换过去（不必等点进故事）。可以在控制台用
 // window.__undertow.forceLow() 关掉，用来对比低清效果。
@@ -72,6 +72,7 @@ let sleeping = false, last = performance.now(), zoomUntil = 0;
 let drag = null, pinch = null;
 const touches = new Map();
 let view = null, lsBeforeStory = null;
+let labelLine = -1, labelWidth = 0, labelHeight = 0;
 
 const FRAME_TOP = CH + 2.4, FRAME_BOTTOM = -4.6;
 const HOME_Y = (FRAME_TOP + FRAME_BOTTOM) / 2;
@@ -106,22 +107,8 @@ function buildFibres() {
 }
 
 function uploadStories() {
-  // 每个故事 4 个 texel（每行 1024 个 texel，所以一个故事绝不会跨行）：
-  //   texel 0 : x=章节数, yzw=故事颜色
-  //   texel 1 : 章节 0-3 的层号
-  //   texel 2 : 章节 4-7 的层号
-  //   texel 3 : 章节 8-15 的层号
-  // 上限因此是 16 章（旧版是每故事 2 个 texel = 8 章）。
-  const STRIDE = 4;
-  const data = new Float32Array(1024 * Math.ceil(NF * STRIDE / 1024) * 4);
-  stories.forEach((s, i) => {
-    const base = i * STRIDE * 4;
-    data.set([s.chapters.length, ...s.col], base);
-    for (let k = 0; k < 16; k++) {
-      data[base + 4 + k] = s.chapters[k] ? s.chapters[k].layer : 0;
-    }
-  });
-  T.story = dataTexture(1024, Math.ceil(NF * STRIDE / 1024), data);
+  const { width, height, data } = packStoryTexture(stories);
+  T.story = dataTexture(width, height, data);
   T.layers = dataTexture(photos.length, 1, new Float32Array(photos.flatMap(p => [p.aspect, 0, 0, 0])));
 }
 
@@ -199,6 +186,21 @@ function zoomBy(delta, sx, sy) {
   showMeter();
 }
 function hideLabel() { body.classList.remove('over-line'); }
+function updateLabel(line) {
+  body.classList.toggle('over-line', line >= 0);
+  if (line < 0) return;
+  if (labelLine !== line) {
+    labelLine = line;
+    $label.textContent = stories[line].title;
+    labelWidth = $label.offsetWidth;
+    labelHeight = $label.offsetHeight;
+  }
+  // Mouse labels follow the pointer; keyboard and touch selection stay by their thread.
+  const p = kbLine >= 0 ? project(fib.x0[line], CH * 0.55) : pointer;
+  const x = clamp(p.x + 20, 16, Math.max(16, W - labelWidth - 16));
+  const y = clamp(p.y + 18, 16, Math.max(16, H - labelHeight - 16));
+  $label.style.transform = `translate3d(${Math.round(x)}px,${Math.round(y)}px,0)`;
+}
 function announce(i) { const s = stories[i]; $announce.textContent = `${s.title}. ${s.chapters.length} moments. Press Enter to open.`; }
 
 canvas.addEventListener('wheel', e => {
@@ -279,6 +281,7 @@ addEventListener('keydown', e => {
 
 function resize() {
   W = innerWidth; H = innerHeight; DPR = Math.min(devicePixelRatio || 1, 2);
+  labelLine = -1;
   PW = Math.round(W * DPR); PH = Math.round(H * DPR);
   canvas.width = PW; canvas.height = PH;
   if (RT) { freeTarget(RT.scene); RT.refl.forEach(freeTarget); RT.bloom.forEach(freeTarget); }
@@ -360,7 +363,7 @@ function step(dt, now) {
   }
   pluck.age += dt;
 
-  body.classList.toggle('over-line', line >= 0);
+  updateLabel(line);
 
   // Now and then a life glimmers by itself somewhere in view.
   idleNext -= dt;
@@ -484,8 +487,6 @@ function frame(now) {
   const nextUsingFull = fullReady && (wantFull || autoUpgradeOverride);
   if (nextUsingFull !== usingFull) {
     usingFull = nextUsingFull;
-    // 切档时同步故事视图：高清档就绪后，故事里的照片也换成高清图。
-    view?.setQuality?.(usingFull);
   }
   if (sleeping || document.hidden) return;
   step(dt, now);
@@ -552,15 +553,14 @@ async function boot() {
   // 仅供对比调试：?lowres=1 时不自动升到高清档，用来复现旧的低清效果。
   window.__undertow.forceLow = () => { autoUpgradeOverride = false; };
 
-  // Pass 2: 最高画质。等首屏稳定后开始，源直接用相册里那张 1920px 压缩图
-  //（photos.json 的 src），GPU 侧按 1536 建纹理数组。这样仓库里不需要再存一份
-  // 中间尺寸的副本，而 1536 的显存开销比 1920 省 36%。
+  // Pass 2 uses the 1024px display files. Detail views fetch their own album
+  // originals, so opening one does not wait for a full-library download/upload.
   const startFullLoad = () => {
     if (fullLoad) return;
     fullLoad = { progress: 0 };
     loadPass(gl, photos, {
       size: FULL_LAYER,
-      srcOf: p => p.full || p.src,
+      srcOf: p => p.src,
       workers: 3,
       onProgress: (done, total) => { fullLoad.progress = done / total; },
     })

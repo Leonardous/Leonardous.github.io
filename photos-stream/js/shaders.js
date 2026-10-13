@@ -1,3 +1,5 @@
+import { STORY_TEXELS } from './stories.js?v=41d560f05337';
+
 export const IDLE = 3;
 
 const COMMON = `#version 300 es
@@ -47,7 +49,7 @@ flat out int vId; flat out float vN, vPhase, vHov, vSel, vFlowT; flat out vec3 v
 void main(){
   int i=gl_InstanceID;
   float fi=float(i);
-  vec4 s=texelFetch(uFibS,at(i),0), dy=texelFetch(uFibD,at(i),0), st=texelFetch(uStory,at(i*3),0);
+  vec4 s=texelFetch(uFibS,at(i),0), dy=texelFetch(uFibD,at(i),0), st=texelFetch(uStory,at(i*${STORY_TEXELS}),0);
   const float UV=.86;
   float u=aV.x, flare=0.;
   vec3 p;
@@ -124,11 +126,10 @@ void main(){
     float slot=floor(sc/uS), local=sc-slot*uS;
     int n=max(int(vN+.5),1);
     int ch=int(mod(slot,float(n)));
-    // 每个故事占 4 个 texel：第 0 个存章节数与颜色，第 1、2 个存章节 0-7 的层号，
-    // 第 3 个存章节 8-15。上限 16 章。
-    vec4 L=texelFetch(uStory,at(vId*4+1+ch/8),0);
-    int cc=ch-(ch/8)*8;
-    int c4=cc-(cc/4)*4;
+    // Each RGBA texel contains four chapter layers. at() also handles rows
+    // crossed by a story, so both stages use the same linear texel stride.
+    vec4 L=texelFetch(uStory,at(vId*${STORY_TEXELS}+1+ch/4),0);
+    int c4=ch%4;
     float layer=c4==0?L.x:c4==1?L.y:c4==2?L.z:L.w;
     float aspect=texelFetch(uLayers,ivec2(int(layer),0),0).x;
     float h=uW/aspect;
@@ -147,18 +148,18 @@ void main(){
       inside=ss(0.,e,vp)*ss(1.,1.-e,vp)*ss(uYB,uYB+3.*uS,y)*ss(uCH,uCH-2.*uS,y);
       // Between moments only the thread itself remains, a hairline in its story's colour.
       core=clamp(1.2-abs(vXw)*vPpu,0.,1.);
-      vec3 thread=mix(vCol*(.3+.25*cl+.5*vHov)*core, ice*.95*core, vHov);
+      vec3 thread=mix(vCol*(.3+.25*cl+.18*vHov)*core, ice*.55*core, vHov*.3);
       st=mix(st,mix(thread,img,inside),detail);
     }
-    st*=1.+vHov*.25*(1.-detail);
+    st*=1.+vHov*.1*(1.-detail);
     // The curtain's own light keeps running along the thread between the pictures.
     c=mix(c,st*cov,reveal)+c*core*(1.-inside)*reveal*.75;
   }
 
   float front=uIntro*8.5-1.;
   c*=ss(front,front-3.,uCH-y);
-  // 鼠标划过的丝线发白光并提亮；其余丝线只是稍微压暗，不做重压。
-  c=mix(c, mix(c,ice,.72)*(1.+.9*vHov), vHov);
+  // A subtle lift preserves photograph detail instead of washing the line white.
+  c=mix(c, mix(c,ice,.16)*(1.+.18*vHov), vHov);
   c*=vHov>.01?1.:1.-uDim;
   c*=mix(1.-uSelect.y,1.+uSelect.y*1.2,vSel);
   if(uMirror>.5) c*=exp(-y*.3)*(.55+.45*cl2);

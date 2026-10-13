@@ -2,25 +2,22 @@
 //
 // The curtain does not need 1920px photographs: far away each thread is a couple of
 // pixels, and the mosaic is a few hundred. So we upload small thumbnails first, start
-// rendering immediately, then build the full-resolution array in the background and
-// swap it in — the swap is deferred to the moment a story is opened, where the images
-// are large on screen and the change is invisible.
+// rendering immediately, then build a 1024px array in the background. Story details
+// load album originals independently and never wait for this pass.
 //
 // Both arrays are 2D arrays so they share one sampler and one set of shader uniforms,
 // and so a single `gl.bindTexture` swaps between them.
 
-// 两档纹理数组：256 让首屏先出画面，1536 的那层在后台构建完成后自动替换整幕。
-//
-// 为什么最高档选 1536 而不是原图的 1920：这一层要为每张照片占 size²×4 字节显存，
-// 49 张的账是 1024→206MB、1536→462MB、1920→723MB（含 mipmap 还要再加三分之一）。
-// 1920 那一档在实测里 150 秒都传不完，而 1536 在最大缩放下仍然够清晰。
+// 256px first paint, 1024px curtain detail. Keep the large album originals out of
+// the GPU array: 49 layers at 1536px consumed about 617MB including mipmaps.
 export const THUMB_LAYER = 256;
-export const FULL_LAYER = 1536;
+export const FULL_LAYER = 1024;
 
 function decode(src) {
   return new Promise((res, rej) => {
     const img = new Image();
     img.decoding = 'async';
+    img.fetchPriority = 'low';
     img.onload = () => res(img);
     img.onerror = () => rej(new Error(`Could not load photo: ${src}`));
     img.src = src;
@@ -64,7 +61,7 @@ export async function loadPass(gl, photos, { size, srcOf, workers = 4, onProgres
 
   const tex = gl.createTexture();
   gl.bindTexture(gl.TEXTURE_2D_ARRAY, tex);
-  const levels = 1 + Math.log2(size);
+  const levels = 1 + Math.floor(Math.log2(size));
   gl.texStorage3D(gl.TEXTURE_2D_ARRAY, levels, gl.RGBA8, size, size, photos.length);
 
   const { canvas: scratch, ctx } = makeScratch(size);
@@ -105,7 +102,7 @@ export async function loadPass(gl, photos, { size, srcOf, workers = 4, onProgres
       for (let j = 0; j < px.length; j += 4) { r += px[j]; g += px[j + 1]; b += px[j + 2]; }
       const cells = avgSize * avgSize;
       // The low-res pass owns the average colour; the full pass keeps whatever is set.
-      if (!photos[i].avg) photos[i].avg = [r / cells / 255, g / cells / 255, b / cells / 255];
+      photos[i].avg = [r / cells / 255, g / cells / 255, b / cells / 255];
 
       gl.bindTexture(gl.TEXTURE_2D_ARRAY, tex);
       gl.texSubImage3D(gl.TEXTURE_2D_ARRAY, 0, 0, 0, i, size, size, 1, gl.RGBA, gl.UNSIGNED_BYTE, scratch);

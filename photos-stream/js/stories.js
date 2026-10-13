@@ -1,52 +1,83 @@
-import { clamp, mulberry } from './math.js';
+import { clamp } from './math.js?v=41d560f05337';
 export const NF = 2400;
-// 章节上限来自纹理打包：每个故事占 4 个 texel —— 第 0 个存章节数与颜色，
-// 第 1、2 个存章节 0-7 的层号，第 3 个存章节 8-15。所以是 16 章。
-// 详见 app.js 的 uploadStories() 与 shaders.js 里的取用方式。
+// One RGBA texel stores the chapter count and colour, followed by four chapter
+// indices per texel. Keep the CPU packing and both shader stages on this layout.
 export const MAX_CHAPTERS = 16;
+export const STORY_TEXELS = 1 + Math.ceil(MAX_CHAPTERS / 4);
 
-// Every thread gets a story. Authored stories in stories.json claim their lines; every other
-// line is drawn from a single city's photographs, so a thread always shows one coherent place
-// instead of a random mix, and its title is that city's name.
+export function packStoryTexture(stories) {
+  const width = 1024, height = Math.ceil(stories.length * STORY_TEXELS / width);
+  const data = new Float32Array(width * height * 4);
+  stories.forEach((story, i) => {
+    if (story.chapters.length > MAX_CHAPTERS) {
+      throw new RangeError(`Story ${story.id ?? i} exceeds ${MAX_CHAPTERS} chapters.`);
+    }
+    const base = i * STORY_TEXELS * 4;
+    data.set([story.chapters.length, ...story.col], base);
+    story.chapters.forEach((chapter, k) => { data[base + 4 + k] = chapter.layer; });
+  });
+  return { width, height, data };
+}
+
+// Keep the dense curtain, with consecutive groups of threads for each city.
+// Every thread contains that city's complete album, in its authored story order.
 export function buildStories(photos, authored = [], journal = []) {
   const stories = new Array(NF);
   for (const s of authored) stories[s.line] = { ...s };
 
   // 按城市分组：photo id 形如 {城市}-{文件名}，所以取第一个连字符之前的部分。
+  const cityOf = id => String(id).split('-')[0];
   const byCity = new Map();
   photos.forEach((p, j) => {
-    const city = String(p.id).split('-')[0];
+    const city = cityOf(p.id);
     if (!byCity.has(city)) byCity.set(city, []);
     byCity.get(city).push(j);
   });
-  const cities = [...byCity.entries()].map(([city, idx]) => ({
-    city,
-    idx,
-    // 显示名优先用相册里的中文名（photos.json 的 city 字段），没有就退回目录名。
-    name: photos[idx[0]].city || city,
-  }));
+  const completeChapters = (chapters, idx) => {
+    const seen = new Set(), complete = [];
+    for (const chapter of chapters) {
+      const id = String(chapter.photo);
+      if (seen.has(id)) continue;
+      seen.add(id);
+      complete.push({ ...chapter });
+    }
+    for (const j of idx) {
+      const photo = photos[j];
+      if (seen.has(String(photo.id))) continue;
+      seen.add(String(photo.id));
+      complete.push({ photo: photo.id, caption: photo.description });
+    }
+    return complete;
+  };
+  const cities = [...byCity.entries()].map(([city, idx]) => {
+    const template = authored.find(story => story.chapters.length && story.chapters.every(chapter => cityOf(chapter.photo) === city));
+    return {
+      city,
+      idx,
+      // 显示名优先用相册里的中文名，没有就退回目录名。
+      name: photos[idx[0]].city || city,
+      chapters: completeChapters(template?.chapters ?? [], idx),
+    };
+  });
 
   for (let i = 0; i < NF; i++) {
-    if (stories[i]) continue;
-    const r = mulberry(i * 2654435761 + 97);
+    if (stories[i]) {
+      const story = stories[i];
+      const city = cityOf(story.chapters[0].photo);
+      if (story.chapters.some(chapter => cityOf(chapter.photo) !== city)) {
+        throw new Error(`Story ${story.id} must contain photos from one city.`);
+      }
+      story.chapters = completeChapters(story.chapters, byCity.get(city));
+      continue;
+    }
 
     if (!cities.length) {                       // 没有照片时保持原样的空故事
       stories[i] = { id: `line-${i + 1}`, line: i, title: `Line ${i + 1}`, chapters: [] };
       continue;
     }
 
-    const { name, idx } = cities[Math.floor(r() * cities.length)];
-    // 章节数不超过该城市的照片数：否则同一张照片会在一条丝线里重复出现，
-    // 放大后就是"一条线里全是同一张图"。
-    const n = Math.min(idx.length, 4 + Math.floor(r() * 5));
-    // 起点也按种子轮换，这样同一座城市的不同丝线不会每次都从同一张照片开始。
-    const start = Math.floor(r() * idx.length);
-    const chapters = [];
-    for (let c = 0; c < n; c++) {
-      const j = idx[(start + c) % idx.length];
-      chapters.push({ photo: photos[j].id, caption: photos[j].description });
-    }
-    stories[i] = { id: `line-${i + 1}`, line: i, title: `${name} · ${start + 1}`, chapters };
+    const { name, chapters } = cities[Math.floor(i * cities.length / NF)];
+    stories[i] = { id: `line-${i + 1}`, line: i, title: name, chapters: chapters.map(chapter => ({ ...chapter })) };
   }
   const byId = new Map(photos.map((p, j) => [p.id, j]));
   for (const s of stories) {
@@ -54,7 +85,7 @@ export function buildStories(photos, authored = [], journal = []) {
       const layer = byId.get(String(c.photo)), p = photos[layer];
       // LOCAL ADDITION (photos-stream): carry the reduced sizes through so the story view
       // can show a thumbnail immediately and swap in the larger file once it has loaded.
-      return { ...c, layer, src: p.src, thumb: p.thumb, full: p.full, aspect: p.aspect, caption: c.caption ?? p.description, credit: c.credit ?? p.photographer };
+      return { ...c, layer, src: p.src, thumb: p.thumb, full: p.full, aspect: p.aspect, date: c.date ?? p.date, caption: c.caption ?? p.description, credit: c.credit ?? p.photographer };
     });
     // Journal entries: authored text wins; otherwise the shared template, spread so that every
     // story, however short, begins with the first entry and ends with the last.
@@ -62,7 +93,7 @@ export function buildStories(photos, authored = [], journal = []) {
     s.chapters.forEach((c, k) => {
       const t = T ? journal[Math.round(k * (T - 1) / Math.max(1, n - 1))] : {};
       c.date = c.date ?? t.date ?? '';
-      c.text = c.text ?? t.text ?? '';
+      c.text = c.text ?? t.text ?? c.caption ?? '';
     });
     colourStory(s, photos);
   }

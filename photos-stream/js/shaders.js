@@ -1,4 +1,4 @@
-import { STORY_TEXELS } from './stories.js?v=e8b40f6f86ec';
+import { STORY_TEXELS } from './stories.js?v=fc4b61c98ec5';
 
 export const IDLE = 3;
 

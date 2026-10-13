@@ -49,6 +49,26 @@
       "description": "卡夫卡头像"
     },
     {
+      "id": "prague-photo5",
+      "src": "medium/prague-photo5.jpg",
+      "source_path": "/photos/albums/prague/photo5.jpg",
+      "thumb": "thumb/prague-photo5.jpg",
+      "full": "/photos/albums/prague/photo5.jpg",
+      "width": 1920,
+      "height": 2559,
+      "city": "布拉格"
+    },
+    {
+      "id": "prague-photo6",
+      "src": "medium/prague-photo6.jpg",
+      "source_path": "/photos/albums/prague/photo6.jpg",
+      "thumb": "thumb/prague-photo6.jpg",
+      "full": "/photos/albums/prague/photo6.jpg",
+      "width": 1920,
+      "height": 1440,
+      "city": "布拉格"
+    },
+    {
       "id": "munich-photo1",
       "src": "medium/munich-photo1.jpg",
       "source_path": "/photos/albums/munich/photo1.jpg",
@@ -429,6 +449,27 @@
       "city": "马德里"
     },
     {
+      "id": "madrid-photo3",
+      "src": "medium/madrid-photo3.jpg",
+      "source_path": "/photos/albums/madrid/photo3.jpg",
+      "thumb": "thumb/madrid-photo3.jpg",
+      "full": "/photos/albums/madrid/photo3.jpg",
+      "width": 1920,
+      "height": 2560,
+      "city": "马德里",
+      "date": "2025-12-26"
+    },
+    {
+      "id": "madrid-photo4",
+      "src": "medium/madrid-photo4.jpg",
+      "source_path": "/photos/albums/madrid/photo4.jpg",
+      "thumb": "thumb/madrid-photo4.jpg",
+      "full": "/photos/albums/madrid/photo4.jpg",
+      "width": 1706,
+      "height": 1279,
+      "city": "马德里"
+    },
+    {
       "id": "ljubljana-photo1",
       "src": "medium/ljubljana-photo1.jpg",
       "source_path": "/photos/albums/ljubljana/photo1.jpg",
@@ -446,6 +487,26 @@
       "full": "/photos/albums/ljubljana/photo2.jpg",
       "width": 1920,
       "height": 1440,
+      "city": "卢布尔雅那"
+    },
+    {
+      "id": "ljubljana-photo3",
+      "src": "medium/ljubljana-photo3.jpg",
+      "source_path": "/photos/albums/ljubljana/photo3.jpg",
+      "thumb": "thumb/ljubljana-photo3.jpg",
+      "full": "/photos/albums/ljubljana/photo3.jpg",
+      "width": 1706,
+      "height": 1279,
+      "city": "卢布尔雅那"
+    },
+    {
+      "id": "ljubljana-photo4",
+      "src": "medium/ljubljana-photo4.jpg",
+      "source_path": "/photos/albums/ljubljana/photo4.jpg",
+      "thumb": "thumb/ljubljana-photo4.jpg",
+      "full": "/photos/albums/ljubljana/photo4.jpg",
+      "width": 1706,
+      "height": 1279,
       "city": "卢布尔雅那"
     },
     {
@@ -522,6 +583,76 @@
       "height": 1440,
       "city": "朗伊尔城",
       "date": "2026-08-10"
+    },
+    {
+      "id": "luoyang-photo1",
+      "src": "medium/luoyang-photo1.jpg",
+      "source_path": "/photos/albums/luoyang/photo1.jpg",
+      "thumb": "thumb/luoyang-photo1.jpg",
+      "full": "/photos/albums/luoyang/photo1.jpg",
+      "width": 1920,
+      "height": 1440,
+      "city": "洛阳"
+    },
+    {
+      "id": "luoyang-photo2",
+      "src": "medium/luoyang-photo2.jpg",
+      "source_path": "/photos/albums/luoyang/photo2.jpg",
+      "thumb": "thumb/luoyang-photo2.jpg",
+      "full": "/photos/albums/luoyang/photo2.jpg",
+      "width": 1920,
+      "height": 1440,
+      "city": "洛阳"
+    },
+    {
+      "id": "luoyang-photo3",
+      "src": "medium/luoyang-photo3.jpg",
+      "source_path": "/photos/albums/luoyang/photo3.jpg",
+      "thumb": "thumb/luoyang-photo3.jpg",
+      "full": "/photos/albums/luoyang/photo3.jpg",
+      "width": 1920,
+      "height": 1440,
+      "city": "洛阳"
+    },
+    {
+      "id": "luoyang-photo4",
+      "src": "medium/luoyang-photo4.jpg",
+      "source_path": "/photos/albums/luoyang/photo4.jpg",
+      "thumb": "thumb/luoyang-photo4.jpg",
+      "full": "/photos/albums/luoyang/photo4.jpg",
+      "width": 1707,
+      "height": 1280,
+      "city": "洛阳"
+    },
+    {
+      "id": "luoyang-photo5",
+      "src": "medium/luoyang-photo5.jpg",
+      "source_path": "/photos/albums/luoyang/photo5.jpg",
+      "thumb": "thumb/luoyang-photo5.jpg",
+      "full": "/photos/albums/luoyang/photo5.jpg",
+      "width": 1920,
+      "height": 1440,
+      "city": "洛阳"
+    },
+    {
+      "id": "luoyang-photo6",
+      "src": "medium/luoyang-photo6.jpg",
+      "source_path": "/photos/albums/luoyang/photo6.jpg",
+      "thumb": "thumb/luoyang-photo6.jpg",
+      "full": "/photos/albums/luoyang/photo6.jpg",
+      "width": 1920,
+      "height": 1440,
+      "city": "洛阳"
+    },
+    {
+      "id": "luoyang-photo7",
+      "src": "medium/luoyang-photo7.jpg",
+      "source_path": "/photos/albums/luoyang/photo7.jpg",
+      "thumb": "thumb/luoyang-photo7.jpg",
+      "full": "/photos/albums/luoyang/photo7.jpg",
+      "width": 1920,
+      "height": 2559,
+      "city": "洛阳"
     }
   ]
 }

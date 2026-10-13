@@ -5,6 +5,14 @@
       "title": "布拉格",
       "chapters": [
         {
+          "photo": "prague-photo5",
+          "text": ""
+        },
+        {
+          "photo": "prague-photo6",
+          "text": ""
+        },
+        {
           "photo": "prague-photo3",
           "date": "2026-05-24",
           "text": "通往城堡的路上"
@@ -229,6 +237,15 @@
         {
           "photo": "madrid-photo2",
           "text": ""
+        },
+        {
+          "photo": "madrid-photo4",
+          "text": ""
+        },
+        {
+          "photo": "madrid-photo3",
+          "date": "2025-12-26",
+          "text": ""
         }
       ]
     },
@@ -242,6 +259,14 @@
         },
         {
           "photo": "ljubljana-photo2",
+          "text": ""
+        },
+        {
+          "photo": "ljubljana-photo3",
+          "text": ""
+        },
+        {
+          "photo": "ljubljana-photo4",
           "text": ""
         }
       ]
@@ -287,6 +312,40 @@
         {
           "photo": "longyearbyen-photo5",
           "date": "2026-08-10",
+          "text": ""
+        }
+      ]
+    },
+    {
+      "id": "luoyang",
+      "title": "洛阳",
+      "chapters": [
+        {
+          "photo": "luoyang-photo1",
+          "text": ""
+        },
+        {
+          "photo": "luoyang-photo2",
+          "text": ""
+        },
+        {
+          "photo": "luoyang-photo3",
+          "text": ""
+        },
+        {
+          "photo": "luoyang-photo4",
+          "text": ""
+        },
+        {
+          "photo": "luoyang-photo5",
+          "text": ""
+        },
+        {
+          "photo": "luoyang-photo6",
+          "text": ""
+        },
+        {
+          "photo": "luoyang-photo7",
           "text": ""
         }
       ]

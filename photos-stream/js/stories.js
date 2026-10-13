@@ -1,4 +1,4 @@
-import { clamp, mulberry } from './math.js?v=e8b40f6f86ec';
+import { clamp, mulberry } from './math.js?v=fc4b61c98ec5';
 export const NF = 2400;
 // One RGBA texel stores the chapter count and colour, followed by four chapter
 // indices per texel. Keep the CPU packing and both shader stages on this layout.

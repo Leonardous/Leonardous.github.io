@@ -5,11 +5,12 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#03040a">
   <meta name="description" content="照片流：每一根丝线都是一座城市，每一道坠落的微光都是一张照片。">
-  <title>照片流 | LeonardTin</title>
+  <title>沿途 | LeonardTin</title>
   <!-- 本页绕过了主题布局，所以标签标题和图标要自己声明；与影集页（影集 | LeonardTin）保持一致。 -->
   <link rel="icon" href="/img/leonard.jpg">
   <link rel="apple-touch-icon" href="/img/leonard.jpg">
-  <link rel="stylesheet" href="./style.css?v=3f92743c23ca">
+  <link rel="stylesheet" href="./style.css?v=3eddaa089417">
+  <link rel="preload" href="./audio/yantu-loop.mp3?v=3eddaa089417" as="fetch" type="audio/mpeg" crossorigin>
   <style>
     /* Local additions. This page deliberately stays outside the Butterfly layout,
        so its own chrome lives here instead of in style.css — that keeps style.css
@@ -78,7 +79,7 @@
       0%, 100% { opacity: 0.35; }
       50% { opacity: 1; }
     }
-    /* One-time hint; removed by script after the first gesture. */
+    /* The sound hint fades once playback is running. */
     #sound-hint {
       position: fixed;
       top: calc(max(18px, env(safe-area-inset-top)) + 52px);
@@ -104,6 +105,23 @@
   </style>
 </head>
 <body>
+  <section id="entrance" aria-labelledby="entrance-title">
+    <div class="entrance-content">
+      <span class="entrance-light" aria-hidden="true">
+        <span class="entrance-meteor">
+          <i></i><i></i><i></i><i></i><i></i><i></i>
+          <i></i><i></i><i></i><i></i><i></i><i></i>
+        </span>
+      </span>
+      <div class="entrance-copy">
+        <h1 id="entrance-title">沿途</h1>
+        <p>把走过的路，留在光里。</p>
+        <button id="enter-stream" type="button" autofocus>启程</button>
+        <small>推荐使用电脑，打开声音</small>
+      </div>
+    </div>
+    <span class="sr-only" role="progressbar" aria-label="照片加载进度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" hidden></span>
+  </section>
   <div id="page-ui">
     <a id="back-to-blog" class="pill" href="/photos/">
       <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
@@ -114,10 +132,9 @@
       <svg class="icon-off" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="m16 9 5 6M21 9l-5 6"/></svg>
     </button>
   </div>
-  <p id="sound-hint">点击任意处开启声音</p>
-  <canvas id="stream" tabindex="0" aria-label="A curtain of light made of stories. Every thread is a story. Use left and right arrows to move between threads and Enter to open one. Scroll or pinch to zoom."></canvas>
+  <p id="sound-hint">加载完成后，钢琴将随瀑布响起</p>
+  <canvas id="stream" tabindex="-1" aria-label="A curtain of light made of stories. Every thread is a story. Use left and right arrows to move between threads and Enter to open one. Scroll or pinch to zoom."></canvas>
   <p id="error" role="alert" hidden></p>
-  <div id="loader" aria-hidden="true"><i></i></div>
   <div id="meter" aria-hidden="true"><i></i></div>
   <div id="cursor" aria-hidden="true"></div>
   <p id="thread-label" aria-hidden="true"></p>
@@ -139,6 +156,6 @@
     </div>
   </section>
 
-  <script type="module" src="./js/app.js?v=3f92743c23ca"></script>
+  <script type="module" src="./js/app.js?v=3eddaa089417"></script>
 </body>
 </html>

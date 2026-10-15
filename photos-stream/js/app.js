@@ -11,29 +11,32 @@
 // half-float buffer, with a mirrored, blurred copy for the floor, a mip-chain bloom, and a
 // final tone-mapping pass.
 
-import { StoryView } from './story.js?v=3f92743c23ca';
-import { clamp, smooth, damp, mulberry } from './math.js?v=3f92743c23ca';
-import { createGLHelpers } from './gl.js?v=3f92743c23ca';
-import { loadCatalog } from './catalog.js?v=3f92743c23ca';
-import { loadPass, FULL_LAYER, THUMB_LAYER } from './photos.js?v=3f92743c23ca';
-import { buildStories, packStoryTexture, NF } from './stories.js?v=3f92743c23ca';
-import { IDLE, FIBRE_VS, FIBRE_FS, FLOOR_VS, FLOOR_FS, POST_VS, DOWN_FS, UP_FS, BLUR_FS, COMPOSITE_FS } from './shaders.js?v=3f92743c23ca';
-// LOCAL ADDITION (photos-stream): generated ambience, started on the first user gesture.
-// Delete this import and the initAmbience() call in boot() to return to upstream behaviour.
-import { initAmbience } from './ambience.js?v=3f92743c23ca';
+import { StoryView } from './story.js?v=3eddaa089417';
+import { clamp, smooth, damp, mulberry } from './math.js?v=3eddaa089417';
+import { createGLHelpers } from './gl.js?v=3eddaa089417';
+import { loadCatalog } from './catalog.js?v=3eddaa089417';
+import { loadPass, FULL_LAYER, THUMB_LAYER } from './photos.js?v=3eddaa089417';
+import { buildStories, packStoryTexture, NF } from './stories.js?v=3eddaa089417';
+import { IDLE, FIBRE_VS, FIBRE_FS, FLOOR_VS, FLOOR_FS, POST_VS, DOWN_FS, UP_FS, BLUR_FS, COMPOSITE_FS } from './shaders.js?v=3eddaa089417';
+// Prepare generated music during loading; the first visible waterfall frame starts it.
+import { initAmbience } from './ambience.js?v=3eddaa089417';
+import { createEntrance } from './entrance.js?v=3eddaa089417';
 
 const canvas = document.getElementById('stream');
 const CAPTURE = new URLSearchParams(location.search).has('capture');
 const gl = canvas.getContext('webgl2', { antialias: false, alpha: false, depth: false, stencil: false, powerPreference: 'high-performance', preserveDrawingBuffer: CAPTURE });
 const body = document.body;
 const $ = s => document.querySelector(s);
-const $loader = $('#loader i'), $meter = $('#meter'), $cursor = $('#cursor'), $label = $('#thread-label'), $announce = $('#announce');
+const $meter = $('#meter'), $cursor = $('#cursor'), $label = $('#thread-label'), $announce = $('#announce');
+let ambience = null;
+let soundRevealed = false;
 
 const SEG = 64;           // segments per fibre
 const CH = 15;            // height of the bar the curtain hangs from
 const YB = 1.05;          // height where fibres start to bend onto the floor
 const F = 1.6;            // focal length (NDC)
 const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const entrance = createEntrance($('#entrance'), { reduced: REDUCED });
 
 const rng = mulberry(0x2545f491);
 
@@ -153,7 +156,7 @@ function chapterAt(i, y) {
 // ────────────────────────────────────────────────────────────── stories
 
 function openStory(i, { chapter = null, x = null } = {}) {
-  if (i < 0 || view.isOpen) return;
+  if (!view || i < 0 || view.isOpen) return;
   const sx = x ?? project(fib.x0[i], CH * 0.5).x;
   pluck.line = i; pluck.age = 0; pluck.amp = 0.12 * motion;
   view.open(i, { chapter, x: clamp(sx, 0, W) });
@@ -205,7 +208,7 @@ function announce(i) { const s = stories[i]; $announce.textContent = `${s.title}
 
 canvas.addEventListener('wheel', e => {
   e.preventDefault(); markInput();
-  if (view?.isOpen) return;
+  if (!view || view.isOpen) return;
   const unit = e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? H : 1;
   zoomBy(-e.deltaY * unit * (e.ctrlKey ? 0.014 : 0.003), e.clientX, e.clientY);
 }, { passive: false });
@@ -263,7 +266,7 @@ canvas.addEventListener('pointerleave', () => { pointer.inside = false; body.cla
 canvas.addEventListener('contextmenu', e => e.preventDefault());
 
 addEventListener('keydown', e => {
-  if (!view || view.isOpen) return;
+  if (!body.classList.contains('entered') || !view || view.isOpen) return;
   markInput();
   const k = e.key;
   if (k === 'ArrowRight' || k === 'ArrowLeft') {
@@ -324,7 +327,7 @@ function step(dt, now) {
 
   // What is under the hand.
   let line = -1;
-  if (!view.isOpen) {
+  if (!view?.isOpen) {
     if (kbLine >= 0) line = kbLine;
     else if (pointer.inside && !drag?.moved && !pinch) line = pickLine(pointer.x, pointer.y);
   }
@@ -338,7 +341,7 @@ function step(dt, now) {
   pointer.speed = damp(pointer.speed, Math.abs(moved) / Math.max(dt, 1e-3), 10, dt);
   const wp = pointer.x >= 0 ? unproject(pointer.x, pointer.y) : { x: 0, y: -99 };
   pointer.wvx = damp(pointer.wvx, moved / Math.max(dt, 1e-3) / scale, 12, dt);
-  const active = (pointer.inside || kbLine >= 0) && !pinch && !view.isOpen && (kbLine >= 0 || (wp.y > -0.5 && wp.y < CH + 0.3));
+  const active = (pointer.inside || kbLine >= 0) && !pinch && !view?.isOpen && (kbLine >= 0 || (wp.y > -0.5 && wp.y < CH + 0.3));
   pointer.reach = damp(pointer.reach, active ? (line >= 0 ? 0.2 : 0.08) + Math.min(pointer.speed / 900, 0.6) : 0, 4, dt);
   const cx = line >= 0 ? fib.x0[line] : wp.x, cy = kbLine >= 0 ? CH * 0.55 : wp.y;
   const R = 46 / scale, R2 = R * 1.8;
@@ -491,11 +494,29 @@ function frame(now) {
   if (sleeping || document.hidden) return;
   step(dt, now);
   render();
+  // FIBRE_FS reveals its first light when intro * 8.5 - 1 reaches zero.
+  if (!soundRevealed && (REDUCED || intro >= 1 / 8.5)) {
+    soundRevealed = true;
+    ambience.reveal();
+    entrance.reveal().then(visible => {
+      if (!visible) return;
+      // Register story/hash navigation only once the loading overlay is gone.
+      view = new StoryView({ stories, onShow: onStoryShow, onCovered: onStoryCovered, onHide: onStoryHide });
+      canvas.tabIndex = 0;
+      canvas.focus({ preventScroll: true });
+      view.route(); // Deep links wait until the entrance has released the screen.
+      // Large texture uploads share frames with the curtain after its handoff.
+      if ('requestIdleCallback' in window) requestIdleCallback(startFullLoad, { timeout: 2500 });
+      else setTimeout(startFullLoad, 0);
+    });
+  }
 }
 
 // ────────────────────────────────────────────────────────────── boot
 
-async function boot() {
+async function boot(audioPrepared, departure) {
+  const [departed, catalog] = await Promise.all([departure, loadCatalog()]);
+  if (!departed) return;
   if (!gl) throw new Error('WebGL 2 is not available');
   ({ program, dataTexture, updateTexture, target, freeTarget } = createGLHelpers(gl));
   P.fibre = program(FIBRE_VS, FIBRE_FS);
@@ -520,8 +541,8 @@ async function boot() {
   gl.bindVertexArray(null);
 
   resize();
-  const catalog = await loadCatalog();
   photos = catalog.photos;
+  entrance.progress(.08);
 
   // ── progressive load ───────────────────────────────────────────────────────
   // Pass 1: thumbnails. ~330 KB for the whole library, so the curtain appears fast.
@@ -530,7 +551,7 @@ async function boot() {
     size: THUMB_LAYER,
     srcOf: thumb,
     workers: 6,
-    onProgress: (done, total) => $loader.style.setProperty('--p', (done / total).toFixed(3)),
+    onProgress: (done, total) => entrance.progress(.08 + .8 * done / total),
   });
 
   buildFibres();
@@ -538,46 +559,53 @@ async function boot() {
   uploadStories();
 
   cam.x = 0; cam.y = HOME_Y; cam.lsT = LS_MIN(); cam.ls = cam.lsT - 0.25;
-  view = new StoryView({ stories, onShow: onStoryShow, onCovered: onStoryCovered, onHide: onStoryHide });
-  body.classList.add('ready');
+  entrance.progress(.94);
+  await audioPrepared;
+  if (!await entrance.complete()) return;
+  body.classList.add('entered', 'ready');
   last = performance.now();
   requestAnimationFrame(frame);
-  view.route(); // a shared link opens straight into its story
   window.__undertow = { cam, stories, fib, get hover() { return hover; }, pickLine, chapterAt, project, unproject, openStory, zoomBy, LS_MIN, LS_MAX, get slot() { return SLOT; } };
   // LOCAL ADDITION — generated sound; no-op where Web Audio is unavailable.
-  window.__undertow.sound = initAmbience();
+  window.__undertow.sound = ambience;
   window.__undertow.loading = () => ({
     fullReady, wantFull, usingFull,
     fullProgress: fullLoad ? Number(fullLoad.progress.toFixed(3)) : 0,
   });
   // 仅供对比调试：?lowres=1 时不自动升到高清档，用来复现旧的低清效果。
   window.__undertow.forceLow = () => { autoUpgradeOverride = false; };
-
-  // Pass 2 uses the 1024px display files. Detail views fetch their own album
-  // originals, so opening one does not wait for a full-library download/upload.
-  const startFullLoad = () => {
-    if (fullLoad) return;
-    fullLoad = { progress: 0 };
-    loadPass(gl, photos, {
-      size: FULL_LAYER,
-      srcOf: p => p.src,
-      workers: 3,
-      onProgress: (done, total) => { fullLoad.progress = done / total; },
-    })
-      .then(tex => { arrTexFull = tex; fullReady = true; })
-      .catch(err => { console.warn('Full-resolution pass failed; staying on thumbnails.', err); });
-  };
-  const scheduleFullLoad = () => {
-    if ('requestIdleCallback' in window) requestIdleCallback(startFullLoad, { timeout: 2500 });
-    else setTimeout(startFullLoad, 800);
-  };
-  if (document.readyState === 'complete') scheduleFullLoad();
-  else addEventListener('load', scheduleFullLoad, { once: true });
 }
-boot().catch(err => {
-  console.error(err);
-  body.classList.add('ready');
-  const message = document.getElementById('error');
-  message.textContent = err.message;
-  message.hidden = false;
+
+// Pass 2 uses the 1024px display files. Detail views fetch their own album
+// originals, so opening one does not wait for a full-library download/upload.
+function startFullLoad() {
+  if (fullLoad) return;
+  fullLoad = { progress: 0 };
+  loadPass(gl, photos, {
+    size: FULL_LAYER,
+    srcOf: p => p.src,
+    workers: 3,
+    onProgress: (done, total) => { fullLoad.progress = done / total; },
+  })
+    .then(tex => { arrTexFull = tex; fullReady = true; })
+    .catch(err => { console.warn('Full-resolution pass failed; staying on thumbnails.', err); });
+}
+let entering = false;
+document.getElementById('enter-stream').addEventListener('click', () => {
+  if (entering) return;
+  entering = true;
+  const departure = entrance.start();
+  // Resume within this trusted click, before asynchronous loading. The first
+  // note stays gated by the waterfall's first visible frame in frame().
+  ambience = initAmbience();
+  const audioPrepared = ambience.enter();
+  boot(audioPrepared, departure).catch(err => {
+    ambience.dispose();
+    entrance.fail();
+    console.error(err);
+    body.classList.add('ready');
+    const message = document.getElementById('error');
+    message.textContent = err.message;
+    message.hidden = false;
+  });
 });

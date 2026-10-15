@@ -1,0 +1,15 @@
+{
+  "sampleRate": 44100,
+  "duration": 56,
+  "channels": 2,
+  "bitrate": 128,
+  "format": "mp3",
+  "openingChord": "Dm(add9) — D3 F3 A3 E4",
+  "bytes": 896522,
+  "sourceHash": "26b22d9663c2e588cbad9245ffbaf4b2ca69676212dafadfca30f2851fe0f917",
+  "sha256": "4b382c89bd848f2444cc1121dfb3c93592f98e5f2442b84c2a3111c459e133fa",
+  "decodedDuration": 56.03265306122449,
+  "decodedPeak": 0.447009,
+  "renderedPeak": 0.470672,
+  "renderedRmsDb": -25.75
+}
